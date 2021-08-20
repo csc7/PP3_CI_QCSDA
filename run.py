@@ -19,9 +19,9 @@ SCOPE = [
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('qcsda')
+SHEET = GSPREAD_CLIENT.open('distortion')
 
-sales = SHEET.worksheet('sales')
+sales = SHEET.worksheet('Sheet1')
 
 data = sales.get_all_values()
 

@@ -25,4 +25,11 @@ sales = SHEET.worksheet('Sheet1')
 
 data = sales.get_all_values()
 
-print(data)
+#print(data)
+
+
+import pandas as pd
+from gspread_pandas import Spread, Client
+
+
+df = pd.read_csv(sales)

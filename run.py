@@ -5,6 +5,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
+
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -21,3 +23,14 @@ sales = SHEET.worksheet('sales')
 data = sales.get_all_values()
 
 print(data)
+
+
+
+from pydrive.drive import GoogleDrive
+
+#drive = GoogleDrive(gauth)
+
+# Auto-iterate through all files that matches this query
+file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
+for file1 in file_list:
+  print('title: %s, id: %s' % (file1['title'], file1['id']))

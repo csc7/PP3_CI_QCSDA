@@ -2,6 +2,9 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+# Copied and modified from Code Institute's "Love Sandwiches - Essentials Project"
+# August 18th, 2021
+
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -23,14 +26,3 @@ sales = SHEET.worksheet('sales')
 data = sales.get_all_values()
 
 print(data)
-
-
-
-from pydrive.drive import GoogleDrive
-
-#drive = GoogleDrive(gauth)
-
-# Auto-iterate through all files that matches this query
-file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
-for file1 in file_list:
-  print('title: %s, id: %s' % (file1['title'], file1['id']))

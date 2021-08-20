@@ -1276,6 +1276,8 @@ ___
 
 - Code Institute: I have used the learning material in the course as a guide and reference. "Love Sandwiches - Essentials Project" was the main reference.
 
+- Love Sandwiches - Essentials Project, from Code Institute, as a guide, source of design, concepts and code for this project.
+
 - Jesse James Garrett's process for user experience.
 
 - Google:

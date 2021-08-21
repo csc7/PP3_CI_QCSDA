@@ -47,8 +47,9 @@ def load_sheets():
         #positioning_data_w.row_values(1)
         #positioning_data = pd.DataFrame(positioning_data_w.get_all_records())
 
+        # This sheet contains five worksheets!
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
-        production_statistics = SHEET_QCSDA.worksheet('Statistics')
+        #production_statistics = SHEET_QCSDA.worksheet('Statistics')
 
         #print(production_statistics)
         #print(positioning_data_w.row_values(20)[0])
@@ -61,7 +62,8 @@ def load_sheets():
         return False
 
     return [tolerances_data, distortion_data, distortion_data, average_force_data,
-            positioning_data, production_statistics]
+            positioning_data, SHEET_QCSDA]
+
 
 def validate_data(data_to_validate):
     """
@@ -75,10 +77,18 @@ def validate_data(data_to_validate):
     print(data_to_validate[0].cell(3, 3).value)
 
     try:
+
+        # Define here number of header lines for each file
         header_lines_in_distorion_file = 12
-        distortion = []
-        for i in data_to_validate[2].col_values(5)[header_lines_in_distorion_file + 1:]:
-            distortion[i] = float(i)
+        header_lines_in_av_force_file = 12
+        header_lines_in_positioning_file = 12
+
+        distortion = data_to_validate[2].get_all_values()[header_lines_in_distorion_file + 1:],
+
+        #distortion = pd.DataFrame(data_to_validate[2].get_all_records())
+        #for item in data_to_validate[2].get_all_values()[header_lines_in_distorion_file + 1:]:
+        #    distortion.append(float(item))
+
         qc_dictionary = {
             "tolerances": {
                 "fleets": float(data_to_validate[0].cell(3, 3).value),
@@ -94,13 +104,14 @@ def validate_data(data_to_validate):
                 "daily_layout": float(data_to_validate[1].cell(25, 3).value),
                 "daily_pickup": float(data_to_validate[1].cell(26, 3).value),
             },
-            "distortion": {
-                "distortion": distortion,
-            }
+            "distortion": distortion,
+            #"distortion": distortion[header_lines_in_distorion_file - 1:],
+            "average_force": data_to_validate[3].get_all_values()[header_lines_in_av_force_file + 1:],
+            "positioning": data_to_validate[4].get_all_values()[header_lines_in_positioning_file + 1:],
         }
         for item in qc_dictionary["tolerances"].values():
             if item == 70:
-                print(qc_dictionary["distortion"]["distortion"])
+                #print(distortion)
                 print(item)
 
     except TypeError as e:
@@ -122,8 +133,10 @@ def main(run_program):
         data_loaded = load_sheets()
         if (data_loaded == False):
             break
+        print (data_loaded)
         # 2nd Function: Validation
-        validate_data(data_loaded)
+        qc_data = validate_data(data_loaded[slice(0, 5)])
+        print(qc_data)
 
 
 

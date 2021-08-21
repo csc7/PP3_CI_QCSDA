@@ -31,19 +31,19 @@ def load_sheets():
     print("\nLoading worksheets...\n")
     try:
         SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMETERS')
-        TOLERANCES = SHEET_PARAMETERS.worksheet('Tolerances')
+        tolerances_data = SHEET_PARAMETERS.worksheet('Tolerances')
 
         SHEET_DAILY_REPORT = GSPREAD_CLIENT.open('daily_report')
-        production_statistics = SHEET_DAILY_REPORT.worksheet('Daily_Report')
+        daily_report_data = SHEET_DAILY_REPORT.worksheet('Daily_Report')
 
         SHEET_DISTORTION = GSPREAD_CLIENT.open('distortion')
-        production_statistics = SHEET_DISTORTION.worksheet('Distortion')
+        distortion_data = SHEET_DISTORTION.worksheet('Distortion')
 
         SHEET_AV_FORCE = GSPREAD_CLIENT.open('average_force')
-        production_statistics = SHEET_AV_FORCE.worksheet('Average_Force')
+        average_force_data = SHEET_AV_FORCE.worksheet('Average_Force')
 
         SHEET_POSITIONING = GSPREAD_CLIENT.open('positioning')
-        positioning_data_w = SHEET_POSITIONING.worksheet('Positioning')
+        positioning_data = SHEET_POSITIONING.worksheet('Positioning')
         #positioning_data_w.row_values(1)
         #positioning_data = pd.DataFrame(positioning_data_w.get_all_records())
 
@@ -59,13 +59,56 @@ def load_sheets():
         print("Some files are missing or have a different name.")
         print("Please check all files are in place with the correct names.")
         return False
-    return True
 
-def validate_data():
+    return [tolerances_data, distortion_data, distortion_data, average_force_data,
+            positioning_data, production_statistics]
+
+def validate_data(data_to_validate):
     """
     This function checks the data in the sheets has the proper format
+    and load the values that will be used quality control in a
+    dictionary
     """
     print("\nValidating data in the sheets...\n")
+
+    print(type(data_to_validate))
+    print(data_to_validate[0].cell(3, 3).value)
+
+    try:
+        header_lines_in_distorion_file = 12
+        distortion = []
+        for i in data_to_validate[2].col_values(5)[header_lines_in_distorion_file + 1:]:
+            distortion[i] = float(i)
+        qc_dictionary = {
+            "tolerances": {
+                "fleets": float(data_to_validate[0].cell(3, 3).value),
+                "vibs_per_fleet": float(data_to_validate[0].cell(4, 3).value),
+                "max_cog_dist": float(data_to_validate[0].cell(9, 3).value),
+                "max_distortion": float(data_to_validate[0].cell(10, 3).value),
+                "min_av_force": float(data_to_validate[0].cell(11, 4).value),
+                "max_av_force": float(data_to_validate[0].cell(11, 5).value),
+            },
+            "daily_report": {
+                "date": data_to_validate[1].cell(9, 2).value,
+                "daily_prod": float(data_to_validate[1].cell(24, 3).value),
+                "daily_layout": float(data_to_validate[1].cell(25, 3).value),
+                "daily_pickup": float(data_to_validate[1].cell(26, 3).value),
+            },
+            "distortion": {
+                "distortion": distortion,
+            }
+        }
+        for item in qc_dictionary["tolerances"].values():
+            if item == 70:
+                print(qc_dictionary["distortion"]["distortion"])
+                print(item)
+
+    except TypeError as e:
+        print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
+        return False
+
+    return qc_dictionary
+
 
 
 
@@ -75,15 +118,18 @@ def main(run_program):
     Run all program funcions
     """
     while(run_program == "y" or run_program == "Y"):
-        function_return = load_sheets()
-        if (function_return == False):
+        # 1st Function: Loading
+        data_loaded = load_sheets()
+        if (data_loaded == False):
             break
-        validate_data()
+        # 2nd Function: Validation
+        validate_data(data_loaded)
 
 
 
 
-        run_again = input('Press "y" to run the program again o any other key to close the program\n')
+
+        run_again = input('Press "y" + "enter" to run the program again o any other key to close the program\n')
         if (run_again == "y" or run_again == "Y"):
             run_program = run_again
         else:
@@ -106,7 +152,8 @@ print("average_force")
 print("positioning")
 print("QCSDA")
 print("")
-run_program = input('Press "y" to continue or other key to close the program\n')
+
+run_program = input('Press "y" + "enter" to continue or other key to close the program\n')
 if (run_program == "y" or run_program == "Y"):
     main(run_program)
 else:

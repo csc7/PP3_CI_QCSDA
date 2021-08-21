@@ -1304,6 +1304,8 @@ ___
 
 - W3Schools (Powered by W3.CSS):
 
+    - Slice function: https://www.w3schools.com/python/ref_func_slice.asp, accessed on August 21st, 2021, at 22:20.
+
 
 # OLD/DELETE
 

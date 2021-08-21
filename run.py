@@ -30,7 +30,7 @@ def load_sheets():
     """
     print("\nLoading worksheets...\n")
     try:
-        SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMnETERS')
+        SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMETERS')
         TOLERANCES = SHEET_PARAMETERS.worksheet('Tolerances')
 
         SHEET_DAILY_REPORT = GSPREAD_CLIENT.open('daily_report')
@@ -70,16 +70,27 @@ def validate_data():
 
 
 # Main part of program, calling all functions
-def main():
+def main(run_program):
     """
     Run all program funcions
     """
-    while(True):
+    while(run_program == "y" or run_program == "Y"):
         function_return = load_sheets()
         if (function_return == False):
             break
         validate_data()
-    #
+
+
+
+
+        run_again = input('Press "y" to run the program again o any other key to close the program\n')
+        if (run_again == "y" or run_again == "Y"):
+            run_program = run_again
+        else:
+            print("Program closed.")
+            break
+
+
 
 print("-----------------------------------------------------------------")
 print("Welcome to your Daily Quality Control of Seismic Dcquisition Data")
@@ -94,5 +105,10 @@ print("distortion")
 print("average_force")
 print("positioning")
 print("QCSDA")
+print("")
+run_program = input('Press "y" to continue or other key to close the program\n')
+if (run_program == "y" or run_program == "Y"):
+    main(run_program)
+else:
+    print("Program closed.")
 
-main()

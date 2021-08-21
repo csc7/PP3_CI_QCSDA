@@ -19,6 +19,8 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
+
+
 def load_sheets():
     """
     This function checks that all required sheets are present in Google Drive
@@ -38,9 +40,10 @@ def load_sheets():
         production_statistics = SHEET_POSTIONING.worksheet('Positioning')
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         production_statistics = SHEET_QCSDA.worksheet('Statistics')
-    except ValueError as e:
-        print(f"Check that all required files are saved.\n")
-        return False
+
+    except gspread.exceptions.SpreadsheetNotFound:
+        print("Some files are missing or have a different name.")
+        print("Please check all files are in place with the correct names.")
     return True
 
 #data = sales.get_all_values()

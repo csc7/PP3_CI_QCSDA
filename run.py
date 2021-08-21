@@ -2,6 +2,8 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+import pandas as pd
+
 # Copied and modified from Code Institute's
 # "Love Sandwiches - Essentials Project" on
 # August 18th, 2021.
@@ -26,28 +28,45 @@ def load_sheets():
     This function checks that all required sheets are present in Google Drive
     and read the worksheets if they are.
     """
-    print("Loading worksheets...")
+    print("\nLoading worksheets...\n")
     try:
-        SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMETERS')
+        SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMnETERS')
         TOLERANCES = SHEET_PARAMETERS.worksheet('Tolerances')
+
         SHEET_DAILY_REPORT = GSPREAD_CLIENT.open('daily_report')
         production_statistics = SHEET_DAILY_REPORT.worksheet('Daily_Report')
+
         SHEET_DISTORTION = GSPREAD_CLIENT.open('distortion')
         production_statistics = SHEET_DISTORTION.worksheet('Distortion')
+
         SHEET_AV_FORCE = GSPREAD_CLIENT.open('average_force')
         production_statistics = SHEET_AV_FORCE.worksheet('Average_Force')
-        SHEET_POSTIONING = GSPREAD_CLIENT.open('positioning')
-        production_statistics = SHEET_POSTIONING.worksheet('Positioning')
+
+        SHEET_POSITIONING = GSPREAD_CLIENT.open('positioning')
+        positioning_data_w = SHEET_POSITIONING.worksheet('Positioning')
+        #positioning_data_w.row_values(1)
+        #positioning_data = pd.DataFrame(positioning_data_w.get_all_records())
+
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         production_statistics = SHEET_QCSDA.worksheet('Statistics')
+
+        #print(production_statistics)
+        #print(positioning_data_w.row_values(20)[0])
+        #print(type(positioning_data_w.row_values(1)[0]))
+        #print(type(positioning_data_w.row_values(20)))
 
     except gspread.exceptions.SpreadsheetNotFound:
         print("Some files are missing or have a different name.")
         print("Please check all files are in place with the correct names.")
+        return False
     return True
 
-#data = sales.get_all_values()
-#print(data)
+def validate_data():
+    """
+    This function checks the data in the sheets has the proper format
+    """
+    print("\nValidating data in the sheets...\n")
+
 
 
 # Main part of program, calling all functions
@@ -55,9 +74,25 @@ def main():
     """
     Run all program funcions
     """
-    load_sheets()
-    #validate_data
+    while(True):
+        function_return = load_sheets()
+        if (function_return == False):
+            break
+        validate_data()
     #
 
-print ("Welcome to your Daily Quality Control of Seismic Dcquisition Data")
+print("-----------------------------------------------------------------")
+print("Welcome to your Daily Quality Control of Seismic Dcquisition Data")
+print("-----------------------------------------------------------------")
+print("")
+print("Make sure you have the following sheets in the working folder:")
+print("")
+print("PARAMETERS (you can manually enter the parameters if you prefer")
+print("    or if the file is not available")
+print("daily_report")
+print("distortion")
+print("average_force")
+print("positioning")
+print("QCSDA")
+
 main()

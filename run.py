@@ -184,9 +184,6 @@ def get_daily_amounts(qc_dictionary):
 
     return (qc_dictionary, warning_message)
 
-def check_warnings():
-    print("Hello")
-
 
 
 # Main part of program, calling all functions
@@ -230,13 +227,33 @@ def main(run_program):
         print(f"\n{daily_amounts['daily_report']['date']} daily production: {daily_amounts['daily_report']['daily_prod']},")
         print(f"with {daily_amounts['daily_report']['daily_layout']} planted geophones and {daily_amounts['daily_report']['daily_pick_up']} picked up.\n")
         
-        # check_daily_amounts()
+        # Data OK, present menu options to user
+        print('Select one option below and press the number + "enter":')
+        print("1 - Get Points to reacquire")
+        print("2 - Visualize data")
+        print("3 - Update QCSDA Spreadsheet with points to reacquire")
+        print("4 - Restart")
+        print("Other key - Close\n")
+        answer = input("Select option: \n")
+        if (answer == '1'):
+            get_points_to_reaquire()
+        elif (answer == '2'):
+            visualize_data()
+        elif (answer == '3'):
+            update_qcsda()
+        elif (answer == '4'):
+            pass
+        else:
+            break
 
+        
+
+        # End of program, ask to restart or close
 
         print('Press "G" + "enter" to read data from Google Drive')
         print('Press "L" + "enter" to read data locally')
         print('Press any other key + "enter" to close the program.\n')
-        run_again = input('Select option: ')
+        run_again = input('Select option: \n')
         if (run_program == "G" or run_program == "g" or
             run_program == "L" or run_program == "l"):
             run_program = run_again

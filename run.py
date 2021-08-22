@@ -186,6 +186,46 @@ def get_daily_amounts(qc_dictionary):
 
 
 
+def get_points_to_reaquire(qc_dictionary):
+
+    max_distortion = qc_dictionary['tolerances']['max_distortion']
+    min_av_force = qc_dictionary['tolerances']['min_av_force']
+    max_av_force = qc_dictionary['tolerances']['max_av_force']
+    max_cog_dist = qc_dictionary['tolerances']['max_cog_dist']
+
+    out_of_spec_distortion = qc_dictionary['distortion'][ qc_dictionary['distortion'].iloc[:, 4] > max_distortion] 
+    
+    out_of_spec_force_max = qc_dictionary['average_force'][ qc_dictionary['average_force'].iloc[:, 4] > max_av_force]
+    out_of_spec_force_min = qc_dictionary['average_force'][ qc_dictionary['average_force'].iloc[:, 4] < min_av_force]
+    temp_out_force = [out_of_spec_force_max, out_of_spec_force_min]
+    out_of_spec_force = pd.concat(temp_out_force)    
+    out_of_spec_force = out_of_spec_force[ out_of_spec_force.iloc[:, 4] < min_av_force]
+
+    out_of_spec_cog = qc_dictionary['positioning'][ qc_dictionary['positioning'].iloc[:, 4] > 1 ]
+    
+    # Total VPs out of specifications
+    index = out_of_spec_distortion.index
+    out_distor_total = len(index)
+    index = out_of_spec_force.index
+    out_force_total = len(index)
+    index = out_of_spec_cog.index
+    out_cog_total = len(index)   
+
+    out_of_spec_dictionary = {
+        "Out_of_Spec_Distortion" : out_of_spec_distortion,
+        "Out_of_Spec_Force" : out_of_spec_force,
+        "Out_of_Spec_COG" : out_of_spec_cog,
+        "Total_Out_Distortion": out_distor_total,
+        "Total_Out_Force": out_force_total,
+        "Total_Out_COG": out_cog_total,
+    }
+
+    print(out_distor_total) 
+    print(out_force_total) 
+    print(out_cog_total) 
+
+
+
 # Main part of program, calling all functions
 def main(run_program):
     """
@@ -207,7 +247,7 @@ def main(run_program):
         # 2nd Function: Validation
         #qc_data = validate_data(data_loaded[slice(0, 5)])
         qc_data, QCSDA_EXCEL_FILE = validate_data(data_loaded)
-        #print(qc_data)
+        print(type(qc_data))
 
 
         # 3rd Function: Get daily acquisition numbers/totals
@@ -236,7 +276,7 @@ def main(run_program):
         print("Other key - Close\n")
         answer = input("Select option: \n")
         if (answer == '1'):
-            get_points_to_reaquire()
+            get_points_to_reaquire(qc_data)
         elif (answer == '2'):
             visualize_data()
         elif (answer == '3'):

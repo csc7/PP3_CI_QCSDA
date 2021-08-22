@@ -1298,6 +1298,8 @@ ___
 
     - OpenPyXL: to read Microsoft Excel files in GitPod. https://openpyxl.readthedocs.io/en/stable/, downloaded on August, 22nd, 2021, at 16:00
 
+    - math: https://docs.python.org/3/library/math.html, downloaded on August 22nd, 2021, at 22:30 . Tested but finally not used.
+
 
 - Stack Overflow:
 
@@ -1305,6 +1307,8 @@ ___
     accessed on August 21st, 2021, at 13:15.
 
     - To read a Microsoft Excel file and/or one of its sheets: https://stackoverflow.com/questions/26521266/using-pandas-to-pd-read-excel-for-multiple-worksheets-of-the-same-workbook, accessed on August 22nd, 2021, at 18:10.
+
+    - To select range of data in Pandas: https://stackoverflow.com/questions/50865987/how-to-select-all-elements-greater-than-a-given-values-in-a-dataframe/50866687, accessed on Augsut 22nd, 2021, at 20:30.
 
 - W3C®. Copyright © 2021 W3C ® (MIT, ERCIM, Keio, Beihang); https://www.w3.org/: 
 

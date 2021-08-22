@@ -141,8 +141,28 @@ def validate_data(data_to_validate):
             #"distortion": distortion,
             "distortion": data_to_validate[2].iloc[(header_lines_in_distorion_file-1):],
             "average_force": data_to_validate[3].iloc[(header_lines_in_av_force_file-1):],
-            "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-1):],
+            "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9],
         }
+
+        # Calculate distance from COG to planned coordinate before retuning the dictionary
+        x_planned = qc_dictionary['positioning'].iloc[:, 1]
+        y_planned = qc_dictionary['positioning'].iloc[:, 2]
+        z_planned = qc_dictionary['positioning'].iloc[:, 3]
+        x_cog = qc_dictionary['positioning'].iloc[:, 4]
+        y_cog = qc_dictionary['positioning'].iloc[:, 5]
+        z_cog = qc_dictionary['positioning'].iloc[:, 6]
+
+        distance = ((x_planned - x_cog)*(x_planned - x_cog) + (y_planned - y_cog)*(y_planned - y_cog) + (z_planned - z_cog)*(z_planned - z_cog))**0.5
+
+        qc_dictionary['positioning'].iloc[:, 7] = distance
+
+        #temp_pos = [qc_dictionary['positioning'], distance]
+        #posi = pd.concat(temp_pos)
+
+        #index = x_planned.index
+        #ind = len(index)
+        #for i in range (0, ind+1):
+        #    distance[i] = math.sqrt((x_planned[i] - x_cog[i])*(x_planned[i] - x_cog[i]) + (y_planned[i] - y_cog[i])*(y_planned[i] - y_cog[i]) + (z_planned[i] - z_cog[i])*(z_planned[i] - z_cog[i]))
 
         QCSDA_SPREADSHEET = data_to_validate[5]
 
@@ -201,7 +221,7 @@ def get_points_to_reaquire(qc_dictionary):
     out_of_spec_force = pd.concat(temp_out_force)    
     out_of_spec_force = out_of_spec_force[ out_of_spec_force.iloc[:, 4] < min_av_force]
 
-    out_of_spec_cog = qc_dictionary['positioning'][ qc_dictionary['positioning'].iloc[:, 4] > 1 ]
+    out_of_spec_cog = qc_dictionary['positioning'][ qc_dictionary['positioning'].iloc[:, 7] > 1 ]
     
     # Total VPs out of specifications
     index = out_of_spec_distortion.index
@@ -222,8 +242,17 @@ def get_points_to_reaquire(qc_dictionary):
 
     print(out_distor_total) 
     print(out_force_total) 
-    print(out_cog_total) 
+    print(out_of_spec_cog) 
 
+    return out_of_spec_dictionary
+
+
+
+def visualize_data(qc_dictionary, QCSDA_SPREADSHEET):
+    print(qc_dictionary['positioning'])
+
+
+#df['c'] = df.apply(lambda row: row.a + row.b, axis=1)
 
 
 # Main part of program, calling all functions
@@ -278,7 +307,7 @@ def main(run_program):
         if (answer == '1'):
             get_points_to_reaquire(qc_data)
         elif (answer == '2'):
-            visualize_data()
+            visualize_data(qc_data, QCSDA_EXCEL_FILE)
         elif (answer == '3'):
             update_qcsda()
         elif (answer == '4'):

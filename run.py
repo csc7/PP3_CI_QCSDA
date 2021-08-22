@@ -33,7 +33,7 @@ def load_sheets_from_Google_Drive():
     This function checks that all required sheets are present in Google Drive
     and read the worksheets if they are.
     """
-    print("\nLoading worksheets...\n")
+    print("\nLoading spreadsheet and worksheets...\n")
     try:
         SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMETERS')
         tolerances_data = SHEET_PARAMETERS.worksheet('Tolerances')
@@ -60,22 +60,41 @@ def load_sheets_from_Google_Drive():
         #print(positioning_data_w.row_values(20)[0])
         #print(type(positioning_data_w.row_values(1)[0]))
         #print(type(positioning_data_w.row_values(20)))
+        print("\nSpreadsheet and worksheets loaded.\n")
 
     except gspread.exceptions.SpreadsheetNotFound:
         print("Some files are missing or have a different name.")
         print("Please check all files are in place with the correct names.")
         return False
 
-    return [tolerances_data, distortion_data, distortion_data, average_force_data,
+    return [tolerances_data, daily_report_data, distortion_data, average_force_data,
             positioning_data, SHEET_QCSDA]
 
 
 
 def load_sheets_locally():
-    sh = pd.read_excel('qcdata/distortion.xlsx', engine='openpyxl')
-    #wb = load_workbook(filename = 'distortion.xlsx')
-    #sh = wb['Distortion']
-    return sh[header_lines_in_distorion_file-1:]
+    
+    print("\nLoading spreadsheet and worksheets...\n")
+    try:
+        tolerances_data = pd.read_excel('qcdata/PARAMETERS.xlsx', engine='openpyxl')
+        daily_report_data = pd.read_excel('qcdata/daily_report.xlsx', engine='openpyxl')
+        distortion_data = pd.read_excel('qcdata/distortion.xlsx', engine='openpyxl')
+        average_force_data = pd.read_excel('qcdata/average_force.xlsx', engine='openpyxl')
+        positioning_data = pd.read_excel('qcdata/positioning.xlsx', engine='openpyxl')
+        SHEET_QCSDA = pd.ExcelFile('qcdata/QCSDA.xlsx', engine='openpyxl')
+
+        print("\nSpreadsheet and worksheets loaded.\n")
+    
+    except FileNotFoundError as e:
+        print(f"Something went wrong, {e}. Please try again.\n")
+        return False
+    
+    except UnboundLocalError as e:
+        print(f"Something went wrong, {e}. Please try again.\n")
+        return False
+    
+    return [tolerances_data, daily_report_data, distortion_data, average_force_data,
+            positioning_data, SHEET_QCSDA]
 
 
 def validate_data(data_to_validate):
@@ -87,59 +106,86 @@ def validate_data(data_to_validate):
     print("\nValidating data in the sheets...\n")
 
     print(type(data_to_validate))
-    print(data_to_validate[0].cell(3, 3).value)
-
+    
     try:
 
-        distortion = []
+        #distortion = []
         #distortion = data_to_validate[2].get_all_values()[header_lines_in_distorion_file:],
 
-        for i in range (13, 480):
-            for item in data_to_validate[2].row_values(i):
-                float (item)
+        #for i in range (13, 480):
+        #    for item in data_to_validate[2].row_values(i):
+        #        float (item)
    
         #distortion_df = pd.DataFrame(list(distortion))
         #distortion_df = distortion_df.transpose()
         #distortion_df2 = pd.DataFrame(distortion_df)
-
-
-
-
 
         #for item in data_to_validate[2].get_all_values()[header_lines_in_distorion_file + 1:]:
         #    distortion.append(float(item))
 
         qc_dictionary = {
             "tolerances": {
-                "fleets": float(data_to_validate[0].cell(3, 3).value),
-                "vibs_per_fleet": float(data_to_validate[0].cell(4, 3).value),
-                "max_cog_dist": float(data_to_validate[0].cell(9, 3).value),
-                "max_distortion": float(data_to_validate[0].cell(10, 3).value),
-                "min_av_force": float(data_to_validate[0].cell(11, 4).value),
-                "max_av_force": float(data_to_validate[0].cell(11, 5).value),
+                "fleets": data_to_validate[0].iloc[1, 2],
+                "vibs_per_fleet": data_to_validate[0].iloc[2, 2],
+                "max_cog_dist": data_to_validate[0].iloc[7, 2],
+                "max_distortion": data_to_validate[0].iloc[8, 2],
+                "min_av_force": data_to_validate[0].iloc[9, 3],
+                "max_av_force": data_to_validate[0].iloc[9, 4],
             },
             "daily_report": {
-                "date": data_to_validate[1].cell(9, 2).value,
-                "daily_prod": float(data_to_validate[1].cell(24, 3).value),
-                "daily_layout": float(data_to_validate[1].cell(25, 3).value),
-                "daily_pickup": float(data_to_validate[1].cell(26, 3).value),
+                "date": data_to_validate[1].iloc[7, 1],
+                "daily_prod": data_to_validate[1].iloc[22, 2],
+                "daily_layout": data_to_validate[1].iloc[23, 2],
+                "daily_pick_up": data_to_validate[1].iloc[24, 2],
             },
             #"distortion": distortion,
-            "distortion": distortion_df,
-            "average_force": data_to_validate[3].get_all_values()[header_lines_in_av_force_file + 1:],
-            "positioning": data_to_validate[4].get_all_values()[header_lines_in_positioning_file + 1:],
+            "distortion": data_to_validate[2].iloc[(header_lines_in_distorion_file-1):],
+            "average_force": data_to_validate[3].iloc[(header_lines_in_av_force_file-1):],
+            "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-1):],
         }
-        for item in qc_dictionary["tolerances"].values():
-            if item == 70:
-                print(distortion)
-                print(item)
+
+        QCSDA_SPREADSHEET = data_to_validate[5]
 
     except TypeError as e:
         print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
         return False
 
-    return qc_dictionary
+    return (qc_dictionary, QCSDA_SPREADSHEET)
 
+def get_daily_amounts(qc_dictionary):
+
+    index = qc_dictionary['distortion'].index
+    distortion_measurements = len(index)
+
+    index = qc_dictionary['average_force'].index
+    av_force_measurements = len(index)
+
+    index = qc_dictionary['positioning'].index
+    positioning_measurements = len(index)
+
+    qc_dictionary.update({
+        "Distortion_Measurements": distortion_measurements,
+        "Av_Force_Measurements": av_force_measurements,
+        "Positioning_Measurements": positioning_measurements,
+    })
+
+    chk1 = qc_dictionary["Distortion_Measurements"] / qc_dictionary["tolerances"]["vibs_per_fleet"]
+    chk2 = qc_dictionary["Av_Force_Measurements"] / qc_dictionary["tolerances"]["vibs_per_fleet"]
+    chk3 = positioning_measurements
+
+    warning_message = []
+
+    if chk1 != qc_dictionary["daily_report"]['daily_prod']:
+        warning_message.append(f"- distortion file ({chk1} VPs)")
+    if chk2 != qc_dictionary["daily_report"]['daily_prod']:
+        warning_message.append(f"- average force file ({chk2} VPs)")
+    if chk3 != qc_dictionary["daily_report"]['daily_prod']:
+        warning_message.append(f"- positioning file ({chk3} VPs)")
+
+    return (qc_dictionary, warning_message)
+
+def check_warnings():
+    print("Hello")
 
 
 
@@ -158,20 +204,38 @@ def main(run_program):
                 break
         if (run_program == "L" or run_program == "l"):
             data_loaded = load_sheets_locally()
-            #if (data_loaded == False):
-            #    break
-            print(data_loaded.iloc[1,1]+data_loaded.iloc[2,1])
+            if (data_loaded == False):
+                break
         
         # 2nd Function: Validation
         #qc_data = validate_data(data_loaded[slice(0, 5)])
+        qc_data, QCSDA_EXCEL_FILE = validate_data(data_loaded)
         #print(qc_data)
 
 
+        # 3rd Function: Get daily acquisition numbers/totals
+        daily_amounts, warning_message = get_daily_amounts (qc_data)
+        if (warning_message != []):
+            print("WARNING:")
+            print(f"Acording to daily report, daily production is {daily_amounts['daily_report']['daily_prod']} VPs.")
+            print(f"The amount of data in the following file/s does/do not match the daily production:\n{warning_message}\n")
+            print("If you continue you will get statistics for an incomplete data set.")
+            print('Press "Y" + "enter" to continue or other key + "enter" to close the program.\n')
+            cont_option = input('Select option: \n')
+            if (cont_option == "Y" or cont_option == "y"):
+                continue
+            else:
+                print("Program closed.")
+                break               
+        print(f"\n{daily_amounts['daily_report']['date']} daily production: {daily_amounts['daily_report']['daily_prod']},")
+        print(f"with {daily_amounts['daily_report']['daily_layout']} planted geophones and {daily_amounts['daily_report']['daily_pick_up']} picked up.\n")
+        
+        # check_daily_amounts()
 
 
         print('Press "G" + "enter" to read data from Google Drive')
         print('Press "L" + "enter" to read data locally')
-        print('Press any other key + "enter" to close the program')
+        print('Press any other key + "enter" to close the program.\n')
         run_again = input('Select option: ')
         if (run_program == "G" or run_program == "g" or
             run_program == "L" or run_program == "l"):

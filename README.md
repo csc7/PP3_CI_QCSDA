@@ -1304,6 +1304,8 @@ ___
     - To learn about how to handle errors: https://stackoverflow.com/questions/5627425/what-is-a-good-way-to-handle-exceptions-when-trying-to-read-a-file-in-python, 
     accessed on August 21st, 2021, at 13:15.
 
+    - To read a Microsoft Excel file and/or one of its sheets: https://stackoverflow.com/questions/26521266/using-pandas-to-pd-read-excel-for-multiple-worksheets-of-the-same-workbook, accessed on August 22nd, 2021, at 18:10.
+
 - W3C®. Copyright © 2021 W3C ® (MIT, ERCIM, Keio, Beihang); https://www.w3.org/: 
 
 - W3Schools (Powered by W3.CSS):

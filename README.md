@@ -1294,6 +1294,10 @@ ___
 
     - gspread: Python API for Google Sheets. © Copyright 2021, Anton Burnashev Revision 0181ca8f. https://docs.gspread.org/en/latest/ .
 
+    - pandas: https://pandas.pydata.org/pandas-docs/stable/index.html. As stated in its website "pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures and data analysis tools for the Python programming language." (Library downloaded on August 19th, 2021, for the first time; quotation copied on August 22nd, 2021, at 16:42).
+
+    - OpenPyXL: to read Microsoft Excel files in GitPod. https://openpyxl.readthedocs.io/en/stable/, downloaded on August, 22nd, 2021, at 16:00
+
 
 - Stack Overflow:
 

@@ -3,6 +3,8 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
 import pandas as pd
+import openpyxl
+
 
 # Copied and modified from Code Institute's
 # "Love Sandwiches - Essentials Project" on
@@ -21,7 +23,10 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
-
+# Define here number of header lines for each file
+header_lines_in_distorion_file = 12
+header_lines_in_av_force_file = 12
+header_lines_in_positioning_file = 12
 
 def load_sheets_from_Google_Drive():
     """
@@ -65,6 +70,14 @@ def load_sheets_from_Google_Drive():
             positioning_data, SHEET_QCSDA]
 
 
+
+def load_sheets_locally():
+    sh = pd.read_excel('qcdata/distortion.xlsx', engine='openpyxl')
+    #wb = load_workbook(filename = 'distortion.xlsx')
+    #sh = wb['Distortion']
+    return sh[header_lines_in_distorion_file-1:]
+
+
 def validate_data(data_to_validate):
     """
     This function checks the data in the sheets has the proper format
@@ -77,12 +90,6 @@ def validate_data(data_to_validate):
     print(data_to_validate[0].cell(3, 3).value)
 
     try:
-
-        # Define here number of header lines for each file
-        header_lines_in_distorion_file = 12
-        header_lines_in_av_force_file = 12
-        header_lines_in_positioning_file = 12
-
 
         distortion = []
         #distortion = data_to_validate[2].get_all_values()[header_lines_in_distorion_file:],
@@ -143,13 +150,20 @@ def main(run_program):
     """
     while(run_program == "G" or run_program == "g" or
           run_program == "L" or run_program == "l"):
+
         # 1st Function: Loading
-        data_loaded = load_sheets_from_Google_Drive()
-        if (data_loaded == False):
-            break
-        print (data_loaded)
+        if (run_program == "G" or run_program == "g"):
+            data_loaded = load_sheets_from_Google_Drive()
+            if (data_loaded == False):
+                break
+        if (run_program == "L" or run_program == "l"):
+            data_loaded = load_sheets_locally()
+            #if (data_loaded == False):
+            #    break
+            print(data_loaded.iloc[1,1]+data_loaded.iloc[2,1])
+        
         # 2nd Function: Validation
-        qc_data = validate_data(data_loaded[slice(0, 5)])
+        #qc_data = validate_data(data_loaded[slice(0, 5)])
         #print(qc_data)
 
 
@@ -167,7 +181,7 @@ def main(run_program):
             break
 
 
-
+print("")
 print("-----------------------------------------------------------------")
 print("Welcome to your Daily Quality Control of Seismic Dcquisition Data")
 print("-----------------------------------------------------------------")
@@ -186,7 +200,7 @@ print('Press "G" + "enter" to read data from Google Drive')
 print('Press "L" + "enter" to read data locally')
 print('Press any other key + "enter" to close the program')
 
-run_program = input('Select option: ')
+run_program = input('Select option: \n')
 
 if (run_program == "G" or run_program == "g" or
     run_program == "L" or run_program == "l"):

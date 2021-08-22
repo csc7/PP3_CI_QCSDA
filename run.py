@@ -251,8 +251,12 @@ def get_points_to_reaquire(qc_dictionary):
 def visualize_data(qc_dictionary, QCSDA_SPREADSHEET):
     print(qc_dictionary['positioning'])
 
+    xls = pd.ExcelFile('qcdata/QCSDA.xlsx')
+    df2 = pd.read_excel(xls, 'Redo_distortion')
+    qc_dictionary['positioning'].to_excel("qcdata/QCSDA.xlsx", sheet_name='Redo_distortion') 
+    print(df2)
 
-#df['c'] = df.apply(lambda row: row.a + row.b, axis=1)
+
 
 
 # Main part of program, calling all functions
@@ -316,6 +320,11 @@ def main(run_program):
             break
 
         
+
+
+
+
+
 
         # End of program, ask to restart or close
 

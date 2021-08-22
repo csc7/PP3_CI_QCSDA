@@ -23,7 +23,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
 
 
-def load_sheets():
+def load_sheets_from_Google_Drive():
     """
     This function checks that all required sheets are present in Google Drive
     and read the worksheets if they are.
@@ -83,9 +83,22 @@ def validate_data(data_to_validate):
         header_lines_in_av_force_file = 12
         header_lines_in_positioning_file = 12
 
-        distortion = data_to_validate[2].get_all_values()[header_lines_in_distorion_file + 1:],
 
-        #distortion = pd.DataFrame(data_to_validate[2].get_all_records())
+        distortion = []
+        #distortion = data_to_validate[2].get_all_values()[header_lines_in_distorion_file:],
+
+        for i in range (13, 480):
+            for item in data_to_validate[2].row_values(i):
+                float (item)
+   
+        #distortion_df = pd.DataFrame(list(distortion))
+        #distortion_df = distortion_df.transpose()
+        #distortion_df2 = pd.DataFrame(distortion_df)
+
+
+
+
+
         #for item in data_to_validate[2].get_all_values()[header_lines_in_distorion_file + 1:]:
         #    distortion.append(float(item))
 
@@ -104,14 +117,14 @@ def validate_data(data_to_validate):
                 "daily_layout": float(data_to_validate[1].cell(25, 3).value),
                 "daily_pickup": float(data_to_validate[1].cell(26, 3).value),
             },
-            "distortion": distortion,
-            #"distortion": distortion[header_lines_in_distorion_file - 1:],
+            #"distortion": distortion,
+            "distortion": distortion_df,
             "average_force": data_to_validate[3].get_all_values()[header_lines_in_av_force_file + 1:],
             "positioning": data_to_validate[4].get_all_values()[header_lines_in_positioning_file + 1:],
         }
         for item in qc_dictionary["tolerances"].values():
             if item == 70:
-                #print(distortion)
+                print(distortion)
                 print(item)
 
     except TypeError as e:
@@ -128,22 +141,26 @@ def main(run_program):
     """
     Run all program funcions
     """
-    while(run_program == "y" or run_program == "Y"):
+    while(run_program == "G" or run_program == "g" or
+          run_program == "L" or run_program == "l"):
         # 1st Function: Loading
-        data_loaded = load_sheets()
+        data_loaded = load_sheets_from_Google_Drive()
         if (data_loaded == False):
             break
         print (data_loaded)
         # 2nd Function: Validation
         qc_data = validate_data(data_loaded[slice(0, 5)])
-        print(qc_data)
+        #print(qc_data)
 
 
 
 
-
-        run_again = input('Press "y" + "enter" to run the program again o any other key to close the program\n')
-        if (run_again == "y" or run_again == "Y"):
+        print('Press "G" + "enter" to read data from Google Drive')
+        print('Press "L" + "enter" to read data locally')
+        print('Press any other key + "enter" to close the program')
+        run_again = input('Select option: ')
+        if (run_program == "G" or run_program == "g" or
+            run_program == "L" or run_program == "l"):
             run_program = run_again
         else:
             print("Program closed.")
@@ -165,9 +182,14 @@ print("average_force")
 print("positioning")
 print("QCSDA")
 print("")
+print('Press "G" + "enter" to read data from Google Drive')
+print('Press "L" + "enter" to read data locally')
+print('Press any other key + "enter" to close the program')
 
-run_program = input('Press "y" + "enter" to continue or other key to close the program\n')
-if (run_program == "y" or run_program == "Y"):
+run_program = input('Select option: ')
+
+if (run_program == "G" or run_program == "g" or
+    run_program == "L" or run_program == "l"):
     main(run_program)
 else:
     print("Program closed.")

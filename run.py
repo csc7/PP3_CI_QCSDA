@@ -248,8 +248,34 @@ def get_points_to_reaquire(qc_dictionary):
 
 
 
-def visualize_data(qc_dictionary, QCSDA_SPREADSHEET):
-    print(qc_dictionary['positioning'])
+def visualize_data(*data_to_visualize):
+    #print(qc_dictionary['positioning'])
+
+    while(True):
+        print('\nSelect one option to show below and press the number + "enter":')
+        print("1 - Daily Production")
+        print("2 - Acquisition Parameters")
+        print("3 - Amount of points to be reacquired")
+        print("4 - Points to be reacquired")
+        print("Other key - Return to main menu")
+        answer = input("\nSelect option: \n")
+    
+        if (answer == '1'):
+            print(f"Daily production: {data_to_visualize[0]['daily_report']['daily_prod']}")
+        elif (answer =='2'):
+            print(answer)
+        elif (answer =='3'):
+            try:
+                print(f"Total points to reacquire by distorition issues: {data_to_visualize[1]['Total_Out_Distortion']}")
+
+            except IndexError:
+                print("\nPlease get points to reacquire first.\n")
+        elif (answer =='4'):
+            print(answer)
+        else:
+            break
+    #print((data_to_visualize[0]))
+    
 
     #xls = pd.ExcelFile('qcdata/QCSDA.xlsx')
     #df2 = pd.read_excel(xls, 'Redo_distortion')
@@ -276,6 +302,8 @@ def update_qcsda(qc_dictionary, date):
     print("\nFiles Update...\n")
     #writer.save()
     #writer.close()
+
+
 
 # Main part of program, calling all functions
 def main(run_program):
@@ -330,7 +358,11 @@ def main(run_program):
         if (answer == '1'):
             points_to_reaquire = get_points_to_reaquire(daily_amounts)
         elif (answer == '2'):
-            visualize_data(QCSDA_EXCEL_FILE, daily_amounts, points_to_reaquire)
+            try:
+                visualize_data(daily_amounts, points_to_reaquire)
+            except UnboundLocalError:
+                print("\nWARNING!\nPoints to be reaquired not computed, passing existing and daily data only!\n")
+                visualize_data(qc_data)
         elif (answer == '3'):
             try:
                 update_qcsda(points_to_reaquire, daily_amounts['daily_report']['date'])

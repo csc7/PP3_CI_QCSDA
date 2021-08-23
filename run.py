@@ -104,9 +104,7 @@ def validate_data(data_to_validate):
     dictionary
     """
     print("\nValidating data in the sheets...\n")
-
-    print(type(data_to_validate))
-    
+ 
     try:
 
         #distortion = []
@@ -240,16 +238,15 @@ def get_points_to_reaquire(qc_dictionary):
         "Total_Out_COG": out_cog_total,
     }
 
-    print(out_distor_total) 
-    print(out_force_total) 
-    print(out_of_spec_cog) 
+    print(f"\nTotal points to reaquire by distortion issues: {out_distor_total}") 
+    print(f"Total points to reaquire by average force issues: {out_force_total}")
+    print(f"Total points to reaquire by positioning issues: {out_cog_total}\n")
 
     return out_of_spec_dictionary
 
 
 
 def visualize_data(*data_to_visualize):
-    #print(qc_dictionary['positioning'])
 
     while(True):
         print('\nSelect one option to show below and press the number + "enter":')
@@ -309,13 +306,6 @@ def visualize_data(*data_to_visualize):
                 print("\nPlease compute points to reacquire first.\n")
         else:
             break
-    #print((data_to_visualize[0]))
-    
-
-    #xls = pd.ExcelFile('qcdata/QCSDA.xlsx')
-    #df2 = pd.read_excel(xls, 'Redo_distortion')
-    #qc_dictionary['positioning'].to_excel("qcdata/QCSDA.xlsx", sheet_name='Redo_distortion') 
-    #print(df2)
 
 
 def update_qcsda(qc_dictionary, date):
@@ -334,7 +324,7 @@ def update_qcsda(qc_dictionary, date):
     with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
         qc_dictionary['Out_of_Spec_COG'].to_excel(writer, sheet_name=sheet_name, startrow = 0, startcol = 0, header = False, index = False)
     
-    print("\nFiles Update...\n")
+    print("\nFiles Updated...\n")
     #writer.save()
     #writer.close()
 
@@ -361,14 +351,12 @@ def main(run_program):
         # 2nd Function: Validation
         #qc_data = validate_data(data_loaded[slice(0, 5)])
         qc_data, QCSDA_EXCEL_FILE = validate_data(data_loaded)
-        print(type(qc_data))
-
 
         # 3rd Function: Get daily acquisition numbers/totals
         daily_amounts, warning_message = get_daily_amounts (qc_data)
         if (warning_message != []):
             print("WARNING:")
-            print(f"Acording to daily report, daily production is {daily_amounts['daily_report']['daily_prod']} VPs.")
+            print(f"Acording to daily report, {str(daily_amounts['daily_report']['date'])[0:10]} daily production is {daily_amounts['daily_report']['daily_prod']} VPs.")
             print(f"The amount of data in the following file/s does/do not match the daily production:\n{warning_message}\n")
             print("If you continue you will get statistics for an incomplete data set.")
             print('Press "Y" + "enter" to continue or other key + "enter" to close the program.\n')
@@ -378,35 +366,35 @@ def main(run_program):
             else:
                 print("Program closed.")
                 break               
-        print(f"\n{daily_amounts['daily_report']['date']} daily production: {daily_amounts['daily_report']['daily_prod']},")
+        print(f"\n{str(daily_amounts['daily_report']['date'])[0:10]} daily production: {daily_amounts['daily_report']['daily_prod']},")
         print(f"with {daily_amounts['daily_report']['daily_layout']} planted geophones and {daily_amounts['daily_report']['daily_pick_up']} picked up.\n")
         
         # Data OK, present menu options to user
-        print('Select one option below and press the number + "enter":')
-        print("1 - Compute Points to reacquire")
-        print("2 - Visualize data")
-        print("3 - Update QCSDA Spreadsheet with points to reacquire")
-        print("4 - Restart")
-        print("Other key - Close\n")
-        answer = input("Select option: \n")
-        print(daily_amounts)
-        if (answer == '1'):
-            points_to_reaquire = get_points_to_reaquire(daily_amounts)
-        elif (answer == '2'):
-            try:
-                visualize_data(daily_amounts, points_to_reaquire)
-            except UnboundLocalError:
-                print("\nWARNING!\nPoints to be reaquired not computed, passing existing and daily data only!\n")
-                visualize_data(qc_data)
-        elif (answer == '3'):
-            try:
-                update_qcsda(points_to_reaquire, daily_amounts['daily_report']['date'])
-            except UnboundLocalError:
-                print("\nPlease get points to reacquire first (run option 1) before updating\n")
-        elif (answer == '4'):
-            pass
-        else:
-            break
+        while(True):
+        
+            print('Select one option below and press the number + "enter":')
+            print("1 - Compute Points to reacquire")
+            print("2 - Visualize data")
+            print("3 - Update QCSDA Spreadsheet with points to reacquire")
+            print("Other key - Back to main menu\n")
+            answer = input("Select option: \n")
+        
+            if (answer == '1'):
+                points_to_reaquire = get_points_to_reaquire(daily_amounts)
+            elif (answer == '2'):
+                try:
+                    visualize_data(daily_amounts, points_to_reaquire)
+                except UnboundLocalError:
+                    print("\nWARNING!\nPoints to be reaquired not computed, passing existing and daily data only!\n")
+                    visualize_data(qc_data)
+            elif (answer == '3'):
+                try:
+                    update_qcsda(points_to_reaquire, daily_amounts['daily_report']['date'])
+                except UnboundLocalError:
+                    print("\nPlease get points to reacquire first (run option 1) before updating\n")
+                    continue
+            else:
+                break
 
         
 

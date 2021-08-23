@@ -251,13 +251,31 @@ def get_points_to_reaquire(qc_dictionary):
 def visualize_data(qc_dictionary, QCSDA_SPREADSHEET):
     print(qc_dictionary['positioning'])
 
-    xls = pd.ExcelFile('qcdata/QCSDA.xlsx')
-    df2 = pd.read_excel(xls, 'Redo_distortion')
-    qc_dictionary['positioning'].to_excel("qcdata/QCSDA.xlsx", sheet_name='Redo_distortion') 
-    print(df2)
+    #xls = pd.ExcelFile('qcdata/QCSDA.xlsx')
+    #df2 = pd.read_excel(xls, 'Redo_distortion')
+    #qc_dictionary['positioning'].to_excel("qcdata/QCSDA.xlsx", sheet_name='Redo_distortion') 
+    #print(df2)
 
 
+def update_qcsda(qc_dictionary, date):
 
+    print("\nUpdating files...\n")
+
+    sheet_name = 'Redo_distortion_' + str(date)[0:10]
+    with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
+        qc_dictionary['Out_of_Spec_Distortion'].to_excel(writer, sheet_name=sheet_name, startrow = 0, startcol = 0, header = False, index = False)
+    
+    sheet_name = 'Redo_force_' + str(date)[0:10]
+    with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
+        qc_dictionary['Out_of_Spec_Force'].to_excel(writer, sheet_name=sheet_name, startrow = 0, startcol = 0, header = False, index = False)
+    
+    sheet_name = 'Redo_COG_' + str(date)[0:10]
+    with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
+        qc_dictionary['Out_of_Spec_COG'].to_excel(writer, sheet_name=sheet_name, startrow = 0, startcol = 0, header = False, index = False)
+    
+    print("\nFiles Update...\n")
+    #writer.save()
+    #writer.close()
 
 # Main part of program, calling all functions
 def main(run_program):
@@ -308,12 +326,16 @@ def main(run_program):
         print("4 - Restart")
         print("Other key - Close\n")
         answer = input("Select option: \n")
+        print(daily_amounts)
         if (answer == '1'):
-            get_points_to_reaquire(qc_data)
+            points_to_reaquire = get_points_to_reaquire(daily_amounts)
         elif (answer == '2'):
-            visualize_data(qc_data, QCSDA_EXCEL_FILE)
+            visualize_data(QCSDA_EXCEL_FILE, daily_amounts, points_to_reaquire)
         elif (answer == '3'):
-            update_qcsda()
+            try:
+                update_qcsda(points_to_reaquire, daily_amounts['daily_report']['date'])
+            except UnboundLocalError:
+                print("\nPlease get points to reacquire first (run option 1) before updating\n")
         elif (answer == '4'):
             pass
         else:

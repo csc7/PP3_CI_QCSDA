@@ -253,7 +253,7 @@ def visualize_data(*data_to_visualize):
 
     while(True):
         print('\nSelect one option to show below and press the number + "enter":')
-        print("1 - Daily Production")
+        print("1 - Daily Statistics")
         print("2 - Acquisition Parameters")
         print("3 - Amount of points to be reacquired")
         print("4 - Points to be reacquired")
@@ -261,17 +261,52 @@ def visualize_data(*data_to_visualize):
         answer = input("\nSelect option: \n")
     
         if (answer == '1'):
+            print("-----------------------")
             print(f"Daily production: {data_to_visualize[0]['daily_report']['daily_prod']}")
-        elif (answer =='2'):
-            print(answer)
-        elif (answer =='3'):
+            print(f"Daily layout: {data_to_visualize[0]['daily_report']['daily_layout']}")
+            print(f"Daily pick-up: {data_to_visualize[0]['daily_report']['daily_pick_up']}")
+            print("-----------------------")
+        elif (answer == '2'):
+            print("-------------------------------")
+            print(f"Vibrator fleets: {data_to_visualize[0]['tolerances']['fleets']}")
+            print(f"Vibrators per fleet: {data_to_visualize[0]['tolerances']['vibs_per_fleet']}")
+            print(f"Maximum COG-planned distance: {data_to_visualize[0]['tolerances']['max_cog_dist']}")
+            print(f"Maximum distortion: {data_to_visualize[0]['tolerances']['max_distortion']}")
+            print(f"Minimum average force: {data_to_visualize[0]['tolerances']['min_av_force']}")
+            print(f"Maximum average force: {data_to_visualize[0]['tolerances']['max_av_force']}")
+            print("-------------------------------")
+        elif (answer == '3'):
             try:
-                print(f"Total points to reacquire by distorition issues: {data_to_visualize[1]['Total_Out_Distortion']}")
-
+                disto = data_to_visualize[1]['Total_Out_Distortion']
+                av_for = data_to_visualize[1]['Total_Out_Force']
+                pos = data_to_visualize[1]['Total_Out_COG']
+                print("----------------------------------------------------------")
+                print(f"Total points to reacquire:")
+                print(f"By distorition issues: {disto}")
+                print(f"By distorition average force issues: {av_for}")
+                print(f"By positioning issues: {pos}")
+                print("----------------------------------------------------------\n")
             except IndexError:
-                print("\nPlease get points to reacquire first.\n")
+                print("\nPlease compute points to reacquire first.\n")
         elif (answer =='4'):
-            print(answer)
+            try:
+                disto_p = data_to_visualize[1]['Out_of_Spec_Distortion']
+                av_for_p = data_to_visualize[1]['Out_of_Spec_Force']
+                pos_p = data_to_visualize[1]['Out_of_Spec_COG']
+                print("----------------------------------------------------------")
+                print(f"Points to reacquire by distortion issues:\n")
+                print(disto_p)
+                print("----------------------------------------------------------\n\n")
+                print("----------------------------------------------------------")
+                print(f"Points to reacquire by average force issues:\n")
+                print(av_for_p)
+                print("----------------------------------------------------------\n\n")
+                print("----------------------------------------------------------")
+                print(f"Points to reacquire by positioning issues:\n")
+                print(pos_p)
+                print("----------------------------------------------------------\n\n")
+            except IndexError:
+                print("\nPlease compute points to reacquire first.\n")
         else:
             break
     #print((data_to_visualize[0]))
@@ -348,7 +383,7 @@ def main(run_program):
         
         # Data OK, present menu options to user
         print('Select one option below and press the number + "enter":')
-        print("1 - Get Points to reacquire")
+        print("1 - Compute Points to reacquire")
         print("2 - Visualize data")
         print("3 - Update QCSDA Spreadsheet with points to reacquire")
         print("4 - Restart")
@@ -411,7 +446,7 @@ print("QCSDA")
 print("")
 print('Press "G" + "enter" to read data from Google Drive')
 print('Press "L" + "enter" to read data locally')
-print('Press any other key + "enter" to close the program')
+print('Press any other key + "enter" to close the program.\n')
 
 run_program = input('Select option: \n')
 

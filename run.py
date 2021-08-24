@@ -37,39 +37,60 @@ def load_sheets_from_Google_Drive():
     try:
         SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMETERS')
         tolerances_data = SHEET_PARAMETERS.worksheet('Tolerances')
+        #tolerances_data.delete_rows(1)
+        tolerances_data = pd.DataFrame(tolerances_data.get_all_values())
+        
 
         SHEET_DAILY_REPORT = GSPREAD_CLIENT.open('daily_report')
         daily_report_data = SHEET_DAILY_REPORT.worksheet('Daily_Report')
+        #daily_report_data.delete_rows(1)
+        daily_report_data = pd.DataFrame(daily_report_data.get_all_values())
+        
 
         SHEET_DISTORTION = GSPREAD_CLIENT.open('distortion')
         distortion_data = SHEET_DISTORTION.worksheet('Distortion')
+        #distortion_data.delete_rows(1)
+        distortion_data = pd.DataFrame(distortion_data.get_all_values())
+        
 
         SHEET_AV_FORCE = GSPREAD_CLIENT.open('average_force')
         average_force_data = SHEET_AV_FORCE.worksheet('Average_Force')
+        #average_force_data.delete_rows(1)
+        average_force_data = pd.DataFrame(average_force_data.get_all_values())
+        
 
         SHEET_POSITIONING = GSPREAD_CLIENT.open('positioning')
         positioning_data = SHEET_POSITIONING.worksheet('Positioning')
-        #positioning_data_w.row_values(1)
-        #positioning_data = pd.DataFrame(positioning_data_w.get_all_records())
+        #positioning_data.delete_rows(1)
+        positioning_data = pd.DataFrame(positioning_data.get_all_values())
+        
 
         # This sheet contains five worksheets!
-        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        ####SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         #production_statistics = SHEET_QCSDA.worksheet('Statistics')
 
         #print(production_statistics)
         #print(positioning_data_w.row_values(20)[0])
         #print(type(positioning_data_w.row_values(1)[0]))
         #print(type(positioning_data_w.row_values(20)))
+        print(tolerances_data.iloc[1, 2])
         print("\nSpreadsheet and worksheets loaded.\n")
 
     except gspread.exceptions.SpreadsheetNotFound:
         print("Some files are missing or have a different name.")
         print("Please check all files are in place with the correct names.")
         return False
-
+    
+    #print(daily_report_data)
+    #print(distortion_data)
+    #print(average_force_data)
+    #print(positioning_data)
+    #return [positioning_data]
+    #print(SHEET_QCSDA)
     return [tolerances_data, daily_report_data, distortion_data, average_force_data,
-            positioning_data, SHEET_QCSDA]
+            positioning_data]  #, SHEET_QCSDA
 
+    
 
 
 def load_sheets_locally():
@@ -93,8 +114,90 @@ def load_sheets_locally():
         print(f"Something went wrong, {e}. Please try again.\n")
         return False
     
+    print(tolerances_data.iloc[2, 2])
+    #print(daily_report_data)
+    #print(distortion_data)
+    #print(average_force_data)
+    #print(positioning_data)
+
+
     return [tolerances_data, daily_report_data, distortion_data, average_force_data,
             positioning_data, SHEET_QCSDA]
+
+
+def validate_data_from_Google(data_to_validate):
+    """
+    This function checks the data in the sheets has the proper format
+    and load the values that will be used quality control in a
+    dictionary
+    """
+    print("\nValidating data in the sheets...\n")
+ 
+    try:
+
+        qc_dictionary = {
+            "tolerances": {
+                "fleets": float(data_to_validate[0].iloc[0, 2]),
+                "vibs_per_fleet": float(data_to_validate[0].iloc[1, 2]),
+                "max_cog_dist": float(data_to_validate[0].iloc[6, 2]),
+                "max_distortion": float(data_to_validate[0].iloc[7, 2]),
+                "min_av_force": float(data_to_validate[0].iloc[8, 3]),
+                "max_av_force": float(data_to_validate[0].iloc[8, 4]),
+            },
+            "daily_report": {
+                "date": data_to_validate[1].iloc[6, 1],
+                "daily_prod": float(data_to_validate[1].iloc[21, 2]),
+                "daily_layout": float(data_to_validate[1].iloc[22, 2]),
+                "daily_pick_up": float(data_to_validate[1].iloc[23, 2]),
+            },
+            #"distortion": distortion,
+            "distortion": data_to_validate[2].iloc[(header_lines_in_distorion_file-2):],
+            "average_force": data_to_validate[3].iloc[(header_lines_in_av_force_file-2):],
+            "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 1:9],
+        }
+
+        for item in qc_dictionary["distortion"]:
+            item = float(item)
+        for item in qc_dictionary["average_force"]:
+            item = float(item)
+        for item in qc_dictionary["positioning"]:
+            item = float(item)
+        
+        # Calculate distance from COG to planned coordinate before retuning the dictionary
+        x_p = qc_dictionary['positioning'].iloc[:, 1]
+        x_planned = pd.to_numeric(x_p)
+        y_p = qc_dictionary['positioning'].iloc[:, 2]
+        y_planned = pd.to_numeric(y_p)
+        z_p = qc_dictionary['positioning'].iloc[:, 3]
+        z_planned = pd.to_numeric(z_p)
+        x_c = qc_dictionary['positioning'].iloc[:, 4]
+        x_cog = pd.to_numeric(x_c)
+        y_c = qc_dictionary['positioning'].iloc[:, 5]
+        y_cog = pd.to_numeric(y_c)
+        z_c = qc_dictionary['positioning'].iloc[:, 6]
+        z_cog = pd.to_numeric(z_c)
+
+        print(type(x_planned))
+        distance = ((x_planned - x_cog)*(x_planned - x_cog) + (y_planned - y_cog)*(y_planned - y_cog) + (z_planned - z_cog)*(z_planned - z_cog))**0.5
+
+        qc_dictionary['positioning'].iloc[:, 7] = distance
+        print(qc_dictionary['positioning'].iloc[:, 7])
+        #temp_pos = [qc_dictionary['positioning'], distance]
+        #posi = pd.concat(temp_pos)
+
+        #index = x_planned.index
+        #ind = len(index)
+        #for i in range (0, ind+1):
+        #    distance[i] = math.sqrt((x_planned[i] - x_cog[i])*(x_planned[i] - x_cog[i]) + (y_planned[i] - y_cog[i])*(y_planned[i] - y_cog[i]) + (z_planned[i] - z_cog[i])*(z_planned[i] - z_cog[i]))
+
+        #QCSDA_SPREADSHEET = data_to_validate[5]
+
+    except TypeError as e:
+        print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
+        return False
+
+    return (qc_dictionary)#, QCSDA_SPREADSHEET)
+
 
 
 def validate_data(data_to_validate):
@@ -106,20 +209,6 @@ def validate_data(data_to_validate):
     print("\nValidating data in the sheets...\n")
  
     try:
-
-        #distortion = []
-        #distortion = data_to_validate[2].get_all_values()[header_lines_in_distorion_file:],
-
-        #for i in range (13, 480):
-        #    for item in data_to_validate[2].row_values(i):
-        #        float (item)
-   
-        #distortion_df = pd.DataFrame(list(distortion))
-        #distortion_df = distortion_df.transpose()
-        #distortion_df2 = pd.DataFrame(distortion_df)
-
-        #for item in data_to_validate[2].get_all_values()[header_lines_in_distorion_file + 1:]:
-        #    distortion.append(float(item))
 
         qc_dictionary = {
             "tolerances": {
@@ -206,10 +295,26 @@ def get_daily_amounts(qc_dictionary):
 
 def get_points_to_reaquire(qc_dictionary):
 
-    max_distortion = qc_dictionary['tolerances']['max_distortion']
-    min_av_force = qc_dictionary['tolerances']['min_av_force']
-    max_av_force = qc_dictionary['tolerances']['max_av_force']
-    max_cog_dist = qc_dictionary['tolerances']['max_cog_dist']
+    
+
+    max_distortion = float(qc_dictionary['tolerances']['max_distortion'])
+    min_av_force = float(qc_dictionary['tolerances']['min_av_force'])
+    max_av_force = float(qc_dictionary['tolerances']['max_av_force'])
+    max_cog_dist = float(qc_dictionary['tolerances']['max_cog_dist'])
+
+
+    #x_p = qc_dictionary['tolerances'].iloc[:, 4]
+    #    x_planned = pd.to_numeric(x_p)
+    #qc_dictionary['distortion'].iloc[:, 3] = pd.to_numeric(qc_dictionary['distortion'].iloc[:, 4])
+    #print(qc_dictionary)
+
+    ##qc_dictionary['distortion'] = pd.to_numeric(qc_dictionary['distortion'])
+    ##for i in qc_dictionary['distortion']:
+    ##    i = float(item)
+    #for item in qc_dictionary["average_force"]:
+    #    item = float(item)
+    #for item in qc_dictionary["positioning"]:
+    #    item = float(item)
 
     out_of_spec_distortion = qc_dictionary['distortion'][ qc_dictionary['distortion'].iloc[:, 4] > max_distortion] 
     
@@ -343,14 +448,19 @@ def main(run_program):
             data_loaded = load_sheets_from_Google_Drive()
             if (data_loaded == False):
                 break
+            qc_data = validate_data_from_Google(data_loaded)
+
         if (run_program == "L" or run_program == "l"):
             data_loaded = load_sheets_locally()
+            print(data_loaded)
             if (data_loaded == False):
                 break
-        
+            qc_data, QCSDA_EXCEL_FILE = validate_data(data_loaded)
+
         # 2nd Function: Validation
         #qc_data = validate_data(data_loaded[slice(0, 5)])
-        qc_data, QCSDA_EXCEL_FILE = validate_data(data_loaded)
+
+        #qc_data, QCSDA_EXCEL_FILE = validate_data(data_loaded)
 
         # 3rd Function: Get daily acquisition numbers/totals
         daily_amounts, warning_message = get_daily_amounts (qc_data)

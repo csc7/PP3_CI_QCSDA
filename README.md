@@ -1294,6 +1294,8 @@ ___
 
     - math: https://docs.python.org/3/library/math.html, downloaded on August 22nd, 2021, at 22:30 . Tested but finally not used.
 
+    - NumPy: use to convert Pandas dataframe to float, https://numpy.org/ , downloaded on August 24th, 2021, at 10:00 .
+
 
 - Stack Overflow:
 

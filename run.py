@@ -303,7 +303,7 @@ def get_points_to_reaquire(qc_dictionary):
     max_av_force = float(qc_dictionary['tolerances']['max_av_force'])
     max_cog_dist = float(qc_dictionary['tolerances']['max_cog_dist'])
 
-    print(type(max_distortion))
+    print(type(qc_dictionary['distortion']))
     qc_dictionary['distortion'] = qc_dictionary['distortion'].astype(np.float32)
     qc_dictionary['average_force'] = qc_dictionary['average_force'].astype(np.float32)
     qc_dictionary['positioning'] = qc_dictionary['positioning'].astype(np.float32)
@@ -421,23 +421,65 @@ def visualize_data(*data_to_visualize):
             break
 
 
-def update_qcsda(qc_dictionary, date):
+def update_qcsda(qc_dictionary, date, source):
 
-    print("\nUpdating files...\n")
+    print("\nSelect where to save the list of points to be reacquired:")
+    print('"G" + "enter": Google Drive')
+    print('"L" + "enter": Local Drive\n')
+    print(f"Last data were collected from {source}\n")
+    answer = input("Select option: \n")
 
-    sheet_name = 'Redo_distortion_' + str(date)[0:10]
-    with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
-        qc_dictionary['Out_of_Spec_Distortion'].to_excel(writer, sheet_name=sheet_name, startrow = 0, startcol = 0, header = False, index = False)
+    if (answer == "G" or answer == "g"):
+
+        print("\nUpdating files in Google Drive...\n")
+
+        sheet_name_temp = 'Redo_distortion_' + str(date)[0:10]
+        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        try:
+            SHEET_QCSDA.worksheet(sheet_name_temp).update(qc_dictionary['Out_of_Spec_Distortion'].values.tolist())
+        except gspread.exceptions.WorksheetNotFound:
+            print(f"\nSheet {sheet_name_temp} does not exist; it will be created.\n")
+            SHEET_QCSDA.add_worksheet(title=sheet_name_temp, rows="0", cols="0")
+            SHEET_QCSDA.worksheet(sheet_name_temp).update(qc_dictionary['Out_of_Spec_Distortion'].values.tolist())
+
+        sheet_name_temp = 'Redo_force_' + str(date)[0:10]
+        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        try:
+            SHEET_QCSDA.worksheet(sheet_name_temp).update(qc_dictionary['Out_of_Spec_Force'].values.tolist())
+        except gspread.exceptions.WorksheetNotFound:
+            print(f"\nSheet {sheet_name_temp} does not exist; it will be created.\n")
+            SHEET_QCSDA.add_worksheet(title=sheet_name_temp, rows="0", cols="0")
+            SHEET_QCSDA.worksheet(sheet_name_temp).update(qc_dictionary['Out_of_Spec_Force'].values.tolist())
+
+        sheet_name_temp = 'Redo_COG_' + str(date)[0:10]
+        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        try:
+            SHEET_QCSDA.worksheet(sheet_name_temp).update(qc_dictionary['Out_of_Spec_COG'].values.tolist())
+        except gspread.exceptions.WorksheetNotFound:
+            print(f"\nSheet {sheet_name_temp} does not exist; it will be created.\n")
+            SHEET_QCSDA.add_worksheet(title=sheet_name_temp, rows="0", cols="0")
+            SHEET_QCSDA.worksheet(sheet_name_temp).update(qc_dictionary['Out_of_Spec_COG'].values.tolist())
+
+
+        print("\nFiles Updated.\n")
     
-    sheet_name = 'Redo_force_' + str(date)[0:10]
-    with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
-        qc_dictionary['Out_of_Spec_Force'].to_excel(writer, sheet_name=sheet_name, startrow = 0, startcol = 0, header = False, index = False)
-    
-    sheet_name = 'Redo_COG_' + str(date)[0:10]
-    with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
-        qc_dictionary['Out_of_Spec_COG'].to_excel(writer, sheet_name=sheet_name, startrow = 0, startcol = 0, header = False, index = False)
-    
-    print("\nFiles Updated...\n")
+    if (answer == "L" or answer == "l"):
+
+        print("\nUpdating files in local drive...\n")
+
+        sheet_name_temp = 'Redo_distortion_' + str(date)[0:10]
+        with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
+            qc_dictionary['Out_of_Spec_Distortion'].to_excel(writer, sheet_name=sheet_name_temp, startrow = 0, startcol = 0, header = False, index = False)
+
+        sheet_name_temp = 'Redo_force_' + str(date)[0:10]
+        with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
+            qc_dictionary['Out_of_Spec_Force'].to_excel(writer, sheet_name=sheet_name_temp, startrow = 0, startcol = 0, header = False, index = False)
+
+        sheet_name_temp = 'Redo_COG_' + str(date)[0:10]
+        with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
+            qc_dictionary['Out_of_Spec_COG'].to_excel(writer, sheet_name=sheet_name_temp, startrow = 0, startcol = 0, header = False, index = False)
+
+        print("\nFiles Updated...\n")
     #writer.save()
     #writer.close()
 
@@ -453,12 +495,14 @@ def main(run_program):
 
         # 1st Function: Loading
         if (run_program == "G" or run_program == "g"):
+            data_source = 'Google Drive'
             data_loaded = load_sheets_from_Google_Drive()
             if (data_loaded == False):
                 break
             qc_data = validate_data_from_Google(data_loaded)
 
         if (run_program == "L" or run_program == "l"):
+            data_source = 'Local Drive'
             data_loaded = load_sheets_locally()
             print(data_loaded)
             if (data_loaded == False):
@@ -507,7 +551,7 @@ def main(run_program):
                     visualize_data(qc_data)
             elif (answer == '3'):
                 try:
-                    update_qcsda(points_to_reaquire, daily_amounts['daily_report']['date'])
+                    update_qcsda(points_to_reaquire, daily_amounts['daily_report']['date'], data_source)
                 except UnboundLocalError:
                     print("\nPlease get points to reacquire first (run option 1) before updating\n")
                     continue

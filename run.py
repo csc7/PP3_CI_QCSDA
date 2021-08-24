@@ -4,7 +4,7 @@
 
 import pandas as pd
 import openpyxl
-
+import numpy as np
 
 # Copied and modified from Code Institute's
 # "Love Sandwiches - Essentials Project" on
@@ -157,11 +157,11 @@ def validate_data_from_Google(data_to_validate):
         }
 
         for item in qc_dictionary["distortion"]:
-            item = float(item)
+            item = round(float(item), 2)
         for item in qc_dictionary["average_force"]:
-            item = float(item)
+            item = round(float(item), 2)
         for item in qc_dictionary["positioning"]:
-            item = float(item)
+            item = round(float(item), 2)
         
         # Calculate distance from COG to planned coordinate before retuning the dictionary
         x_p = qc_dictionary['positioning'].iloc[:, 1]
@@ -212,23 +212,23 @@ def validate_data(data_to_validate):
 
         qc_dictionary = {
             "tolerances": {
-                "fleets": data_to_validate[0].iloc[1, 2],
-                "vibs_per_fleet": data_to_validate[0].iloc[2, 2],
-                "max_cog_dist": data_to_validate[0].iloc[7, 2],
-                "max_distortion": data_to_validate[0].iloc[8, 2],
-                "min_av_force": data_to_validate[0].iloc[9, 3],
-                "max_av_force": data_to_validate[0].iloc[9, 4],
+                "fleets": float(data_to_validate[0].iloc[1, 2]),
+                "vibs_per_fleet": float(data_to_validate[0].iloc[2, 2]),
+                "max_cog_dist": float(data_to_validate[0].iloc[7, 2]),
+                "max_distortion": float(data_to_validate[0].iloc[8, 2]),
+                "min_av_force": float(data_to_validate[0].iloc[9, 3]),
+                "max_av_force": float(data_to_validate[0].iloc[9, 4]),
             },
             "daily_report": {
                 "date": data_to_validate[1].iloc[7, 1],
-                "daily_prod": data_to_validate[1].iloc[22, 2],
-                "daily_layout": data_to_validate[1].iloc[23, 2],
-                "daily_pick_up": data_to_validate[1].iloc[24, 2],
+                "daily_prod": float(data_to_validate[1].iloc[22, 2]),
+                "daily_layout": float(data_to_validate[1].iloc[23, 2]),
+                "daily_pick_up": float(data_to_validate[1].iloc[24, 2]),
             },
             #"distortion": distortion,
-            "distortion": data_to_validate[2].iloc[(header_lines_in_distorion_file-1):],
-            "average_force": data_to_validate[3].iloc[(header_lines_in_av_force_file-1):],
-            "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9],
+            "distortion": round(data_to_validate[2].iloc[(header_lines_in_distorion_file-1):], 2),
+            "average_force": round(data_to_validate[3].iloc[(header_lines_in_av_force_file-1):], 2),
+            "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9], 2),
         }
 
         # Calculate distance from COG to planned coordinate before retuning the dictionary
@@ -238,6 +238,7 @@ def validate_data(data_to_validate):
         x_cog = qc_dictionary['positioning'].iloc[:, 4]
         y_cog = qc_dictionary['positioning'].iloc[:, 5]
         z_cog = qc_dictionary['positioning'].iloc[:, 6]
+
 
         distance = ((x_planned - x_cog)*(x_planned - x_cog) + (y_planned - y_cog)*(y_planned - y_cog) + (z_planned - z_cog)*(z_planned - z_cog))**0.5
 
@@ -302,7 +303,14 @@ def get_points_to_reaquire(qc_dictionary):
     max_av_force = float(qc_dictionary['tolerances']['max_av_force'])
     max_cog_dist = float(qc_dictionary['tolerances']['max_cog_dist'])
 
+    print(type(max_distortion))
+    qc_dictionary['distortion'] = qc_dictionary['distortion'].astype(np.float32)
+    qc_dictionary['average_force'] = qc_dictionary['average_force'].astype(np.float32)
+    qc_dictionary['positioning'] = qc_dictionary['positioning'].astype(np.float32)
 
+
+
+    
     #x_p = qc_dictionary['tolerances'].iloc[:, 4]
     #    x_planned = pd.to_numeric(x_p)
     #qc_dictionary['distortion'].iloc[:, 3] = pd.to_numeric(qc_dictionary['distortion'].iloc[:, 4])

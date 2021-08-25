@@ -44,15 +44,12 @@ Image obtained after checking the website in "Am I Responsive" website (http://a
 
 ___
 # **1 . Project Goals**
-The goal of the project is to develop a website where seismic data processors, signal processors and/or any user can estimate and visualize wavelets and export them to use in their processing tasks. In addition, a website where users can view and review the functions of the wavelets, challenge their knowledge against a quiz, and contact the website developer.
+The goal of the project is ...
 
 Specifically, the goals of the project are the following ones:
 - To show the functions of the wavelets being calculated and plotted.
-- To build graphs according to wavelets parameters given by the user.
-- To export/send the generated wavelet to an e-mail address.
-- To give users the chance to test their basic knowledge, thorough o quiz, about signals.
-- To give users a contact form so they can send suggestions or comments if they wish.
-- To show my work and give others the option to contact me if they wish.
+- ....
+- ....
 <br><br>
 ## [Back to Index](#index)
 <br>
@@ -82,22 +79,13 @@ UX has been addressed (and remains as a constant activity) around Jesse James Ga
 
 ## **User Goals**
 - To find an interactive website.
-- To navigate through a responsive website.
-- To have wavelet functions in a summarised way, at a glance.
-- To select wavelet parameters and make the corresponding graphs.
-- To export the wavelet to a TXT file so it can be used in other applications and/or processes.
-- To check and/or entertain with a quiz.
-- To be able to contact the developer if desired.
+- To ...
 
 #### [Back to Index](#index)
 
 ## **Site Owner Goals**
 - To provide an interactive website.
-- To provide a responsive website.
-- To provide very basic tools and concepts about wavelet signals.
-- To show his work.
-- To give users the chance to contact the developer.
-- To provide a basic and scalable website and framework for signal processing that allows for the incorporation of more tools in the future.
+- To ....
 
 #### [Back to Index](#index)
 <br>

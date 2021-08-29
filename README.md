@@ -44,8 +44,7 @@ Image obtained after checking the website in "Am I Responsive" website (http://a
 
 ___
 # **1 . Project Goals**
-The goal of the project is ...
-
+The goal of the project is to automate the quality control of seismic acquisition data with vibroseis sources. During seismic data acquisition, the vibroseis generate files with information about how a specific source point (usually called "VP", for vibroseis point), including specifications and parameters for the positioning, average force, distortion of the force being applied to the ground, and many others. The project goal is to automate the identification of acquired points which have not met the acquisition/contractual requirements so they can be informed to the acquisition company for reacquisition of them.
 Specifically, the goals of the project are the following ones:
 - To show the functions of the wavelets being calculated and plotted.
 - ....

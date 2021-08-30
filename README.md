@@ -54,35 +54,19 @@ Specifically, the goals of the project are the following ones:
 ___
 # **2 . User Experience**
 
-UX has been addressed (and remains as a constant activity) around Jesse James Garrett's process, whose five planes involves the following matters:
-- **STRATEGY**: to build a website (product) that creates wavelet signals and gives the option to contact the developer.
-- **SCOPE**: the minimum viable product needs to include features that allow the user to know the following:
-    - Basic information about the about the functions being implemented (wavelet formulas).
-    - A graph of the wavelet, using Google Charts (please see credit below), based on input parameters given by the user.
-    - A section where user can input the type of wavelet, sampling rate, length of the signal and its frequency.
-    - A "Generate" button.
-    - An "Export" button.
-    - A quiz with ten questions.
-    - A contact form.
-- **STRUCTURE**: the information is structured as follows:
-    - Wavelet functions, in a separate page called "Functions".
-    - Google Chart (please see credit below) graph, input parameters and generate/export buttons in a separate page called "Generator".
-    - A quiz with ten questions in a separate page called "Quiz".
-    - A contact form in a separate page called "Contact".
-    - A fixed navigation bar on top.
-    - A fixed footer.
-- **SKELETON**: the information is accessed through a fixed navigation menu on top of the pages.
-- **SURFACE**: the website is based on red, white and blue colours to give strong contrast and simultaneously a "live" design.
+The goal of the program is to provide a simple but interactive method to automate a quality control task that would many minutes (with higher exposure to errors) if done manually.
 
 ## **User Goals**
-- To find an interactive website.
-- To ...
+- To have a menu that guide the user through the required steps.
+- To automate the daily generation of lists with points to be reacquired.
+- To select where the files are read from.
 
 #### [Back to Index](#index)
 
 ## **Site Owner Goals**
-- To provide an interactive website.
-- To ....
+- To reduce the time involved in the repetitive quality control task.
+- To reduce errors that are caused by manual computation of reacquisition points.
+- To give the option to access files from the cloud (for those environments that has such possibility) or from a local machine.
 
 #### [Back to Index](#index)
 <br>
@@ -91,51 +75,34 @@ UX has been addressed (and remains as a constant activity) around Jesse James Ga
 User stories are divided into the following three groups:
 
 - ### **First time users**
-1. As a user, I want to find a responsive website, so I can access it in any device without having the content affected.
-2. As a user, I want to find a summary of type of wavelets, so I do not need to research for them in different sites on the web.
-3. As a user, I want to have the functions (formulas) of the wavelets, so I do not need to go through long texts or the web to find them.
-4. As a user, I want to select the input parameters of the wavelets and see the corresponding graph of them, so I see how my parameters are affecting the wavelets.
-5. As a user, I want to have the wavelet I choose sent to my e-mail address, so I can have it available for other applications and/or for download without having to use other applications that could take a longer time for the generation of the wavelet.
-6. As a user, I want to have the option to send comments or questions, so I can contribute with the website development and/or indicate errors or bugs.
+1. As a user, I want to run the program intuitively, so I do not require further assistance and do not delay the daily activities.
+2. As a user, I do not want to go through a set up process, so I do not require further assistance and do not delay the daily activities.
+
 
 - ### **Returning users**
-7. As a returning user, I want to have the website accessible from any device, so I do not depend on only one device to access the information.
-8. As a returning user, I want a navigation menu on top and always visible, so I can access any content on the website from there and do not need to use the back button of the browser.
-9. As a returning user, I want to have a reference website with a summary of types and functions of wavelets, so I do not need to look for them and/or check in different websites.
-10. As a returning user, I want to generate new wavelets so I can check them in a quick way.
-11. As a returning user, I want to test my knowledge against a quiz, so I refresh basic concepts and/or take a break to when I want to.
-12. As a returning user, I want to have a way to send feedback or make consultations, so I can collaborate and/or make consultations about the website and/or its content.
-13. As a returning user, I want to be informed if the contact form goes through, so I know if my message is sent or it is not.
-14. As a returning user, I want to have a way to contact the developer so I can contribute and/or indicate errors or bugs.
+7. As a returning user, I want to automate a daily repetitive task, so I do not use much time to generate the list of points to be reaquired.
+8. As a returning user, I want to have the option to visualize the data, so I check if there is any anomaly before writing the final list.
+9. As a returning user, I want to automate the process, so I commit fewer (or none) errors.
+
 
 - ### **Site Owner**
-15. As owner, I want to create a website that provides a basic service (wavelet generation) so users can use it to check and obtain wavelets without using longer solutions for the generation/checking of them.
-16. As owner, I want to create a website that is the base for further development, so I can keep showing my work and offer more solutions in the future.
-17. As owner, along with other points of this section, I want to show my work and give the option to users to contact me if they wish.
-18. As owner, I want to provide a website that can be browsed fully without using the back button, so users have a "map" of the website at all times and do not get issues while navigating (like sending data to a server interrupted or resent).
-19. As owner, I want to provide a responsive website, so user can access it from any device without any constraint to navigate, find and/or use the website.
-20. As owner, I want to give an interactive website that update colours, graphs and information, so users enjoy the navigation on the website and instantly know if the website works properly or it does not.
-21. As owner, I want to put a brand in the top left, so users not only associate the brand with the website but also they can click it for the "home" (Functions) page.
-22. As owner, I want to provide a website that summarises the type of wavelets so users can use it as a reference.
-23. As owner, I want to give an interactive website, so users test their own wavelets without having to replicate the formulas with their own parameters themselves.
-24. As owner, I want to provide a quiz so users can use the website as a basic entertainment when they want a short break from their activities.
-25. As owner, I want to give as many options to be contacted as possible, so users can choose forms or links in the footer to send their consultations and/or feedback in a very fast way without having to navigate through the website.
-26. As owner, I want to inform users if they consultation/message was successfully sent, so they know if they need to resend it or they do not.
-27. As owner, I want to inform the user, through an error page, if there is any error when loading the website.
-28. As owner, I want to validate the contact form and e-mail field for sending wavelet data, so users cannot send empty forms or data, simultaneously letting them know if the form or data is successfully sent.
+10. As owner, I want to automate the process, so I give the option to achieve the quality control process in less time, with fewer errors.
+11. As owner, I want to give the option to read the quality control files from Google Drive or from a local computer, so I increase the functionality of my application.
+12. As owner, I want to give the user the option to visualize the data being controlled, so users can understand better eventual issues they might find.
+
 
 
 
 #### [Back to Index](#index)
 
 ## **User Requirements and Expectations**
-- A fixed and responsive navigation menu on top.
-- A dedicated page for wavelet functions.
-- A dedicated page for wavelet generation and export.
-- A dedicated page for the basic signal processing quiz.
-- A dedicated page for the contact form.
-- A fixed footer with contact links to the developer.
-- Strong contrast using red, white and blue.
+- An automate, error-free program.
+- A simple program.
+- No complex set up process.
+- Intuitive use, for example through a menu.
+- The option to read from Google Drive and from a local computer.
+- A simple way to visualize data.
+- The option to write the generated list in the same files where the data were read from.
 <br><br>
 ## [Back to Index](#index)
 <br>

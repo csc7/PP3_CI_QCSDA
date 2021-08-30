@@ -5,11 +5,9 @@ This project aims for automation of quality control task of seismic data acquisi
 
 This repository belongs to my third milestone project in the Full-stack Development course at Code Institute, covering Python along with Git version control and other software technologies.
 
-The live link for this project is [**this one**](https://csc7.github.io/PP3_CI_QCSDA/) (https://csc7.github.io/PP2_CI_WW/).
+The live link for this project is [**this one**](https://csc7.github.io/PP3_CI_QCSDA/) (https://csc7.github.io/PP3_CI_QCSDA/).
 
 ![Projects Table Image](docs/am-i-responsive-zoomed.PNG)
-Image obtained after checking the website in "Am I Responsive" website (http://ami.responsivedesign.is/ giving "https://csc7.github.io/PP2_CI_WW/" as input). The image shows the Functions page (Home) of the project in different devices. Image generated with Am I Responsive? website http://ami.responsivedesign.is/?url=https%3A%2F%2Fcsc7.github.io%2FPP2_CI_WW
-
 
 
 # **Index**
@@ -40,11 +38,15 @@ Image obtained after checking the website in "Am I Responsive" website (http://a
 
 ___
 # **1 . Project Goals**
-The goal of the project is to automate the quality control of seismic acquisition data with vibroseis sources. During seismic data acquisition, the vibroseis generate files with information about how a specific source point (usually called "VP", for vibroseis point), including specifications and parameters for the positioning, average force, distortion of the force being applied to the ground, and many others. The project goal is to automate the identification of acquired points which have not met the acquisition/contractual requirements so they can be informed to the acquisition company for reacquisition of them.
+The goal of the project is to automate the quality control of seismic acquisition data with vibroseis sources. During seismic data acquisition, recorder instrument generate files with information about how a specific source point (usually called "VP", for vibroseis point) has been acquired, including specifications and parameters for the positioning, average force, distortion of the force being applied to the ground, and many others. While acquiring data (which usually takes many days), at the end of each day and using these files, one checks the points that are out of specifications, create a list and pass them to the acquisition company for reaquisition the next day. The project goal is to automate this process. The program access the files (Google Sheets or Microsoft Excel files, which can be located in Google Drive or locally), identify the points to be reacquired, create a list and update the files with a new sheet which includes the points to be reacquired and whose name includes the date they were acquired.
 Specifically, the goals of the project are the following ones:
-- To show the functions of the wavelets being calculated and plotted.
-- ....
-- ....
+- To access acquisition quality control files in Google Drive or locally.
+- To give the user the option to select where to read the files from (Google Drive or locally).
+- To identify the points that were acquired without complying with contractual specifications requirements.
+- To create a list of points that need to be reacquired.
+- To give the user the option to visualize these points before writing the final list in the files.
+- To give the user the option to visualize daily production data and check them with the daily report.
+- To write the lists with points to be reacquired in the files.
 <br><br>
 ## [Back to Index](#index)
 <br>

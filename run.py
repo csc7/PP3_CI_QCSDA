@@ -430,7 +430,7 @@ def update_qcsda(qc_dictionary, date, source):
         with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode ='a', engine='openpyxl', if_sheet_exists = 'replace') as writer:
             qc_dictionary['Out_of_Spec_COG'].to_excel(writer, sheet_name=sheet_name_temp, startrow = 0, startcol = 0, header = False, index = False)
 
-        print("\nFiles Updated...\n")
+        print("\nFiles Updated.\n")
     #writer.save()
     #writer.close()
 

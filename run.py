@@ -515,8 +515,8 @@ def main(run_program):
         print('Press "L" + "enter" to read data locally')
         print('Press any other key + "enter" to close the program.\n')
         run_again = input('Select option: \n')
-        if (run_program == "G" or run_program == "g" or
-            run_program == "L" or run_program == "l"):
+        if (run_again == "G" or run_again == "g" or
+            run_again == "L" or run_again == "l"):
             run_program = run_again
         else:
             print("Program closed.")

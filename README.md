@@ -5,7 +5,7 @@ This project aims for automation of quality control task of seismic data acquisi
 
 This repository belongs to my third milestone project in the Full-stack Development course at Code Institute, covering Python along with Git version control and other software technologies.
 
-The live link for this project is [**this one**](https://csc7.github.io/PP3_CI_QCSDA/) (https://csc7.github.io/PP3_CI_QCSDA/).
+The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.com/) (https://pp3-ci-qcsda.herokuapp.com/).
 
 ![Projects Table Image](docs/am-i-responsive-zoomed.PNG)
 

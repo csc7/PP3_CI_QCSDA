@@ -20,11 +20,7 @@ Image obtained after checking the website in "Am I Responsive" website (http://a
 - #### [Site Owner Goals](#site-owner-goals-1)
 - #### [User Stories](#user-stories-1)
 - #### [User Requirements and Expectations](#user-requirements-and-expectations-1)
-### [3. Design Choices](#3--design-choices)
-- #### [Colours](#colours-1)
-- #### [Fonts](#fonts-1)
-- #### [Structure](#structure-1)
-### [4. Wireframes](#4--wireframes)
+### [3. Flowchart](#3--flowchart)
 ### [5. Technologies used](#5--technologies-used)
 - #### [Languages](#languages-1)
 - #### [Software and Other Tools](#software-and-other-tools-1)
@@ -143,124 +139,10 @@ User stories are divided into the following three groups:
 <br>
 
 ___
-# **3 . Design Choices**
+# **3 . Flowchart**
 
 The design was planned to cover screen sizes from 320x568px to 1920x1370px.
 
-## **Colours**
-Red, white (as background) and blue is the base of the website. The goal is to provide strong contrast and use colours that show a vivid website.
-
-#### [Back to Index](#index)
-<br>
-
-## **Fonts**
-Google fonts (please see credits section below) were implemented on the website. Nunito/Montserrat were selected as the font pair for the website (following Google's suggestion), however only Nunito has been applied.
-Sans-serif font is used as a back-up in case the previous font cannot be loaded.
-
-Colour #rgb(98, 98, 161), dark blue, was selected for paragraphs, while red and blue for headings.
-
-#### [Back to Index](#index)
-<br>
-
-## **Structure**
-The metadata includes the following keywords to help search engines to find the website: wavelet, wavelets, signal, signals, signal processing, seismic processing, wavelet generation, txt, export, quiz. signal quiz, wavelet functions, wavelet formulas, wavelet summary, wavelet reference, processing, Code Institute, software development, student, full-stack course, milestone project.
-
-The visible website is organised in a header, a body and a footer.
-
-Wireframes were developed at the beginning in order to have a first design of the website.
-
-- ### **Header**
-
-In order to achieve the goals related to easiness and/or simplicity, a fixed navigation area in the header is provided. In the same area, a logo with the idea of the website is place to the left.
-The header contains the navigation bar with the four links to the body pages (please see next section).
-
-- ### **Body**
-
-The body of the pages are structured as follows for each of the pages:
-- #### *Functions:*
-    It contains a summary of wavelets (four type at the moment of deploying this website) and their mathematical functions. The idea is to add more with time, the page is designed to allow for an easy inclusion of the in the future, since it only involves paragraphs and headings whose width is 100% (with respect to their containers), so no more than adding the relevant tags is needed to add more types of wavelets and their functions.
-- #### *Generator:*
-    It has a section on the right (or top in tablet and cell phone screen sizes) with fields where the user can select the type of wavelet from a dropdown list and enter the sampling rate, length of wavelet and frequency of the desired wavelet to plot.
-    The graph is generated with Google Charts (please see credit below) and is located on the left (of bottom in tablet and cell phone screen sizes).
-- #### *Quiz:*
-    It contains a start button on top, a progress bar below (which progress one step per question), a score and time panel below, and the quiz itself under these sections, which indeed contains a field where the user writes the answer and a button to send it.
-- #### *Contact:*
-    It has a simple contact form, centre-aligned, with name, surname, e-mail and description fields, before it finds the send button.
-<br>
-    
-- ### **Footer**
-
-The footer contains links for social media (LinkedIn and GitHub) and e-mail. It is designed to remain fixed at the bottom of the webpages in order to have the links always visible to promote the developer of the website.\
-<br><br>
-## [Back to Index](#index)
-<br>
-
-___
-# **4 . Wireframes**
-
-Wireframes were developed in order to gather all goals, user stories, requirements and expectations, and have the design references for desktop, tablet and mobile devices.
-Please check the PDFs files for each case in the following links:
-
-<details>
-    <summary>Desktop Wireframe Image for Functions Page</summary>
-
-![Desktop Wireframe Image for Functions Page](docs/wireframes/wireframe-desktop-functions.PNG)
-</details>
-<details>
-    <summary>Desktop Wireframe Image for Generator Page</summary>
-
-![Desktop Wireframe Image for Generator Page](docs/wireframes/wireframe-desktop-generator.PNG)
-</details>
-<details>
-    <summary>Desktop Wireframe Image for Quiz Page</summary>
-
-![Desktop Wireframe Image for Quiz Page](docs/wireframes/wireframe-desktop-quiz.PNG)
-</details>
-<details>
-    <summary>Desktop Wireframe Image for Contact Page</summary>
-
-![Desktop Wireframe Image for Contact Page](docs/wireframes/wireframe-desktop-contact.PNG)
-</details>
-
-<details>
-    <summary>Tablet Wireframe Image for Functions Page</summary>
-
-![Tablet Wireframe Image for Functions Page](docs/wireframes/wireframe-tablet-functions.PNG)
-</details>
-<details>
-    <summary>Tablet Wireframe Image for Generator Page</summary>
-
-![Tablet Wireframe Image for Generator Page](docs/wireframes/wireframe-tablet-generator.PNG)
-</details>
-<details>
-    <summary>Tablet Wireframe Image for Quiz Page</summary>
-
-![Tablet Wireframe Image for Quiz Page](docs/wireframes/wireframe-tablet-quiz.PNG)
-</details>
-<details>
-    <summary>Tablet Wireframe Image for Contact Page</summary>
-
-![Tablet Wireframe Image for Contact Page](docs/wireframes/wireframe-tablet-contact.PNG)
-</details>
-<details>
-    <summary>Cell Wireframe Image for Functions and Generator Pages</summary>
-
-![Tablet Wireframe Image for Quiz Page](docs/wireframes/wireframe-cell-functions-generator-pages.PNG)
-</details>
-<details>
-    <summary>Cell Wireframe Image for Quiz and Contact Pages</summary>
-
-![Tablet Wireframe Image for Contact Page](docs/wireframes/wireframe-cell-quiz-contact-pages.PNG)
-</details>
-
-
-<br>
-
-[PDF File for Desktop Wireframe](docs/wireframes/wireframe-desktop.pdf)
-
-[PDF File for Tablet Wireframe](docs/wireframes/wireframe-tablet.pdf)
-
-[PDF File for Cell Wireframe](docs/wireframes/wireframe-cell.pdf)
 <br><br>
 ## [Back to Index](#index)
 <br>

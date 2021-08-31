@@ -121,31 +121,21 @@ ___
 
 The following languages, software and tools were implemented using Windows 10 Pro:
 ## **Languages**
-- #### **HTML**
-- #### **CSS**
-- #### **JavaScript**
+- #### **Python**
+
 
 #### [Back to Index](#index)
 
 ## **Software and Other Tools**
 - #### **GitHub**
 - #### **Gitpod**
-- #### **Font Awesome (v5.15)**
-- #### **Bootstrap (v4.0)**
-- #### **EmailJS**
-- #### **Balsamiq Wireframes (v4.2.4, Editor Version 2.6.0)**
-- #### **Google Fonts**
-- #### **MATLAB, The MathWorks, Inc. (to generate function plots in Functions page and obtain Morlet function)**
-- #### **W3C Markup Validation Service**
-- #### **W3C CSS Validation Service**
-- #### **JSHint (version 2.13.0)**
-- #### **WAVE Web Accessibility Evaluation Tool**
-- #### **Google Lighthouse (used in Google, Microsoft Edge and Firefox)**
+- #### **PEP8**
+- #### **Heroku Platform**
 - #### **Google Chrome, version 91.0.4472.114, Official Build, 64-bit (and its development tool)**
 - #### **Microsoft Edge, version 91.0.864.59, Official build, 64-bit (and its development tool)**
 - #### **Firefox, 89.0.2, 64-bit (and its development tool)**
 - #### **Microsoft Internet Explorer, version 2004, OS Build 19041.1052**
-- #### Babel JavaScript compiler (transpiler, to try to solve ES5 issues for Internet Explorer, finally not implemented, https://babeljs.io/docs/en/babel-standalone).
+
 <br><br>
 ## [Back to Index](#index)
 

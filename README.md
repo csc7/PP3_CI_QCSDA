@@ -80,6 +80,7 @@ User stories are divided into the following three groups:
 
 
 - ### **Returning users**
+6. As a returning user, I want to have the option to read and store my files both in the cloud and a local disk, so I am able to perform QA/QC activities even when the recorder is far awav from the basecamp (where the computers are located).
 7. As a returning user, I want to automate a daily repetitive task, so I do not use much time to generate the list of points to be reaquired.
 8. As a returning user, I want to have the option to visualize the data, so I check if there is any anomaly before writing the final list.
 9. As a returning user, I want to automate the process, so I commit fewer (or none) errors.

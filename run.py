@@ -181,7 +181,7 @@ def validate_data_from_Google(data_to_validate):
  
     if (isinstance(data_to_validate[0], dict)):
         qc_dictionary = load_parameters(data_to_validate[0])
-        print(qc_dictionary)
+        #print(qc_dictionary)
 
         try:        
             qc_dictionary.update({
@@ -197,30 +197,8 @@ def validate_data_from_Google(data_to_validate):
                 "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 1:9],
             })
 
-            for item in qc_dictionary["distortion"]:
-                item = round(float(item), 2)
-            for item in qc_dictionary["average_force"]:
-                item = round(float(item), 2)
-            for item in qc_dictionary["positioning"]:
-                item = round(float(item), 2)
-
-            # Calculate distance from COG to planned coordinate before retuning the dictionary
-            x_p = qc_dictionary['positioning'].iloc[:, 1]
-            x_planned = pd.to_numeric(x_p)
-            y_p = qc_dictionary['positioning'].iloc[:, 2]
-            y_planned = pd.to_numeric(y_p)
-            z_p = qc_dictionary['positioning'].iloc[:, 3]
-            z_planned = pd.to_numeric(z_p)
-            x_c = qc_dictionary['positioning'].iloc[:, 4]
-            x_cog = pd.to_numeric(x_c)
-            y_c = qc_dictionary['positioning'].iloc[:, 5]
-            y_cog = pd.to_numeric(y_c)
-            z_c = qc_dictionary['positioning'].iloc[:, 6]
-            z_cog = pd.to_numeric(z_c)
-
-            distance = ((x_planned - x_cog)*(x_planned - x_cog) + (y_planned - y_cog)*(y_planned - y_cog) + (z_planned - z_cog)*(z_planned - z_cog))**0.5
-
-            qc_dictionary['positioning'].iloc[:, 7] = distance
+            print("\nCurrent Acquisition Parameters:")
+            print_acq_param(qc_dictionary)
 
 
         except TypeError as e:
@@ -250,18 +228,18 @@ def validate_data_from_Google(data_to_validate):
                 "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 1:9],
             }
 
-            
+            qc_dictionary = ask_to_overwrite_parameters(qc_dictionary)
 
         except TypeError as e:
             print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
             return False
 
-            for item in qc_dictionary["distortion"]:
-                item = round(float(item), 2)
-            for item in qc_dictionary["average_force"]:
-                item = round(float(item), 2)
-            for item in qc_dictionary["positioning"]:
-                item = round(float(item), 2)
+        for item in qc_dictionary["distortion"]:
+            item = round(float(item), 2)
+        for item in qc_dictionary["average_force"]:
+            item = round(float(item), 2)
+        for item in qc_dictionary["positioning"]:
+            item = round(float(item), 2)
 
         # Calculate distance from COG to planned coordinate before retuning the dictionary
         x_p = qc_dictionary['positioning'].iloc[:, 1]
@@ -313,6 +291,9 @@ def validate_data_locally(data_to_validate):
                 "average_force": round(data_to_validate[3].iloc[(header_lines_in_av_force_file-1):], 2),
                 "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9], 2),
             })
+
+            print("\nCurrent Acquisition Parameters:")
+            print_acq_param(qc_dictionary)
 
         except TypeError as e:
             print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
@@ -367,20 +348,22 @@ def validate_data_locally(data_to_validate):
 
 def ask_to_overwrite_parameters(qc_dictionary):
     print("\nCurrent Acquisition Parameters:")
-    print(f"{int(qc_dictionary['tolerances']['fleets'])} fleets and {int(qc_dictionary['tolerances']['vibs_per_fleet'])} vibrators per fleet")
-    print(f"Maximum distance from COG: {qc_dictionary['tolerances']['max_cog_dist']}")
-    print(f"Maximum distortion: {qc_dictionary['tolerances']['max_distortion']}")
-    print(f"{qc_dictionary['tolerances']['min_av_force']}% as minimum and {qc_dictionary['tolerances']['max_av_force']}% as maximum average force")
+    print_acq_param(qc_dictionary)
     print("Would you like to assing new parameters?\n")
     overwrite = input ('Press "Y" to overwrite or other key to continue:\n')
     if (overwrite == 'Y' or overwrite == 'y'):
         load_parameters(qc_dictionary)
         print("\nNew Acquisition Parameters:")
-        print(f"{int(qc_dictionary['tolerances']['fleets'])} fleets and {int(qc_dictionary['tolerances']['vibs_per_fleet'])} vibrators per fleet")
-        print(f"Maximum distance from COG: {qc_dictionary['tolerances']['max_cog_dist']}")
-        print(f"Maximum distortion: {qc_dictionary['tolerances']['max_distortion']}")
-        print(f"{qc_dictionary['tolerances']['min_av_force']}% as minimum and {qc_dictionary['tolerances']['max_av_force']}% as maximum average force\n")
+        print_acq_param(qc_dictionary)
     return qc_dictionary
+
+
+def print_acq_param(qc_dictionary):
+    print(f"{int(qc_dictionary['tolerances']['fleets'])} fleets and {int(qc_dictionary['tolerances']['vibs_per_fleet'])} vibrators per fleet")
+    print(f"Maximum distance from COG: {qc_dictionary['tolerances']['max_cog_dist']}")
+    print(f"Maximum distortion: {qc_dictionary['tolerances']['max_distortion']}")
+    print(f"{qc_dictionary['tolerances']['min_av_force']}% as minimum and {qc_dictionary['tolerances']['max_av_force']}% as maximum average force\n")
+    return
 
 
 def get_daily_amounts(qc_dictionary):
@@ -616,14 +599,13 @@ def main(run_program):
             if (data_loaded == False):
                 break
             qc_data = validate_data_from_Google(data_loaded)
-            ask_to_overwrite_parameters(qc_data)
+            
 
         if (run_program == "L" or run_program == "l"):
             data_source = 'Local Drive'
             data_loaded = load_sheets_locally()
             if (data_loaded == False):
                 break
-            print(data_loaded)
             qc_data = validate_data_locally(data_loaded)
             
 

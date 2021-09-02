@@ -224,7 +224,7 @@ def validate_data_from_Google(data_to_validate):
                 #"distortion": distortion,
                 "distortion": data_to_validate[2].iloc[(header_lines_in_distorion_file-2):],
                 "average_force": data_to_validate[3].iloc[(header_lines_in_av_force_file-2):],
-                "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 1:9],
+                "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 0:8],
             })
 
             print("\nCurrent Acquisition Parameters:")
@@ -439,6 +439,7 @@ def get_points_to_reaquire(qc_dictionary):
     This function computes the points that are out of specifications and
     need to be reaquired.
     """
+    print(qc_dictionary)
     max_distortion = float(qc_dictionary['tolerances']['max_distortion'])
     min_av_force = float(qc_dictionary['tolerances']['min_av_force'])
     max_av_force = float(qc_dictionary['tolerances']['max_av_force'])

@@ -162,7 +162,7 @@ def load_sheets_locally():
 
 def load_parameters(qc_dict):
     qc_dictionary = qc_dict
-    qc_dictionary['tolerances']['fleets'] = float(input("Enter number of fleets: \n"))
+    qc_dictionary['tolerances']['fleets'] = float(input("\nEnter number of fleets: \n"))
     qc_dictionary['tolerances']['vibs_per_fleet'] = float(input("Enter number of vibrators per fleets: \n"))
     qc_dictionary['tolerances']['max_cog_dist'] = float(input("Enter maximum distance to COG: \n"))
     qc_dictionary['tolerances']['max_distortion'] = float(input("Enter maximum distortion: \n"))
@@ -624,7 +624,7 @@ def main(run_program):
             print('Press "Y" + "enter" to continue or other key + "enter" to close the program.\n')
             cont_option = input('Select option: \n')
             if (cont_option == "Y" or cont_option == "y"):
-                continue
+                pass
             else:
                 print("Program closed.")
                 break               
@@ -680,13 +680,13 @@ print("-----------------------------------------------------------------")
 print("")
 print("Make sure you have the following sheets in the working folder:")
 print("")
-print("PARAMETERS (you can manually enter the parameters if you prefer")
-print("    or if the file is not available")
-print("daily_report")
-print("distortion")
-print("average_force")
-print("positioning")
-print("QCSDA")
+print(" * PARAMETERS (you can manually enter the parameters if you prefer")
+print("    or if the file is not available)")
+print(" * daily_report")
+print(" * distortion")
+print(" * average_force")
+print(" * positioning")
+print(" * QCSDA")
 print("")
 print('Press "G" + "enter" to read data from Google Drive')
 print('Press "L" + "enter" to read data locally')

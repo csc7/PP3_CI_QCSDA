@@ -78,9 +78,10 @@ def load_sheets_locally():
     This function checks that all required sheets are present in the local drive
     and read the worksheets if they are.
     """
+
     print("\nLoading spreadsheet and worksheets...\n")
     try:
-        tolerances_data = pd.read_excel('qcdata/PARAMETERS.xlsx', engine='openpyxl')
+        #tolerances_data = pd.read_excel('qcdata/PARAMETERS.xlsx', engine='openpyxl')
         daily_report_data = pd.read_excel('qcdata/daily_report.xlsx', engine='openpyxl')
         distortion_data = pd.read_excel('qcdata/distortion.xlsx', engine='openpyxl')
         average_force_data = pd.read_excel('qcdata/average_force.xlsx', engine='openpyxl')
@@ -94,11 +95,34 @@ def load_sheets_locally():
         return False
     
     except UnboundLocalError as e:
+        print(f"Something went wrong: {e}. Please try again.\n")
+        return False
+
+    # Check if parameters file is available and give the option to enter them
+    # manually if they are not.
+    try:
+        tolerances_data = pd.read_excel('qcdata/PARAMETERS.xlsx', engine='openpyxl')
+
+    except FileNotFoundError as e:
+        print("No parameters file.")
+        param = input('Press "P" to enter them manually or other key to close the program.\n')
+        if (param == "P" or param == "p"):
+            return True
+        else:
+            return False
+    
+    except UnboundLocalError as e:
         print(f"Something went wrong, {e}. Please try again.\n")
         return False
 
+
     return [tolerances_data, daily_report_data, distortion_data, average_force_data,
             positioning_data, SHEET_QCSDA]
+
+
+
+#def load_parameters():
+
 
 
 def validate_data_from_Google(data_to_validate):
@@ -173,10 +197,45 @@ def validate_data_locally(data_to_validate):
     dictionary
     """
     print("\nValidating data in the sheets...\n")
- 
-    try:
 
-        qc_dictionary = {
+    # If True ask for parameters
+    qc_dictionary = {
+        "tolerances": {
+            "fleets": 0,
+            "vibs_per_fleet": 0,
+            "max_cog_dist": 0,
+            "max_distortion": 0,
+            "min_av_force": 0,
+            "max_av_force": 0,
+        }}
+    if (data_to_validate == True):        
+        qc_dictionary['tolerances']['fleets'] = input("Enter number of fleets: \n")
+        qc_dictionary['tolerances']['vibs_per_fleet'] = input("Enter number of vibrators per fleets: \n")
+        qc_dictionary['tolerances']['max_cog_dist'] = input("Enter maximum distance to COG: \n")
+        qc_dictionary['tolerances']['max_distortion'] = input("Enter maximum distortion: \n")
+        qc_dictionary['tolerances']['min_av_force'] = input("Enter minimum average force: \n")
+        qc_dictionary['tolerances']['max_av_force'] = input("Enter maximum average force: \n") 
+        try:
+            qc_dictionary = {
+                "daily_report": {
+                    "date": data_to_validate[1].iloc[7, 1],
+                    "daily_prod": float(data_to_validate[1].iloc[22, 2]),
+                    "daily_layout": float(data_to_validate[1].iloc[23, 2]),
+                    "daily_pick_up": float(data_to_validate[1].iloc[24, 2]),
+                },
+                #"distortion": distortion,
+                "distortion": round(data_to_validate[2].iloc[(header_lines_in_distorion_file-1):], 2),
+                "average_force": round(data_to_validate[3].iloc[(header_lines_in_av_force_file-1):], 2),
+                "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9], 2),
+            }
+
+        except TypeError as e:
+            print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
+            return False
+
+    else:
+        try:
+            qc_dictionary = {
             "tolerances": {
                 "fleets": float(data_to_validate[0].iloc[1, 2]),
                 "vibs_per_fleet": float(data_to_validate[0].iloc[2, 2]),
@@ -197,24 +256,24 @@ def validate_data_locally(data_to_validate):
             "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9], 2),
         }
 
-        # Calculate distance from COG to planned coordinate before retuning the dictionary
-        x_planned = qc_dictionary['positioning'].iloc[:, 1]
-        y_planned = qc_dictionary['positioning'].iloc[:, 2]
-        z_planned = qc_dictionary['positioning'].iloc[:, 3]
-        x_cog = qc_dictionary['positioning'].iloc[:, 4]
-        y_cog = qc_dictionary['positioning'].iloc[:, 5]
-        z_cog = qc_dictionary['positioning'].iloc[:, 6]
+        except TypeError as e:
+            print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
+            return False
+
+    # Calculate distance from COG to planned coordinate before retuning the dictionary
+    x_planned = qc_dictionary['positioning'].iloc[:, 1]
+    y_planned = qc_dictionary['positioning'].iloc[:, 2]
+    z_planned = qc_dictionary['positioning'].iloc[:, 3]
+    x_cog = qc_dictionary['positioning'].iloc[:, 4]
+    y_cog = qc_dictionary['positioning'].iloc[:, 5]
+    z_cog = qc_dictionary['positioning'].iloc[:, 6]
 
 
-        distance = ((x_planned - x_cog)*(x_planned - x_cog) + (y_planned - y_cog)*(y_planned - y_cog) + (z_planned - z_cog)*(z_planned - z_cog))**0.5
+    distance = ((x_planned - x_cog)*(x_planned - x_cog) + (y_planned - y_cog)*(y_planned - y_cog) + (z_planned - z_cog)*(z_planned - z_cog))**0.5
 
-        qc_dictionary['positioning'].iloc[:, 7] = distance
+    qc_dictionary['positioning'].iloc[:, 7] = distance
 
-        QCSDA_SPREADSHEET = data_to_validate[5]
-
-    except TypeError as e:
-        print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
-        return False
+    QCSDA_SPREADSHEET = data_to_validate[5]
 
     return (qc_dictionary, QCSDA_SPREADSHEET)
 

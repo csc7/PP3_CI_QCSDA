@@ -35,9 +35,9 @@ def load_sheets_from_Google_Drive():
     """
     print("\nLoading spreadsheet and worksheets...\n")
     try:
-        SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMETERS')
-        tolerances_data = SHEET_PARAMETERS.worksheet('Tolerances')
-        tolerances_data = pd.DataFrame(tolerances_data.get_all_values())
+        #SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMETERS')
+        #tolerances_data = SHEET_PARAMETERS.worksheet('Tolerances')
+        #tolerances_data = pd.DataFrame(tolerances_data.get_all_values())
         
 
         SHEET_DAILY_REPORT = GSPREAD_CLIENT.open('daily_report')
@@ -59,13 +59,39 @@ def load_sheets_from_Google_Drive():
         positioning_data = SHEET_POSITIONING.worksheet('Positioning')
         positioning_data = pd.DataFrame(positioning_data.get_all_values())
 
-        print(tolerances_data.iloc[1, 2])
+        #print(tolerances_data.iloc[1, 2])
         print("\nSpreadsheet and worksheets loaded.\n")
 
     except gspread.exceptions.SpreadsheetNotFound:
         print("Some files are missing or have a different name.")
         print("Please check all files are in place with the correct names.")
         return False
+
+    try:
+        SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMETERS')
+        tolerances_data = SHEET_PARAMETERS.worksheet('Tolerances')
+        tolerances_data = pd.DataFrame(tolerances_data.get_all_values())        
+
+    except gspread.exceptions.SpreadsheetNotFound:
+        print("No parameters file.")
+        param = input('Press "P" to enter them manually or other key to close the program.\n')
+        # Initialize and assing zero to tolerances, so data structure is defined
+        # when returning the function value
+        if (param == "P" or param == "p"):
+            tolerances_data = {
+                "tolerances": {
+                    "fleets": float(0),
+                    "vibs_per_fleet": float(0),
+                    "max_cog_dist": float(0),
+                    "max_distortion": float(0),
+                    "min_av_force": float(0),
+                    "max_av_force": float(0),
+                }
+            }
+            return [tolerances_data, daily_report_data, distortion_data, average_force_data,
+            positioning_data]
+        else:
+            return False
 
     return [tolerances_data, daily_report_data, distortion_data, average_force_data,
             positioning_data]  #, SHEET_QCSDA
@@ -146,36 +172,94 @@ def validate_data_from_Google(data_to_validate):
     """
     print("\nValidating data in the sheets...\n")
  
-    try:
+    if (isinstance(data_to_validate[0], dict)):
+        qc_dictionary = data_to_validate[0]
+        qc_dictionary['tolerances']['fleets'] = float(input("Enter number of fleets: \n"))
+        qc_dictionary['tolerances']['vibs_per_fleet'] = float(input("Enter number of vibrators per fleets: \n"))
+        qc_dictionary['tolerances']['max_cog_dist'] = float(input("Enter maximum distance to COG: \n"))
+        qc_dictionary['tolerances']['max_distortion'] = float(input("Enter maximum distortion: \n"))
+        qc_dictionary['tolerances']['min_av_force'] = float(input("Enter minimum average force: \n"))
+        qc_dictionary['tolerances']['max_av_force'] = float(input("Enter maximum average force: \n"))
+        print(qc_dictionary)
 
-        qc_dictionary = {
-            "tolerances": {
-                "fleets": float(data_to_validate[0].iloc[0, 2]),
-                "vibs_per_fleet": float(data_to_validate[0].iloc[1, 2]),
-                "max_cog_dist": float(data_to_validate[0].iloc[6, 2]),
-                "max_distortion": float(data_to_validate[0].iloc[7, 2]),
-                "min_av_force": float(data_to_validate[0].iloc[8, 3]),
-                "max_av_force": float(data_to_validate[0].iloc[8, 4]),
-            },
-            "daily_report": {
-                "date": data_to_validate[1].iloc[6, 1],
-                "daily_prod": float(data_to_validate[1].iloc[21, 2]),
-                "daily_layout": float(data_to_validate[1].iloc[22, 2]),
-                "daily_pick_up": float(data_to_validate[1].iloc[23, 2]),
-            },
-            #"distortion": distortion,
-            "distortion": data_to_validate[2].iloc[(header_lines_in_distorion_file-2):],
-            "average_force": data_to_validate[3].iloc[(header_lines_in_av_force_file-2):],
-            "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 1:9],
-        }
+        try:        
+            qc_dictionary.update({
+                "daily_report": {
+                    "date": data_to_validate[1].iloc[6, 1],
+                    "daily_prod": float(data_to_validate[1].iloc[21, 2]),
+                    "daily_layout": float(data_to_validate[1].iloc[22, 2]),
+                    "daily_pick_up": float(data_to_validate[1].iloc[23, 2]),
+                },
+                #"distortion": distortion,
+                "distortion": data_to_validate[2].iloc[(header_lines_in_distorion_file-2):],
+                "average_force": data_to_validate[3].iloc[(header_lines_in_av_force_file-2):],
+                "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 1:9],
+            })
 
-        for item in qc_dictionary["distortion"]:
-            item = round(float(item), 2)
-        for item in qc_dictionary["average_force"]:
-            item = round(float(item), 2)
-        for item in qc_dictionary["positioning"]:
-            item = round(float(item), 2)
-        
+            for item in qc_dictionary["distortion"]:
+                item = round(float(item), 2)
+            for item in qc_dictionary["average_force"]:
+                item = round(float(item), 2)
+            for item in qc_dictionary["positioning"]:
+                item = round(float(item), 2)
+
+            # Calculate distance from COG to planned coordinate before retuning the dictionary
+            x_p = qc_dictionary['positioning'].iloc[:, 1]
+            x_planned = pd.to_numeric(x_p)
+            y_p = qc_dictionary['positioning'].iloc[:, 2]
+            y_planned = pd.to_numeric(y_p)
+            z_p = qc_dictionary['positioning'].iloc[:, 3]
+            z_planned = pd.to_numeric(z_p)
+            x_c = qc_dictionary['positioning'].iloc[:, 4]
+            x_cog = pd.to_numeric(x_c)
+            y_c = qc_dictionary['positioning'].iloc[:, 5]
+            y_cog = pd.to_numeric(y_c)
+            z_c = qc_dictionary['positioning'].iloc[:, 6]
+            z_cog = pd.to_numeric(z_c)
+
+            distance = ((x_planned - x_cog)*(x_planned - x_cog) + (y_planned - y_cog)*(y_planned - y_cog) + (z_planned - z_cog)*(z_planned - z_cog))**0.5
+
+            qc_dictionary['positioning'].iloc[:, 7] = distance
+
+
+        except TypeError as e:
+            print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
+            return False
+
+    else:        
+        try:
+            qc_dictionary = {
+                "tolerances": {
+                    "fleets": float(data_to_validate[0].iloc[0, 2]),
+                    "vibs_per_fleet": float(data_to_validate[0].iloc[1, 2]),
+                    "max_cog_dist": float(data_to_validate[0].iloc[6, 2]),
+                    "max_distortion": float(data_to_validate[0].iloc[7, 2]),
+                    "min_av_force": float(data_to_validate[0].iloc[8, 3]),
+                    "max_av_force": float(data_to_validate[0].iloc[8, 4]),
+                },
+                "daily_report": {
+                    "date": data_to_validate[1].iloc[6, 1],
+                    "daily_prod": float(data_to_validate[1].iloc[21, 2]),
+                    "daily_layout": float(data_to_validate[1].iloc[22, 2]),
+                    "daily_pick_up": float(data_to_validate[1].iloc[23, 2]),
+                },
+                #"distortion": distortion,
+                "distortion": data_to_validate[2].iloc[(header_lines_in_distorion_file-2):],
+                "average_force": data_to_validate[3].iloc[(header_lines_in_av_force_file-2):],
+                "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 1:9],
+            }
+
+        except TypeError as e:
+            print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
+            return False
+
+            for item in qc_dictionary["distortion"]:
+                item = round(float(item), 2)
+            for item in qc_dictionary["average_force"]:
+                item = round(float(item), 2)
+            for item in qc_dictionary["positioning"]:
+                item = round(float(item), 2)
+
         # Calculate distance from COG to planned coordinate before retuning the dictionary
         x_p = qc_dictionary['positioning'].iloc[:, 1]
         x_planned = pd.to_numeric(x_p)
@@ -194,10 +278,6 @@ def validate_data_from_Google(data_to_validate):
 
         qc_dictionary['positioning'].iloc[:, 7] = distance
 
-
-    except TypeError as e:
-        print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
-        return False
 
     return (qc_dictionary)#, QCSDA_SPREADSHEET)
 

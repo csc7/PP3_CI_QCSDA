@@ -1059,6 +1059,8 @@ Bugs that required more time and specific solutions were the following ones:
 | Bug | Solution |
 | ---- | ---- |
 | Amount of points for reacquisition were different when using different file locations (Google Sheets in Google Drive and locally) | Issued solved by using to Python function round() to get numbers with two decimals for distortion, average force and positioning values. | 
+| "If" condition did not activate/could not check condition when dealing with Pandas dataframe (reading locally) or dictionary (when entering acquisition parameters manually). When trying to address first element, ambiguity error arose | Issue solver by using "isinstance" function to check if data are a dictionary, activating condition if it is |
+| Dictionary lose "tolerances" element and operations cannot be performed in validate_data_locally() function | Issue solved by using "update" method when assigning new items to the dictionary |
 
 
 <br><br>

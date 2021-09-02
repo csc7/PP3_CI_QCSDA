@@ -106,8 +106,21 @@ def load_sheets_locally():
     except FileNotFoundError as e:
         print("No parameters file.")
         param = input('Press "P" to enter them manually or other key to close the program.\n')
+        # Initialize and assing zero to tolerances, so data structure is defined
+        # when returning the function value
         if (param == "P" or param == "p"):
-            return True
+            tolerances_data = {
+                "tolerances": {
+                    "fleets": float(0),
+                    "vibs_per_fleet": float(0),
+                    "max_cog_dist": float(0),
+                    "max_distortion": float(0),
+                    "min_av_force": float(0),
+                    "max_av_force": float(0),
+                }
+            }
+            return [tolerances_data, daily_report_data, distortion_data, average_force_data,
+            positioning_data, SHEET_QCSDA]
         else:
             return False
     
@@ -198,25 +211,20 @@ def validate_data_locally(data_to_validate):
     """
     print("\nValidating data in the sheets...\n")
 
-    # If True ask for parameters
-    qc_dictionary = {
-        "tolerances": {
-            "fleets": 0,
-            "vibs_per_fleet": 0,
-            "max_cog_dist": 0,
-            "max_distortion": 0,
-            "min_av_force": 0,
-            "max_av_force": 0,
-        }}
-    if (data_to_validate == True):        
-        qc_dictionary['tolerances']['fleets'] = input("Enter number of fleets: \n")
-        qc_dictionary['tolerances']['vibs_per_fleet'] = input("Enter number of vibrators per fleets: \n")
-        qc_dictionary['tolerances']['max_cog_dist'] = input("Enter maximum distance to COG: \n")
-        qc_dictionary['tolerances']['max_distortion'] = input("Enter maximum distortion: \n")
-        qc_dictionary['tolerances']['min_av_force'] = input("Enter minimum average force: \n")
-        qc_dictionary['tolerances']['max_av_force'] = input("Enter maximum average force: \n") 
+    # If dictionary, it means there was no parameters file,
+    # so ask for them here
+    
+    if (isinstance(data_to_validate[0], dict)):
+        qc_dictionary = data_to_validate[0]
+        qc_dictionary['tolerances']['fleets'] = float(input("Enter number of fleets: \n"))
+        qc_dictionary['tolerances']['vibs_per_fleet'] = float(input("Enter number of vibrators per fleets: \n"))
+        qc_dictionary['tolerances']['max_cog_dist'] = float(input("Enter maximum distance to COG: \n"))
+        qc_dictionary['tolerances']['max_distortion'] = float(input("Enter maximum distortion: \n"))
+        qc_dictionary['tolerances']['min_av_force'] = float(input("Enter minimum average force: \n"))
+        qc_dictionary['tolerances']['max_av_force'] = float(input("Enter maximum average force: \n"))
+        print(qc_dictionary)
         try:
-            qc_dictionary = {
+            qc_dictionary.update({
                 "daily_report": {
                     "date": data_to_validate[1].iloc[7, 1],
                     "daily_prod": float(data_to_validate[1].iloc[22, 2]),
@@ -227,7 +235,7 @@ def validate_data_locally(data_to_validate):
                 "distortion": round(data_to_validate[2].iloc[(header_lines_in_distorion_file-1):], 2),
                 "average_force": round(data_to_validate[3].iloc[(header_lines_in_av_force_file-1):], 2),
                 "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9], 2),
-            }
+            })
 
         except TypeError as e:
             print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
@@ -273,11 +281,13 @@ def validate_data_locally(data_to_validate):
 
     qc_dictionary['positioning'].iloc[:, 7] = distance
 
-    QCSDA_SPREADSHEET = data_to_validate[5]
+    #QCSDA_SPREADSHEET = data_to_validate[5]
 
-    return (qc_dictionary, QCSDA_SPREADSHEET)
+    return (qc_dictionary)
 
 def get_daily_amounts(qc_dictionary):
+    print("aaaa")
+    print(qc_dictionary)
     """
     This function compares the data available in the distortion, average force,
     and positioning files and compare them with the daily acquisition of 
@@ -516,7 +526,7 @@ def main(run_program):
             data_loaded = load_sheets_locally()
             if (data_loaded == False):
                 break
-            qc_data, QCSDA_EXCEL_FILE = validate_data_locally(data_loaded)
+            qc_data = validate_data_locally(data_loaded)
 
         # 2nd Function: Validation
         #qc_data = validate_data(data_loaded[slice(0, 5)])

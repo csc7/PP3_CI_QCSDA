@@ -160,8 +160,15 @@ def load_sheets_locally():
 
 
 
-#def load_parameters():
-
+def load_parameters(qc_dict):
+    qc_dictionary = qc_dict
+    qc_dictionary['tolerances']['fleets'] = float(input("Enter number of fleets: \n"))
+    qc_dictionary['tolerances']['vibs_per_fleet'] = float(input("Enter number of vibrators per fleets: \n"))
+    qc_dictionary['tolerances']['max_cog_dist'] = float(input("Enter maximum distance to COG: \n"))
+    qc_dictionary['tolerances']['max_distortion'] = float(input("Enter maximum distortion: \n"))
+    qc_dictionary['tolerances']['min_av_force'] = float(input("Enter minimum average force: \n"))
+    qc_dictionary['tolerances']['max_av_force'] = float(input("Enter maximum average force: \n"))
+    return qc_dictionary
 
 
 def validate_data_from_Google(data_to_validate):
@@ -173,13 +180,7 @@ def validate_data_from_Google(data_to_validate):
     print("\nValidating data in the sheets...\n")
  
     if (isinstance(data_to_validate[0], dict)):
-        qc_dictionary = data_to_validate[0]
-        qc_dictionary['tolerances']['fleets'] = float(input("Enter number of fleets: \n"))
-        qc_dictionary['tolerances']['vibs_per_fleet'] = float(input("Enter number of vibrators per fleets: \n"))
-        qc_dictionary['tolerances']['max_cog_dist'] = float(input("Enter maximum distance to COG: \n"))
-        qc_dictionary['tolerances']['max_distortion'] = float(input("Enter maximum distortion: \n"))
-        qc_dictionary['tolerances']['min_av_force'] = float(input("Enter minimum average force: \n"))
-        qc_dictionary['tolerances']['max_av_force'] = float(input("Enter maximum average force: \n"))
+        qc_dictionary = load_parameters(data_to_validate[0])
         print(qc_dictionary)
 
         try:        
@@ -295,14 +296,8 @@ def validate_data_locally(data_to_validate):
     # so ask for them here
     
     if (isinstance(data_to_validate[0], dict)):
-        qc_dictionary = data_to_validate[0]
-        qc_dictionary['tolerances']['fleets'] = float(input("Enter number of fleets: \n"))
-        qc_dictionary['tolerances']['vibs_per_fleet'] = float(input("Enter number of vibrators per fleets: \n"))
-        qc_dictionary['tolerances']['max_cog_dist'] = float(input("Enter maximum distance to COG: \n"))
-        qc_dictionary['tolerances']['max_distortion'] = float(input("Enter maximum distortion: \n"))
-        qc_dictionary['tolerances']['min_av_force'] = float(input("Enter minimum average force: \n"))
-        qc_dictionary['tolerances']['max_av_force'] = float(input("Enter maximum average force: \n"))
-        print(qc_dictionary)
+        qc_dictionary = load_parameters(data_to_validate[0])
+
         try:
             qc_dictionary.update({
                 "daily_report": {
@@ -364,6 +359,20 @@ def validate_data_locally(data_to_validate):
     #QCSDA_SPREADSHEET = data_to_validate[5]
 
     return (qc_dictionary)
+
+
+def ask_to_overwrite_parameters(qc_dictionary):
+    print("\nCurrent Acquisition Parameters:")
+    print(f"{int(qc_dictionary['tolerances']['fleets'])} fleets and {int(qc_dictionary['tolerances']['vibs_per_fleet'])} vibrators per fleet")
+    print(f"Maximum distance from COG: {qc_dictionary['tolerances']['max_cog_dist']}")
+    print(f"Maximum distortion: {qc_dictionary['tolerances']['max_distortion']}")
+    print(f"{qc_dictionary['tolerances']['min_av_force']}% as minimum and {qc_dictionary['tolerances']['max_av_force']}% as maximum average force")
+    print("Would you like to assing new parameters?\n")
+    overwrite = input ('Press "Y" to overwrite or other key to continue:\n')
+    if (overwrite == 'Y' or overwrite == 'y'):
+        load_parameters(qc_dictionary)
+    return qc_dictionary
+
 
 def get_daily_amounts(qc_dictionary):
     print("aaaa")
@@ -600,13 +609,16 @@ def main(run_program):
             if (data_loaded == False):
                 break
             qc_data = validate_data_from_Google(data_loaded)
+            ask_to_overwrite_parameters(qc_data)
 
         if (run_program == "L" or run_program == "l"):
             data_source = 'Local Drive'
             data_loaded = load_sheets_locally()
             if (data_loaded == False):
                 break
+            print(data_loaded)
             qc_data = validate_data_locally(data_loaded)
+            ask_to_overwrite_parameters(qc_data)
 
         # 2nd Function: Validation
         #qc_data = validate_data(data_loaded[slice(0, 5)])

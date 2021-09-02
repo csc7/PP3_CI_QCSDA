@@ -250,6 +250,8 @@ def validate_data_from_Google(data_to_validate):
                 "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 1:9],
             }
 
+            
+
         except TypeError as e:
             print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
             return False
@@ -319,25 +321,27 @@ def validate_data_locally(data_to_validate):
     else:
         try:
             qc_dictionary = {
-            "tolerances": {
-                "fleets": float(data_to_validate[0].iloc[1, 2]),
-                "vibs_per_fleet": float(data_to_validate[0].iloc[2, 2]),
-                "max_cog_dist": float(data_to_validate[0].iloc[7, 2]),
-                "max_distortion": float(data_to_validate[0].iloc[8, 2]),
-                "min_av_force": float(data_to_validate[0].iloc[9, 3]),
-                "max_av_force": float(data_to_validate[0].iloc[9, 4]),
-            },
-            "daily_report": {
-                "date": data_to_validate[1].iloc[7, 1],
-                "daily_prod": float(data_to_validate[1].iloc[22, 2]),
-                "daily_layout": float(data_to_validate[1].iloc[23, 2]),
-                "daily_pick_up": float(data_to_validate[1].iloc[24, 2]),
-            },
-            #"distortion": distortion,
-            "distortion": round(data_to_validate[2].iloc[(header_lines_in_distorion_file-1):], 2),
-            "average_force": round(data_to_validate[3].iloc[(header_lines_in_av_force_file-1):], 2),
-            "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9], 2),
-        }
+                "tolerances": {
+                    "fleets": float(data_to_validate[0].iloc[1, 2]),
+                    "vibs_per_fleet": float(data_to_validate[0].iloc[2, 2]),
+                    "max_cog_dist": float(data_to_validate[0].iloc[7, 2]),
+                    "max_distortion": float(data_to_validate[0].iloc[8, 2]),
+                    "min_av_force": float(data_to_validate[0].iloc[9, 3]),
+                    "max_av_force": float(data_to_validate[0].iloc[9, 4]),
+                },
+                "daily_report": {
+                    "date": data_to_validate[1].iloc[7, 1],
+                    "daily_prod": float(data_to_validate[1].iloc[22, 2]),
+                    "daily_layout": float(data_to_validate[1].iloc[23, 2]),
+                    "daily_pick_up": float(data_to_validate[1].iloc[24, 2]),
+                },
+                #"distortion": distortion,
+                "distortion": round(data_to_validate[2].iloc[(header_lines_in_distorion_file-1):], 2),
+                "average_force": round(data_to_validate[3].iloc[(header_lines_in_av_force_file-1):], 2),
+                "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9], 2),
+            }
+
+            qc_dictionary = ask_to_overwrite_parameters(qc_dictionary)
 
         except TypeError as e:
             print(f"Data could not be validted: {e}. Please check format is correct for each file.\n")
@@ -371,12 +375,15 @@ def ask_to_overwrite_parameters(qc_dictionary):
     overwrite = input ('Press "Y" to overwrite or other key to continue:\n')
     if (overwrite == 'Y' or overwrite == 'y'):
         load_parameters(qc_dictionary)
+        print("\nNew Acquisition Parameters:")
+        print(f"{int(qc_dictionary['tolerances']['fleets'])} fleets and {int(qc_dictionary['tolerances']['vibs_per_fleet'])} vibrators per fleet")
+        print(f"Maximum distance from COG: {qc_dictionary['tolerances']['max_cog_dist']}")
+        print(f"Maximum distortion: {qc_dictionary['tolerances']['max_distortion']}")
+        print(f"{qc_dictionary['tolerances']['min_av_force']}% as minimum and {qc_dictionary['tolerances']['max_av_force']}% as maximum average force\n")
     return qc_dictionary
 
 
 def get_daily_amounts(qc_dictionary):
-    print("aaaa")
-    print(qc_dictionary)
     """
     This function compares the data available in the distortion, average force,
     and positioning files and compare them with the daily acquisition of 
@@ -618,7 +625,7 @@ def main(run_program):
                 break
             print(data_loaded)
             qc_data = validate_data_locally(data_loaded)
-            ask_to_overwrite_parameters(qc_data)
+            
 
         # 2nd Function: Validation
         #qc_data = validate_data(data_loaded[slice(0, 5)])

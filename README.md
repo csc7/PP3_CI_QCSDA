@@ -1062,7 +1062,7 @@ Bugs that required more time and specific solutions were the following ones:
 | "If" condition did not activate/could not check condition when dealing with Pandas dataframe (reading locally) or dictionary (when entering acquisition parameters manually). When trying to address first element, ambiguity error arose | Issue solver by using "isinstance" function to check if data are a dictionary, activating condition if it is |
 | Dictionary lose "tolerances" element and operations cannot be performed in validate_data_locally() function | Issue solved by using "update" method when assigning new items to the dictionary |
 | Program stops working when a number is not entered as acquisition parameter when prompted | Use a "while" loop with "try/except" commands ("try" only breaks when a number is entered, "except" prints/indicates that a number must be entered) |
-| When reading data from Google Sheets, positioning file, value could not be converted to float type, indicating a string was attemped to be converted | Index values for reading the table were wrong, issue fixed changing indexes from [1, 9] to [0, 9] (the program was trying to convert an empty cell, that is to say, a string like "", to a float) |
+| When reading data from Google Sheets, positioning file, value could not be converted to float type, indicating a string was attemped to be converted | Index values for reading the table were wrong, issue fixed changing indexes from [1, 9] to [0, 9] (the program was trying to convert an empty cell, that is to say, a string like "", to a float). |
 
 
 <br><br>

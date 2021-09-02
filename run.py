@@ -255,7 +255,7 @@ def validate_data_from_Google(data_to_validate):
                 #"distortion": distortion,
                 "distortion": data_to_validate[2].iloc[(header_lines_in_distorion_file-2):],
                 "average_force": data_to_validate[3].iloc[(header_lines_in_av_force_file-2):],
-                "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 1:9],
+                "positioning": data_to_validate[4].iloc[(header_lines_in_positioning_file-2):, 0:8],
             }
 
             qc_dictionary = ask_to_overwrite_parameters(qc_dictionary)
@@ -319,7 +319,7 @@ def validate_data_locally(data_to_validate):
                 #"distortion": distortion,
                 "distortion": round(data_to_validate[2].iloc[(header_lines_in_distorion_file-1):], 2),
                 "average_force": round(data_to_validate[3].iloc[(header_lines_in_av_force_file-1):], 2),
-                "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9], 2),
+                "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 0:8], 2),
             })
 
             print("\nCurrent Acquisition Parameters:")
@@ -349,7 +349,7 @@ def validate_data_locally(data_to_validate):
                 #"distortion": distortion,
                 "distortion": round(data_to_validate[2].iloc[(header_lines_in_distorion_file-1):], 2),
                 "average_force": round(data_to_validate[3].iloc[(header_lines_in_av_force_file-1):], 2),
-                "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 1:9], 2),
+                "positioning": round(data_to_validate[4].iloc[(header_lines_in_positioning_file-1):, 0:8], 2),
             }
 
             qc_dictionary = ask_to_overwrite_parameters(qc_dictionary)
@@ -527,19 +527,22 @@ def visualize_data(*data_to_visualize):
                 print("\nPlease compute points to reacquire first.\n")
         elif (answer =='4'):
             try:
-                disto_p = data_to_visualize[1]['Out_of_Spec_Distortion']
-                av_for_p = data_to_visualize[1]['Out_of_Spec_Force']
-                pos_p = data_to_visualize[1]['Out_of_Spec_COG']
+                disto_p = data_to_visualize[1]['Out_of_Spec_Distortion'].iloc[:, [0, 1, 5, 6]]
+                av_for_p = data_to_visualize[1]['Out_of_Spec_Force'].iloc[:, [0, 1, 5, 6]]
+                pos_p = data_to_visualize[1]['Out_of_Spec_COG'].iloc[:, 0:4] # Do not show header and select columns 
                 print("----------------------------------------------------------")
-                print(f"Points to reacquire by distortion issues:\n")
+                print("Points to reacquire by distortion issues:\n")
+                print("LINE - STATION - X - Y")
                 print(disto_p)
                 print("----------------------------------------------------------\n\n")
                 print("----------------------------------------------------------")
-                print(f"Points to reacquire by average force issues:\n")
+                print("Points to reacquire by average force issues:\n")
+                print("LINE - STATION - X - Y")
                 print(av_for_p)
                 print("----------------------------------------------------------\n\n")
                 print("----------------------------------------------------------")
-                print(f"Points to reacquire by positioning issues:\n")
+                print("Points to reacquire by positioning issues:\n")
+                print("LINE - STATION - X - Y")
                 print(pos_p)
                 print("----------------------------------------------------------\n\n")
             except IndexError:

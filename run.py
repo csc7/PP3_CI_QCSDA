@@ -162,12 +162,42 @@ def load_sheets_locally():
 
 def load_parameters(qc_dict):
     qc_dictionary = qc_dict
-    qc_dictionary['tolerances']['fleets'] = float(input("\nEnter number of fleets: \n"))
-    qc_dictionary['tolerances']['vibs_per_fleet'] = float(input("Enter number of vibrators per fleets: \n"))
-    qc_dictionary['tolerances']['max_cog_dist'] = float(input("Enter maximum distance to COG: \n"))
-    qc_dictionary['tolerances']['max_distortion'] = float(input("Enter maximum distortion: \n"))
-    qc_dictionary['tolerances']['min_av_force'] = float(input("Enter minimum average force: \n"))
-    qc_dictionary['tolerances']['max_av_force'] = float(input("Enter maximum average force: \n"))
+    while True:
+        try:
+            qc_dictionary['tolerances']['fleets'] = float(input("\nEnter number of fleets: \n"))
+            break
+        except ValueError:
+            print("Please enter a number.")
+    while True:
+        try:
+            qc_dictionary['tolerances']['vibs_per_fleet'] = float(input("Enter number of vibrators per fleets: \n"))
+            break
+        except ValueError:
+            print("Please enter a number.")
+    while True:
+        try:
+            qc_dictionary['tolerances']['max_cog_dist'] = float(input("Enter maximum distance to COG: \n"))
+            break
+        except ValueError:
+            print("Please enter a number.")
+    while True:
+        try:
+            qc_dictionary['tolerances']['max_distortion'] = float(input("Enter maximum distortion: \n"))
+            break
+        except ValueError:
+            print("Please enter a number.")
+    while True:
+        try:
+            qc_dictionary['tolerances']['min_av_force'] = float(input("Enter minimum average force: \n"))
+            break
+        except ValueError:
+            print("Please enter a number.")
+    while True:
+        try:
+            qc_dictionary['tolerances']['max_av_force'] = float(input("Enter maximum average force: \n"))
+            break
+        except ValueError:
+            print("Please enter a number.")
     return qc_dictionary
 
 

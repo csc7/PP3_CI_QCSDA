@@ -13,6 +13,7 @@ The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.
 # **Index**
 #### [*Website Live Link*](https://csc7.github.io/PP2_CI_WW/)
 ### [1. Project Goals](#1--project-goals)
+### [2. User Manual](#2--user-manual)
 ### [2. User Experience](#2--user-experience)
 - #### [User Goals](#user-goals-1)
 - #### [Site Owner Goals](#site-owner-goals-1)
@@ -22,6 +23,7 @@ The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.
 ### [5. Technologies used](#5--technologies-used)
 - #### [Languages](#languages-1)
 - #### [Software and Other Tools](#software-and-other-tools-1)
+### [6. Libraries](#6--libraries)
 ### [6. Features](#6--features)
 ### [7. Validation](#7--validation)
 - #### [HTML Files](#html-files-1)
@@ -52,6 +54,15 @@ Specifically, the goals of the project are the following ones:
 <br>
 
 ___
+
+# **2 . User Manual**
+
+
+## [Back to Index](#index)
+<br>
+
+___
+
 # **2 . User Experience**
 
 The goal of the program is to provide a simple but interactive method to automate a quality control task that would many minutes (with higher exposure to errors) if done manually.
@@ -142,6 +153,15 @@ The following languages, software and tools were implemented using Windows 10 Pr
 
 
 ___
+
+# **6 . Libraries**
+
+
+## [Back to Index](#index)
+<br>
+
+___
+
 # **6 . Features**
 
 The website consists of four pages, where each of them is divided in three parts: header, body and footer. The features contained in each of the pages and parts are the following ones:

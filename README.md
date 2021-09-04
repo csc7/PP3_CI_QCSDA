@@ -187,6 +187,22 @@ ___
 
 # **6 . Libraries**
 
+- **google-auth**: Google Auth Library for Python, ©2016, Google, Inc.. https://google-auth.readthedocs.io/en/master/ .
+Library used for authentication when accessing Google Sheets in Google Drive.
+
+- **gspread**: Python API for Google Sheets. © Copyright 2021, Anton Burnashev Revision 0181ca8f. https://docs.gspread.org/en/latest/ .
+Library used to read and write data from/into Google Sheets.
+
+- **pandas**: https://pandas.pydata.org/pandas-docs/stable/index.html. As stated in its website "pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures and data analysis tools for the Python programming language."
+Library used to easily read and write Microsoft Excel files. It is also used to easily present organized tables in the terminal.
+
+- **OpenPyXL**: https://openpyxl.readthedocs.io/en/stable/ .
+Library used to read Microsoft Excel files, in this project in GitPod.
+
+- **math**: https://docs.python.org/3/library/math.html, downloaded on August 22nd, 2021, at 22:30 . Tested to compute distance between points but finally not used.
+
+- **NumPy**: https://numpy.org/ .
+Used in this project to easily convert Pandas dataframe to float type.
 
 ## [Back to Index](#index)
 <br>

@@ -359,11 +359,7 @@ It is a message that shows the number of points to be reacquired, by category (d
 ![Computed Points Message Image](docs/features-and-evidence/visualization-amount-of-points-to-be-reacquired.PNG)
 
 </details>
-
-<br><br>
-## [Back to Index](#index)
 <br>
-
 
 - ### **Visualize data menu**
 
@@ -378,9 +374,6 @@ It gives the user the option to select what data to visualize.
 ![Visualize Data Menu Image](docs/features-and-evidence/visualize-data-menu.PNG)
 
 </details>
-
-<br><br>
-## [Back to Index](#index)
 <br>
 
 
@@ -397,9 +390,6 @@ It prints the daily production statistics.
 ![Daily Statistics Visualization Image](docs/features-and-evidence/visualization-daily-production.PNG)
 
 </details>
-
-<br><br>
-## [Back to Index](#index)
 <br>
 
 
@@ -416,9 +406,6 @@ It prints the acquisition parameters.
 ![Acquisition Parameters Visualization Image](docs/features-and-evidence/visualization-acquisition-parameters.PNG)
 
 </details>
-
-<br><br>
-## [Back to Index](#index)
 <br>
 
 
@@ -435,9 +422,6 @@ It prints the amount of points to be reacquired.
 ![Amount of Points to Be Reacquired Visualization Image](docs/features-and-evidence/visualization-amount-of-points-to-be-reacquired.PNG)
 
 </details>
-
-<br><br>
-## [Back to Index](#index)
 <br>
 
 - ### **List of points to be reacquired visualization**
@@ -455,9 +439,6 @@ It prints the list of points to be reacquired, by category (distortion, average 
 ![List of Points to Be Reacquired by Positioning Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-positioning.PNG)
 
 </details>
-
-<br><br>
-## [Back to Index](#index)
 <br>
 
 - ### **Where-to-write menu**

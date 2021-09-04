@@ -117,21 +117,26 @@ The goal of the program is to provide a simple but interactive method to automat
 User stories are divided into the following three groups:
 
 - ### **First time users**
-1. As a user, I want to run the program intuitively, so I do not require further assistance and do not delay the daily activities.
+1. As a user, I want to run the program intuitively and guided by messages, so I do not require further assistance and do not delay the daily activities.
 2. As a user, I do not want to go through a set up process, so I do not require further assistance and do not delay the daily activities.
 
 
 - ### **Returning users**
-6. As a returning user, I want to have the option to read and store my files both in the cloud and a local disk, so I am able to perform QA/QC activities even when the recorder is far awav from the basecamp (where the computers are located).
-7. As a returning user, I want to automate a daily repetitive task, so I do not use much time to generate the list of points to be reaquired.
-8. As a returning user, I want to have the option to visualize the data, so I check if there is any anomaly before writing the final list.
-9. As a returning user, I want to automate the process, so I commit fewer (or none) errors.
+3. As a returning user, I want to have the option to read and store my files both in the cloud and a local disk, so I am able to perform QA/QC activities even when the recorder is far awav from the basecamp (where the computers are located).
+4. As a returning user, I want to automate a daily repetitive task, so I do not use much time to generate the list of points to be reaquired.
+5. As a returning user, I want to have the option to visualize the data, so I check if there is any anomaly before writing the final list.
+6. As a returning user, I want to automate the process, so I commit fewer (or none) errors.
+7. As a returning user, I want to be informed if something is wrong, so I understand what is happening and I know if I need to add or correct files.
+8. As a returning user, I want the program to check the correctness of the information, so I do not need to check if the files and/or information is correct before processing the data.
 
 
 - ### **Site Owner**
-10. As owner, I want to automate the process, so I give the option to achieve the quality control process in less time, with fewer errors.
-11. As owner, I want to give the option to read the quality control files from Google Drive or from a local computer, so I increase the functionality of my application.
+9. As owner, I want to automate the process, so I give the option to achieve the quality control process in less time, with fewer errors.
+10. As owner, I want to give the option to read the quality control files from Google Drive or from a local computer, so I increase the functionality of my application.
+11. As owner, I want the program to validate the data, so users do not need to spend time checking the validity of the files and/or information.
 12. As owner, I want to give the user the option to visualize the data being controlled, so users can understand better eventual issues they might find.
+13. As owner, I want to give the option to write the points to be reacquired in Google Sheets or locally, so I increase the functionality of my application.
+14. As owner, I want to set the base for a quality control program, so more features can be added with further development (e.g., with more quality control files and/or more parameters/tolerances).
 
 
 
@@ -211,13 +216,13 @@ ___
 
 # **6 . Features**
 
-The website consists of four pages, where each of them is divided in three parts: header, body and footer. The features contained in each of the pages and parts are the following ones:
+The program runs in a terminal, including the following features:
 
 
 
-- ### **Website logo**
+- ### **Welcome message**
 
-It is located in all pages, fixed, top-left, and always visible.
+It is the message that appears right after running the program.
 
 *User Stories Addressed by this Feature: 8; 16; 17; 18 and 21.*
 

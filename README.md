@@ -786,16 +786,47 @@ Bugs that required more time and specific solutions were the following ones:
 ___
 # 10 . Deployment
 
-The website was fully written in Gitpod, permanently tested with Gitpod preview, and periodically deployed to GigHub Pages (in a main branch).
+The website was fully written in Gitpod, permanently tested in Gitpod terminal, and periodically deployed to GigHub Pages (in a main branch) and Heroku Platform.
 
-The fully deployed website, accessible by anyone, is found [here](https://csc7.github.io/PP2_CI_WW), whose URL is https://csc7.github.io/PP2_CI_WW . Its repository is found [here](https://github.com/csc7/PP2_CI_WW), whose URL is https://github.com/csc7/PP2_CI_WW.
+The fully deployed website, accessible by anyone, is found [here](https://csc7.github.io/PP3_CI_QCSDA), whose URL is https://csc7.github.io/PP3_CI_QCSDA . Its repository is found [here](https://github.com/csc7/PP3_CI_QCSDA), whose URL is https://github.com/csc7/PP3_CI_QCSDA.
 
-Based on the Code Institute's Love Running project content, the following steps has been applied to have the front-end final version deployed:
-1. Select website repository in GitHub account.
-2. Go to "Settings" (up in the menu, to the right).
-3. Select "Pages" in the menu on the left.
-4. At the beginning, in "Source", select "Branch: main", and click "Save".
-5. The URL address of the deployed website will appear on top of the page, as can be observed in the screenshot below in the drop-down item.
+The program requires access to Google Cloud Platform. These steps are also included in these deployment instructions.
+
+Based on the Code Institute's Love Sandwiches Walkthrough Project content, the following steps has been applied to have the program deployed:
+
+* **Set Up of Google Cloud Platform and API to Access Google Drive:**
+1. Go to Google Colud Platform (https://console.cloud.google.com/) and log in with your user accoung.
+2. Create project (in this case, PP3-CI-QCSDA)
+3. In the search field (on top), look for "Google Drive API" and enable it.
+4. Add credentials according to this information:
+    - Using "Google Drive API"
+    - Accessing "Application data"
+    - Not using the API with other engines or functions
+    - Enter service account
+    - Grant the service an "Editor" role
+5. Once added, in "Credentials", select the service account created.
+6. In the next page, go to the "Keys" tab, click "Add Key" and select "Create New Key". Then select "JSON" and create, making note where the file created is located.
+
+* **Set up of API to access Google Sheets:**
+1. Look for "Google Sheets" in the search field (on top).
+2. Select it and enable it.
+
+* **Set up of template to be able to have a terminal on GitHub Pages:**
+1. Use Code Institute template for terminal on GitHub Pages.
+2. Add JSON file created in Google Cloud Platform to the main branch, rename it to an easy-to-deal-with file name, e.g., creds.json or credential.json.
+3. BE SURE TO NEVER COMMIT THE FILE OF PREVIOUS POINT 2 AS IT CONTAINS SENSITIVE INFORMATION, THEREFORE INCLUDE THE FILE NAME IN THE .gitignore FILE, IN A NEW LINE AT THE BOTTOM OF THE LIST.
+4. If using Gitpod, pin the workspace to avoid deletion after 14 days. Access the project from Gitpod workspace, not from the Gitpod button on GitHub pages, otherwise a new workspace will be created.
+
+* **Install required libraries into Gitpod worspace to have the project working:**
+1. Install google-auth to use the JSON file and authenticate access the project in Google Cloud.
+2. Install gspread to access data in Google Sheets.
+The following command can be used to install both libraries:
+*"pip3 install gspread google-auth"*
+
+* **Deploy on Heroku Platform:**
+
+
+1. asfsdfasdfasdf
 
 <details>
     <summary>GitHub Pages Screenshot</summary>

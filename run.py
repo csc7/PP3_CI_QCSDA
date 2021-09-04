@@ -65,6 +65,7 @@ def load_sheets_from_Google_Drive():
     except gspread.exceptions.SpreadsheetNotFound:
         print("Some files are missing or have a different name.")
         print("Please check all files are in place with the correct names.")
+        print("Program closed.")
         return False
 
     try:
@@ -117,11 +118,13 @@ def load_sheets_locally():
         print("\nSpreadsheet and worksheets loaded.\n")
     
     except FileNotFoundError as e:
-        print(f"Something went wrong, {e}. Please try again.\n")
+        print(f"Something went wrong, file not found: {e}. Please try again.\n")
+        print("Program closed.")
         return False
     
     except UnboundLocalError as e:
         print(f"Something went wrong: {e}. Please try again.\n")
+        print("Program closed.")
         return False
 
     # Check if parameters file is available and give the option to enter them

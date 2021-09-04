@@ -246,7 +246,7 @@ It is shown with the welcome message and gives the option to select where to rea
 <details>
     <summary>Check Image</summary>
 
-![Fixed Navigation Menu for Desktop Image](docs/features-and-evidence/fixed-navigation-menu.PNG)
+![First Menu Image](docs/features-and-evidence/first-menu.PNG)
 
 </details>
 <br>
@@ -261,7 +261,7 @@ It can be found in the Functions page and show the functions of the wavelets tha
 <details>
     <summary>Check Images</summary>
 
-![Functions Page Top Image](docs/features-and-evidence/functions-page-top.PNG)
+![Validation Messages Image](docs/features-and-evidence/validation-messages.PNG)
 
 
 </details>
@@ -278,7 +278,7 @@ It shows the current acquisition parameters (tolerances) being used for the qual
 <details>
     <summary>Check Image</summary>
 
-![Wavelet Generator Image](docs/features-and-evidence/wavelet-generator.png)
+![Current Acquisition Parameters Image](docs/features-and-evidence/current-acquisition-parameters.PNG)
 
 </details>
 <br>
@@ -294,7 +294,7 @@ It gives the option to accept the read parameters or overwrite them.
 <details>
     <summary>Check Image</summary>
 
-![Google Charts Image](docs/features-and-evidence/Google-Charts.png)
+![Overwrite Acquisition Parameters Menu Image](docs/features-and-evidence/overwrite-acq-param-option.PNG)
 
 </details>
 <br>
@@ -309,7 +309,7 @@ In case the acquisition parameters are not present or if the user wants to overw
 <details>
     <summary>Check Image</summary>
 
-![Quiz Image](docs/features-and-evidence/quiz.PNG)
+![Overwriting Acquisition Parameters Menu](docs/features-and-evidence/overwriting-parameters.PNG)
 
 </details>
 <br>
@@ -325,7 +325,7 @@ A warning message, giving the option to continue or close the program, will appe
 <details>
     <summary>Check Image</summary>
 
-![Contact Form Image](docs/features-and-evidence/fixed-navigation-bar-on-top-contact-page.PNG)
+![Validation Warning Message Image](docs/features-and-evidence/validation-warning.PNG)
 
 </details>
 <br>
@@ -340,7 +340,7 @@ This menu will appear if everything (files and information) is correct and/or th
 <details>
     <summary>Check Image</summary>
 
-![Footer Image](docs/features-and-evidence/footer.PNG)
+![Compute/Visualize/Update Menu Image](docs/features-and-evidence/compute-visualize-update-menu.PNG)
 
 </details>
 <br>
@@ -356,7 +356,7 @@ It is a message that shows the number of points to be reacquired, by category (d
 <details>
     <summary>Check Image</summary>
 
-![404-page Image](docs/features-and-evidence/404.PNG)
+![Computed Points Message Image](docs/features-and-evidence/visualization-amount-of-points-to-be-reacquired.PNG)
 
 </details>
 
@@ -375,7 +375,7 @@ It gives the user the option to select what data to visualize.
 <details>
     <summary>Check Image</summary>
 
-![404-page Image](docs/features-and-evidence/404.PNG)
+![Visualize Data Menu Image](docs/features-and-evidence/visualize-data-menu.PNG)
 
 </details>
 
@@ -394,7 +394,7 @@ It prints the daily production statistics.
 <details>
     <summary>Check Image</summary>
 
-![404-page Image](docs/features-and-evidence/404.PNG)
+![Daily Statistics Visualization Image](docs/features-and-evidence/visualization-daily-production.PNG)
 
 </details>
 
@@ -413,7 +413,7 @@ It prints the acquisition parameters.
 <details>
     <summary>Check Image</summary>
 
-![404-page Image](docs/features-and-evidence/404.PNG)
+![Acquisition Parameters Visualization Image](docs/features-and-evidence/visualization-acquisition-parameters.PNG)
 
 </details>
 
@@ -432,7 +432,7 @@ It prints the amount of points to be reacquired.
 <details>
     <summary>Check Image</summary>
 
-![404-page Image](docs/features-and-evidence/404.PNG)
+![Amount of Points to Be Reacquired Visualization Image](docs/features-and-evidence/visualization-amount-of-points-to-be-reacquired.PNG)
 
 </details>
 
@@ -450,9 +450,9 @@ It prints the list of points to be reacquired, by category (distortion, average 
 <details>
     <summary>Check Image</summary>
 
-![404-page Image](docs/features-and-evidence/404.PNG)
-![404-page Image](docs/features-and-evidence/404.PNG)
-![404-page Image](docs/features-and-evidence/404.PNG)
+![List of Points to Be Reacquired by Distortion Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-distortion.PNG)
+![List of Points to Be Reacquired by Average Force Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-average-force.PNG)
+![List of Points to Be Reacquired by Positioning Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-positioning.PNG)
 
 </details>
 
@@ -470,7 +470,7 @@ It gives the user the option to select where to write the list of computed point
 <details>
     <summary>Check Image</summary>
 
-![404-page Image](docs/features-and-evidence/404.PNG)
+![Where-to-write Menu Image](docs/features-and-evidence/where-to-write-menu.PNG)
 
 </details>
 
@@ -524,7 +524,8 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshot</summary>
 
-![Am I Responsive Image](docs/am-i-responsive.PNG) 
+![Welcome Message Image](docs/features-and-evidence/welcome-message.PNG) 
+
 </details>
 <br><br>
 
@@ -532,14 +533,13 @@ The following are testing of User Stories previously described above:
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Welcome message | Click on "RUN PROGRAM" button, no set up process | Run program, perform quality control tasks without setting up any application and/or component | Works as expected | 
+| Welcome message (when accessing the page containing the program) | Click on "RUN PROGRAM" button, or type "python3 run.py" when using a terminal. No set up process | Run program, perform quality control tasks without setting up any application and/or component | Works as expected | 
 
 <details>
     <summary>Screenshots</summary>
 
-![Functions Page Top Image](docs/features-and-evidence/functions-page-top.PNG)
+![Run Program Image](docs/features-and-evidence/run-program.PNG)
 
-![Functions Page Bottom Image](docs/features-and-evidence/functions-page-bottom.PNG) 
 </details>
 <br><br>
 
@@ -554,11 +554,9 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshots</summary>
 
-![Functions Page Top Formulas Image](docs/features-and-evidence/functions-page-formulas-top.PNG)
+![Where-to-read from Image](docs/features-and-evidence/first-menu.PNG)
 
-![Functions Page Bottom Middle Image](docs/features-and-evidence/functions-page-formulas-middle.PNG) 
 
-![Functions Page Bottom Top Image](docs/features-and-evidence/functions-page-formulas-bottom.PNG) 
 </details>
 <br><br>
 
@@ -572,7 +570,9 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshot</summary>
 
-![Wavelet Generator Image](docs/features-and-evidence/wavelet-generator.png)
+![Automated Result for Distortion Image](docs/features-and-evidence/automated_result_distortion.png)
+![Automated Result for Average Force Image](docs/features-and-evidence/automated_result_av_force.png)
+![Automated Result for Positioning Image](docs/features-and-evidence/automated_result_positioning.png)
 
 </details>
 <br><br>
@@ -587,10 +587,9 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshots</summary>
 
-![Wavelet Generator Send E-Mail Image](docs/features-and-evidence/wavelet-generator-send-email.png)
-
-![Wavelet Generator Send E-Mail Receipt Image](docs/features-and-evidence/wavelet-generator-send-email-receipt.PNG) 
-
+![List of Points to Be Reacquired by Distortion Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-distortion.PNG)
+![List of Points to Be Reacquired by Average Force Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-average-force.PNG)
+![List of Points to Be Reacquired by Positioning Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-positioning.PNG)
 </details>
 <br><br>
 
@@ -604,13 +603,9 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshots</summary>
 
-![Contact Form](docs/features-and-evidence/contact-form-and-footer.png)
-
-![Footer - LinkedIn](docs/features-and-evidence/contact-form-and-footer-LinkedIn.PNG) 
-
-![Footer - GitHub](docs/features-and-evidence/contact-form-and-footer-GitHub.PNG)
-
-![Footer - Mail To](docs/features-and-evidence/contact-form-and-footer-mail-to.PNG) 
+![List of Points to Be Reacquired by Distortion Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-distortion.PNG)
+![List of Points to Be Reacquired by Average Force Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-average-force.PNG)
+![List of Points to Be Reacquired by Positioning Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-positioning.PNG)
 </details>
 <br><br>
 
@@ -626,7 +621,7 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshot</summary>
 
-![Am I Responsive Image](docs/am-i-responsive.PNG) 
+![Am I Responsive Image](docs/features-and-evidence/validation-warning.PNG) 
 </details>
 <br><br>
 

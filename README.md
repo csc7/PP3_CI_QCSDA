@@ -621,7 +621,8 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshot</summary>
 
-![Am I Responsive Image](docs/features-and-evidence/validation-warning.PNG) 
+![Missing or Wrong File Name Warning in Google Drive Image](docs/features-and-evidence/warning-message-with-missing-or-wrong-file-Google-Drive.PNG) 
+![Missing or Wrong File Name Warning in Locally Image](docs/features-and-evidence/warning-message-with-missing-or-wrong-file-Google-Drive.PNG) 
 </details>
 <br><br>
 
@@ -635,13 +636,8 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshots</summary>
 
-![Fixed Navigation Menu - Functions Page](docs/features-and-evidence/fixed-navigation-bar-on-top-functions-page.PNG)
+![Validation Messages Image](docs/features-and-evidence/validation-messages.PNG)
 
-![Fixed Navigation Menu - Generator Page](docs/features-and-evidence/fixed-navigation-bar-on-top-generator-page.PNG)
-
-![Fixed Navigation Menu - Quiz Page](docs/features-and-evidence/fixed-navigation-bar-on-top-quiz-page.PNG)
-
-![Fixed Navigation Menu - Contact Page](docs/features-and-evidence/fixed-navigation-bar-on-top-contact-page.PNG)
 </details>
 <br><br>
 
@@ -655,11 +651,8 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshots</summary>
 
-![Functions Page Top Formulas Image](docs/features-and-evidence/functions-page-formulas-top.PNG)
+![Overwerite Acquisition Parameters Menu Image](docs/features-and-evidence/overwrite-acq-param-option.PNG)
 
-![Functions Page Bottom Middle Image](docs/features-and-evidence/functions-page-formulas-middle.PNG) 
-
-![Functions Page Bottom Top Image](docs/features-and-evidence/functions-page-formulas-bottom.PNG) 
 </details>
 <br><br>
 
@@ -675,7 +668,9 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshot</summary>
 
-![Wavelet Generator Image](docs/features-and-evidence/wavelet-generator.png)
+![List of Points to Be Reacquired by Distortion Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-distortion.PNG)
+![List of Points to Be Reacquired by Average Force Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-average-force.PNG)
+![List of Points to Be Reacquired by Positioning Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-positioning.PNG)
 
 </details>
 <br><br>
@@ -690,7 +685,7 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshot</summary>
 
-![Quiz Image](docs/features-and-evidence/fixed-navigation-bar-on-top-quiz-page.PNG)
+![Read from Google Drive or Locally Image](docs/features-and-evidence/first-menu.PNGG)
 
 </details>
 <br><br>

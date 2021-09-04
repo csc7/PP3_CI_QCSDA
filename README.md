@@ -700,14 +700,9 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshots</summary>
 
-![Contact Form](docs/features-and-evidence/contact-form-and-footer.png)
-
-![Footer - LinkedIn](docs/features-and-evidence/contact-form-and-footer-LinkedIn.PNG) 
-
-![Footer - GitHub](docs/features-and-evidence/contact-form-and-footer-GitHub.PNG)
-
-![Footer - Mail To](docs/features-and-evidence/contact-form-and-footer-mail-to.PNG) 
+![Validation Messages Image](docs/features-and-evidence/validated-loading.PNG)
 </details>
+
 <br><br>
 
 
@@ -720,7 +715,13 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshot</summary>
 
-![E-mail Sent from Contact Form Image](docs/features-and-evidence/contact-form-email-sent.PNG)
+![Information on Acquisition Parameters Image](docs/features-and-evidence/visualization-acquisition-parameters.PNG)
+![Information on Points to be Reacquired Image](docs/features-and-evidence/visualization-amount-of-points-to-be-reacquired.PNG)
+![Information on Daily Production Image](docs/features-and-evidence/visualization-daily-production.PNG)
+![Information on Points to be Reacquired by Average Force Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-average-force.PNG)
+![Information on Points to be Reacquired by Distortion Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-distortion.PNG)
+![Information on Points to be Reacquired by Positioning Issues Image](docs/features-and-evidence/visualize-list-of-points-to-be-reaquired-positioning.PNG)
+![Information on Current Acquisition Parameters (When Validating the Data) Image](docs/features-and-evidence/validated-loading-info.PNG)
 
 </details>
 <br><br>
@@ -735,15 +736,8 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshots</summary>
 
-![Contact Form](docs/features-and-evidence/fixed-navigation-bar-on-top-contact-page.PNG)
+![Write in Google Drive or Locally Image](docs/features-and-evidence/where-to-write-menu.PNG)
 
-![Footer](docs/features-and-evidence/fixed-footer.PNG)
-
-![Footer - LinkedIn](docs/features-and-evidence/contact-form-and-footer-LinkedIn.PNG) 
-
-![Footer - GitHub](docs/features-and-evidence/contact-form-and-footer-GitHub.PNG)
-
-![Footer - Mail To](docs/features-and-evidence/contact-form-and-footer-mail-to.PNG) 
 </details>
 <br><br>
 
@@ -758,7 +752,7 @@ The following are testing of User Stories previously described above:
 <details>
     <summary>Screenshots</summary>
 
-![Generator Page](docs/features-and-evidence/wavelet-generator-basic-service.PNG)
+![GitHub with Base Program Image](docs/features-and-evidence/base-program.PNG)
 
 </details>
 <br><br>

@@ -14,28 +14,28 @@ The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.
 #### [*Website Live Link*](https://csc7.github.io/PP2_CI_WW/)
 ### [1. Project Goals](#1--project-goals)
 ### [2. User Manual](#2--user-manual)
-### [2. User Experience](#2--user-experience)
+### [3. User Experience](#2--user-experience)
 - #### [User Goals](#user-goals-1)
 - #### [Site Owner Goals](#site-owner-goals-1)
 - #### [User Stories](#user-stories-1)
 - #### [User Requirements and Expectations](#user-requirements-and-expectations-1)
-### [3. Flowchart](#3--flowchart)
+### [4. Flowchart](#3--flowchart)
 ### [5. Technologies used](#5--technologies-used)
 - #### [Languages](#languages-1)
 - #### [Software and Other Tools](#software-and-other-tools-1)
 ### [6. Libraries](#6--libraries)
-### [6. Features](#6--features)
-### [7. Validation](#7--validation)
+### [7. Features](#6--features)
+### [8. Validation](#7--validation)
 - #### [HTML Files](#html-files-1)
 - #### [CSS File](#css-file-1)
 - #### [JavaScript Files](#javascript-files-1)
 - #### [Accessibility](#accessibility-1)
 - #### [Performance](#performance-1)
-### [8. Testing of User Stories](#8--testing-of-user-stories)
-### [9. Bugs](#9--bugs)
-### [10. Deployment](#10--deployment)
-### [11. Credits](#11--credits)
-### [12. Acknowledgements](#12--acknowledgements)
+### [9. Testing of User Stories](#8--testing-of-user-stories)
+### [10. Bugs](#9--bugs)
+### [11. Deployment](#10--deployment)
+### [12. Credits](#11--credits)
+### [13. Acknowledgements](#12--acknowledgements)
 <br><br>
 
 ___
@@ -128,15 +128,16 @@ User stories are divided into the following three groups:
 6. As a returning user, I want to automate the process, so I commit fewer (or none) errors.
 7. As a returning user, I want to be informed if something is wrong, so I understand what is happening and I know if I need to add or correct files.
 8. As a returning user, I want the program to check the correctness of the information, so I do not need to check if the files and/or information is correct before processing the data.
+9. As a returning user, I want to have the option to overwrite the acquisition parameters (tolerances), so I can still process data if the parameters file is not present or has any issue and/or if I want to test new parameters/tolerances.
 
 
 - ### **Site Owner**
-9. As owner, I want to automate the process, so I give the option to achieve the quality control process in less time, with fewer errors.
-10. As owner, I want to give the option to read the quality control files from Google Drive or from a local computer, so I increase the functionality of my application.
-11. As owner, I want the program to validate the data, so users do not need to spend time checking the validity of the files and/or information.
-12. As owner, I want to give the user the option to visualize the data being controlled, so users can understand better eventual issues they might find.
-13. As owner, I want to give the option to write the points to be reacquired in Google Sheets or locally, so I increase the functionality of my application.
-14. As owner, I want to set the base for a quality control program, so more features can be added with further development (e.g., with more quality control files and/or more parameters/tolerances).
+10. As owner, I want to automate the process, so I give the option to achieve the quality control process in less time, with fewer errors.
+11. As owner, I want to give the option to read the quality control files from Google Drive or from a local computer, so I increase the functionality of my application.
+12. As owner, I want the program to validate the data, so users do not need to spend time checking the validity of the files and/or information.
+13. As owner, I want to give the user the option to visualize the data being controlled, so users can understand better eventual issues they might find.
+14. As owner, I want to give the option to write the points to be reacquired in Google Sheets or locally, so I increase the functionality of my application.
+15. As owner, I want to set the base for a quality control program, so more features can be added with further development (e.g., with more quality control files and/or more parameters/tolerances).
 
 
 
@@ -219,14 +220,13 @@ ___
 The program runs in a terminal, including the following features:
 
 
-
 - ### **Welcome message**
 
 It is the message that appears right after running the program.
 
-*User Stories Addressed by this Feature: 8; 16; 17; 18 and 21.*
+*User Stories Addressed by this Feature: 1 and 2.*
 
-*Please check "7. Testing of User Stories" for more details.*
+*Please check "9. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -236,48 +236,45 @@ It is the message that appears right after running the program.
 <br>
 
 
-- ### **Fixed navigation menu**
+- ### **First menu**
 
-It is located in the header, fixed on all pages to facilitate navigation, and responsive.
+It is shown with the welcome message and gives the option to select where to read the data from.
 
-*User Stories Addressed by this Feature: 1; 7; 8; 16; 17; 18; 19; 20 and 21.*
+*User Stories Addressed by this Feature: 3 and 11.*
 
-*Please check "7. Testing of User Stories" for more details.*
+*Please check "9. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
 ![Fixed Navigation Menu for Desktop Image](docs/features-and-evidence/fixed-navigation-menu.PNG)
-![Fixed Navigation Menu for Tablets Image](docs/features-and-evidence/fixed-navigation-menu-tablet.png)
-![Fixed Navigation Menu for Cell Phones Image](docs/features-and-evidence/fixed-navigation-menu-cell-1.png)
-![Fixed Expanded Navigation Menu for Cell Phones Image](docs/features-and-evidence/fixed-navigation-menu-cell-2.png)
+
 </details>
 <br>
 
-- ### **Summary of Functions**
+- ### **Validation messages**
 
 It can be found in the Functions page and show the functions of the wavelets that can be plotted in the Generator page.
 
-*User Stories Addressed by this Feature: 1; 2; 3; 7; 9; 16; 17; 19 and 22.*
+*User Stories Addressed by this Feature: 1; 8 and 12.*
 
-*Please check "7. Testing of User Stories" for more details.*
+*Please check "9. Testing of User Stories" for more details.*
 <details>
     <summary>Check Images</summary>
 
 ![Functions Page Top Image](docs/features-and-evidence/functions-page-top.PNG)
 
-![Functions Page Bottom Image](docs/features-and-evidence/functions-page-bottom.PNG)
 
 </details>
 <br>
 
 
-- ### **Wavelet Generator**
+- ### **Current acquisition parameters**
 
-It can be found in the Generator page and gives the option to select type of wavelet, sampling rate, length of wavelet and frequency. The wavelet generated can then be plotted according to the functions shown in the Functions page using Google Charts and/or be sent to an e-mail address, informing the user if the email successfully goes through.
+It shows the current acquisition parameters (tolerances) being used for the quality control process. The parameters are read from the corresponding file or loaded manually by the user.
 
-*User Stories Addressed by this Feature: 1; 4; 5; 7; 10; 15; 16; 17; 19; 20; 22, 23 and 28.*
+*User Stories Addressed by this Feature: 1; 5 and 13.*
 
-*Please check "7. Testing of User Stories" for more details.*
+*Please check "9. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -287,13 +284,13 @@ It can be found in the Generator page and gives the option to select type of wav
 <br>
 
 
-- ### **Wavelet Graph**
+- ### **Overwrite acquisition parameters menu**
 
-It can be found in the Generator page and graph the selected wavelet using Google Charts.
+It gives the option to accept the read parameters or overwrite them.
 
-*User Stories Addressed by this Feature: 1; 4; 7; 10; 15; 16; 17; 19; 20; 22 and 23.*
+*User Stories Addressed by this Feature: 9.*
 
-*Please check "7. Testing of User Stories" for more details.*
+*Please check "9. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -302,38 +299,13 @@ It can be found in the Generator page and graph the selected wavelet using Googl
 </details>
 <br>
 
-- ### **Quiz**
+- ### **Overwriting acquisition parameters menu**
 
-It can be found in the Quiz page; it is a very simple and basic interactive quiz of ten questions where users can test their knowledge and/or take a break when they want. It contains a panel with the number of questions and correct ones, a timer, a progress bar, the last answer and the last correct answer. A start button launches the quiz, which is stopped automatically after the tenth questions, with an alert message.
+In case the acquisition parameters are not present or if the user wants to overwrite them, a series of questios will guide the user to enter them.
 
-Questions of the quiz are built by concatenating a first-part string, a random number (which changes the answer for other instances of the quiz) and last-part string.
+*User Stories Addressed by this Feature: 1; 9 and 10.*
 
-Being X the random number, questions and correct answers of the quiz are the following ones:
-
- - "What is the frequency of the following signal: 100 sin X Hz signal in order to have it fully recovered?" \
- Correct answer: whole part of (X / (2 * 3.1416)).
- - "What sampling frequency should be assigned to a X Hz signal in order to have it fully recovered?" \
- Correct answer: whole part of (X * 2).
- - "How long does it take (in msec) to a X Hz signal to complete 10 cycles?" \
- Correct answer: whole part of ((1 / X) * 10 * 1000).
- - "What is the frequency of the following signal: 50 cos 2PiXt?" \
- Correct answer: whole part of (X).
- - "What is the maximum frequency you will recover without aliasing if you sample at X msec?" \
- Correct answer: whole part of ((1000 / X) *2).
- - "What sampling frequency should be assigned to a X Hz signal in order to have it fully recovered?" \
- Correct answer: whole part of (X * 2).
- - "How long does it take (in msec) to a X Hz signal to complete 250 cycles?" \
- Correct answer: whole part of ((1 / X) * 250 * 1000).
- - "What is the frequency of the following signal: 2 A sinXt?" \
- Correct answer: whole part of (X / (2 * 3.1416)).
- - "What is the maximum frequency you will recover without aliasing if you sample at X msec?" \
- Correct answer: whole part of ((1000 / X) *2).
- - "How long does it take (in msec) to a X Hz signal to complete 50 cycles?" \
- Correct answer: whole part of ((1 / X) * 50 * 1000).
- 
-*User Stories Addressed by this Feature: 1; 7; 11; 16; 17; 19; 20 and 24.*
-
-*Please check "7. Testing of User Stories" for more details.*
+*Please check "9. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -343,13 +315,13 @@ Being X the random number, questions and correct answers of the quiz are the fol
 <br>
 
 
-- ### **Contact Form**
+- ### **Validation warning message**
 
-It can be found in the Contact and allows users to contact the website developer. It prevents the form to be sent with incomplete fields, informs the user if the message goes through and disables the send button in order not to send the consultation more than once.
+A warning message, giving the option to continue or close the program, will appear it the information contained in the files do not match the daily production. For example, a warning message will appear if the daily production accounts for a number of VPs acquired and any of the quality control files contains a different amount.
 
-*User Stories Addressed by this Feature: 1; 6; 7; 12; 13; 14; 17; 19; 20; 25, 26 and 28.*
+*User Stories Addressed by this Feature: 1; 4; 5; 6; 7; 8; 10 and 12.*
 
-*Please check "7. Testing of User Stories" for more details.*
+*Please check "9. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -358,13 +330,13 @@ It can be found in the Contact and allows users to contact the website developer
 </details>
 <br>
 
-- ### **Footer**
+- ### **Compute/Visualize/Update menu**
 
-It is located at the bottom of all pages, containing icons with links to LinkedIn, GitHub and e-mail application (to automatically load developer's e-mail address in the addressee field).
+This menu will appear if everything (files and information) is correct and/or the user opt for continuing with the processing of data. A message including the daily production (including geophones planted and picked-up) is added on top of the menu to inform the user that the program is running and to provide him with the daily production numbers.
 
-*User Stories Addressed by this Feature: 1; 6; 7; 12; 14; 16; 17; 18; 19 and 25.*
+*User Stories Addressed by this Feature: 1; 5, and 13.*
 
-*Please check "7. Testing of User Stories" for more details.*
+*Please check "9. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -374,13 +346,13 @@ It is located at the bottom of all pages, containing icons with links to LinkedI
 <br>
 
 
-- ### **404 page**
+- ### **Computed points message**
 
-It is a different page that appears in case there is any issue when loading the page, like a similar incorrect URL. It contains a light red background and contains the message *"Sorry, something went wrong."*.
+It is a message that shows the number of points to be reacquired, by category (distortion, average force and positioning issues). It gives information and informs the user that the program is running".
 
-*User Stories Addressed by this Feature:* 17; 27.*
+*User Stories Addressed by this Feature:* 1; 5 and 13.*
 
-*Please check "7. Testing of User Stories" for more details.*
+*Please check "9. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -391,6 +363,121 @@ It is a different page that appears in case there is any issue when loading the 
 <br><br>
 ## [Back to Index](#index)
 <br>
+
+
+- ### **Visualize data menu**
+
+It gives the user the option to select what data to visualize.
+
+*User Stories Addressed by this Feature:* 1; 5 and 13.*
+
+*Please check "9. Testing of User Stories" for more details.*
+<details>
+    <summary>Check Image</summary>
+
+![404-page Image](docs/features-and-evidence/404.PNG)
+
+</details>
+
+<br><br>
+## [Back to Index](#index)
+<br>
+
+
+- ### **Daily statistics visualization**
+
+It prints the daily production statistics.
+
+*User Stories Addressed by this Feature:* 1; 5 and 13.*
+
+*Please check "9. Testing of User Stories" for more details.*
+<details>
+    <summary>Check Image</summary>
+
+![404-page Image](docs/features-and-evidence/404.PNG)
+
+</details>
+
+<br><br>
+## [Back to Index](#index)
+<br>
+
+
+- ### **Acquisition parameters visualization**
+
+It prints the acquisition parameters.
+
+*User Stories Addressed by this Feature:* 1; 5 and 13.*
+
+*Please check "9. Testing of User Stories" for more details.*
+<details>
+    <summary>Check Image</summary>
+
+![404-page Image](docs/features-and-evidence/404.PNG)
+
+</details>
+
+<br><br>
+## [Back to Index](#index)
+<br>
+
+
+- ### **Amount of points to be reacquired visualization**
+
+It prints the amount of points to be reacquired.
+
+*User Stories Addressed by this Feature:* 1; 5 and 13.*
+
+*Please check "9. Testing of User Stories" for more details.*
+<details>
+    <summary>Check Image</summary>
+
+![404-page Image](docs/features-and-evidence/404.PNG)
+
+</details>
+
+<br><br>
+## [Back to Index](#index)
+<br>
+
+- ### **List of points to be reacquired visualization**
+
+It prints the list of points to be reacquired, by category (distortion, average force and positioning issues).
+
+*User Stories Addressed by this Feature:* 1; 5 and 13.*
+
+*Please check "9. Testing of User Stories" for more details.*
+<details>
+    <summary>Check Image</summary>
+
+![404-page Image](docs/features-and-evidence/404.PNG)
+![404-page Image](docs/features-and-evidence/404.PNG)
+![404-page Image](docs/features-and-evidence/404.PNG)
+
+</details>
+
+<br><br>
+## [Back to Index](#index)
+<br>
+
+- ### **Where-to-write menu**
+
+It gives the user the option to select where to write the list of computed points to be reacquired, Google Drive or locally.
+
+*User Stories Addressed by this Feature:* 1; 3; 5; 13 and 14.*
+
+*Please check "9. Testing of User Stories" for more details.*
+<details>
+    <summary>Check Image</summary>
+
+![404-page Image](docs/features-and-evidence/404.PNG)
+
+</details>
+
+<br><br>
+## [Back to Index](#index)
+<br>
+
 
 ___
 # **7 . Validation**
@@ -620,7 +707,7 @@ Google Lighthouse (used in Google, Microsoft Edge and Firefox) were used to eval
 <br>
 
 ___
-# **8 . Testing of User Stories**
+# **9 . Testing of User Stories**
 
 
 ## **First time users**

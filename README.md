@@ -482,84 +482,7 @@ It gives the user the option to select where to write the list of computed point
 ___
 # **7 . Validation**
 
-The introductory image on top of this README file was generated using the [Am I Responsive site](http://ami.responsivedesign.is/?url=https%3A%2F%2Fcsc7.github.io%2FPP1_CI_TGC) to test how the website displays in different screen sizes.
-
-**Development tools** of **Google Chrome** (Version 92.0.4515.131, Official Build, 64-bit), **Microsoft Edge** (Version 92.0.902.67, Official build, 64-bit) and **Firefox** (Version 90.0.2, 64-bit) have been used to test the behaviour of the website for screen sizes between 320x568px to 1920x1370px.
-
-The website was tested using these **browsers** and also **Microsoft Internet Explorer** (Version 2004, OS Build 19041.1165). **Samsung Internet** (version 14.0.1.62) was also used to test the website. In addition, some users have collaborated checking the website in the cell phones, mostly with **Android-based operating systems**.
-
-**Devices** used for testing and validation include Dell and Toshiba laptops, Samsung cell phones. **Operative systems** include Windows 10 Enterprise (remote desktop), Windows 10 Pro, Windows 10 Home and Android. **Processors** for desktop and laptops were Intel.
-
-The following tools were used to validate the **files of the website**:
-
-## **HTML Files**
-https://validator.w3.org/ was used to validate the HTML files. All files ended up with zero errors and warnings.
-Please check the evidence below:
-
-<details>
-    <summary>Functions Page</summary>
-
-![Evidence of no errors and warnings in the Functions HTML (index) file](docs/validation/validation-html-index.PNG) 
-</details>
-
-<details>
-    <summary>Generator Page</summary>
-
-![Evidence of no errors and warnings in the Generator HTML file](docs/validation/validation-html-generator.PNG)
-</details>
-
-<details>
-    <summary>Quiz Page</summary>
-
-![Evidence of no errors and warnings in the Quiz HTML file](docs/validation/validation-html-quiz.PNG) 
-</details>
-
-<details>
-    <summary>Contact Page</summary>
-
-![Evidence of no errors and warnings in the Contact HTML file](docs/validation/validation-html-contact.PNG) 
-</details>
-
-<details>
-    <summary>404 Page</summary>
-
-![Evidence of no errors and warnings in the 404 file](docs/validation/validation-html-404.PNG) 
-</details>
-
-#### [Back to Index](#index)
-
-<br>
-
-
-## **CSS File**
-https://jigsaw.w3.org/css-validator/ was used to validate the CSS file.
-Please check the evidence below:
-
-<p>
-    <a href="http://jigsaw.w3.org/css-validator/check/referer">
-        <img style="border:0;width:88px;height:31px"
-            src="http://jigsaw.w3.org/css-validator/images/vcss"
-            alt="Valid CSS!" />
-    </a>
-</p>
-            
-<p>
-<a href="http://jigsaw.w3.org/css-validator/check/referer">
-    <img style="border:0;width:88px;height:31px"
-        src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
-        alt="Valid CSS!" />
-    </a>
-</p>
-     
-<details>
-    <summary>CSS Filee</summary>
-
-![Evidence of no errors in the CSS file](docs/validation/validation-css.PNG) 
-</details>
-
-#### [Back to Index](#index)
-
-<br><br>
+PEP8 was used to check the files written in Python.
 
 ## **JavaScript Files**
 https://jshint.com/ was used to validate the JavaScript files.
@@ -577,130 +500,7 @@ Please check the parameters used for validation and evidence below:
 ![Evidence of no errors and warnings in the Functions (index) JavaScript file](docs/validation/validation-js-index.PNG) 
 </details>
 
-<details>
-    <summary>Generator Page. Plase note that dataForGoogleChartFunction, google and emailjs are external variable from Google (the first two) and EmailJS (the third); while sendData is the function that is called from the Generator page to send the graph data by e-mail.</summary>
 
-![Evidence of no errors and warnings in the Generator JavaScript file](docs/validation/validation-js-generator.PNG)
-</details>
-
-<details>
-    <summary>Quiz Page</summary>
-
-![Evidence of no errors and warnings in the Quiz JavaScript file](docs/validation/validation-js-quiz.PNG) 
-</details>
-
-<details>
-    <summary>Contact Page. Plase note that emailjs is an external variable from EmailJS; while sendMail is the function that is called from the Contact page to send the form.</summary>
-
-![Evidence of no errors and warnings in the Contact JavaScript  file](docs/validation/validation-js-contact.PNG) 
-</details>
-
-#### [Back to Index](#index)
-
-<br>
-
-
-
-## **Accessibility**
-https://wave.webaim.org/ was used to validate accessibility. Although there are warnings, all pages contains zero errors. Please check evidence below:
-
-<details>
-    <summary>Functions Page</summary>
-
-![Evidence of no accessibility errors in the Functions (index) HTML file](docs/validation/validation-accessibility-index.PNG) 
-</details>
-
-<details>
-    <summary>Generator Page</summary>
-
-![Evidence of no accessibility errors in the Generator HTML file](docs/validation/validation-accessibility-generator.PNG)
-</details>
-
-<details>
-    <summary>Quiz Page</summary>
-
-![Evidence of no accessibility errors in the Quiz HTML file](docs/validation/validation-accessibility-quiz.PNG) 
-</details>
-
-<details>
-    <summary>Contact Page</summary>
-
-![Evidence of no accessibility errors in the Contact HTML file](docs/validation/validation-accessibility-contact.PNG) 
-</details>
-
-<details>
-    <summary>404 Page</summary>
-
-![Evidence of no accessibility errors in the 404 file](docs/validation/validation-accessibility-404.PNG) 
-</details>
-
-#### [Back to Index](#index)
-
-<br>
-
-
-## **Performance**
-Google Lighthouse (used in Google, Microsoft Edge and Firefox) were used to evaluate the performance of the pages. Please check the results below:
-
-<details>
-    <summary>Functions Page for Cell Phones(93)</summary>
-
-![Evidence of no accessibility errors in the Functions (index) HTML file](docs/validation/performance-functions-cell.PNG) 
-</details>
-
-<details>
-    <summary>Functions Page for Desktop (99)</summary>
-
-![Evidence of no accessibility errors in the Functions (index) HTML file](docs/validation/performance-functions-desktop.PNG) 
-</details>
-
-<details>
-    <summary>Generator Page for Cell Phones(97)</summary>
-
-![Evidence of no accessibility errors in the Generator HTML file](docs/validation/performance-generator-cell.PNG)
-</details>
-
-<details>
-    <summary>Generator Page for Desktop (100)</summary>
-
-![Evidence of no accessibility errors in the Generator HTML file](docs/validation/performance-generator-desktop.PNG)
-</details>
-
-<details>
-    <summary>Quiz Page for Cell Phones(95)</summary>
-
-![Evidence of no accessibility errors in the Quiz HTML file](docs/validation/performance-quiz-cell.PNG) 
-</details>
-
-<details>
-    <summary>Quiz Page for Desktop (99)</summary>
-
-![Evidence of no accessibility errors in the Quiz HTML file](docs/validation/performance-quiz-desktop.PNG) 
-</details>
-
-<details>
-    <summary>Contact Page for Cell Phones(97)</summary>
-
-![Evidence of no accessibility errors in the Contact HTML file](docs/validation/performance-contact-cell.PNG) 
-</details>
-
-<details>
-    <summary>Contact Page for Desktop (100)</summary>
-
-![Evidence of no accessibility errors in the Contact HTML file](docs/validation/performance-contact-desktop.PNG) 
-</details>
-
-<details>
-    <summary>404 Page for Cell Phones(92)</summary>
-
-![Evidence of no accessibility errors in the 404 file](docs/validation/performanc-404-cell.PNG) 
-</details>
-
-<details>
-    <summary>404 Page for Desktop (100)</summary>
-
-![Evidence of no accessibility errors in the 404 file](docs/validation/performanc-404-desktop.PNG) 
-</details>
 
 <br><br>
 ## [Back to Index](#index)
@@ -715,11 +515,11 @@ ___
 The following are testing of User Stories previously described above:
 <br><br>
 
-1. As a user, I want to find a responsive website, so I can access it in any device without having the content affected.
+1. As a user, I want to run the program intuitively and guided by messages, so I do not require further assistance and do not delay the daily activities.
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Website | Design of pages and their visualization adapt to different screen sizes | Different designs in different devices showing correctly | Works as expected | 
+| Welcome message<br>Validation messages<br>Current acquisition parameters<br>Overwriting acquisition parameters menu<br>Validation warning message<br>Compute/Visualize/Update menu<br>Computed points message<br>Visualize data menu<br>Daily statistics visualization<br>Acquisition parameters visualization<br>Amount of points to be reacquired visualization<br>List of points to be reacquired visualization<br>Where-to-write menu | Follow instructions and messages given by the program | Execute the task being selected | Works as expected | 
 
 <details>
     <summary>Screenshot</summary>
@@ -728,11 +528,11 @@ The following are testing of User Stories previously described above:
 </details>
 <br><br>
 
-2. As a user, I want to find a summary of types of wavelets, so I do not need to research for them in different sites on the web.
+2. As a user, I do not want to go through a set up process, so I do not require further assistance and do not delay the daily activities.
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Summary of Functions | Scroll down to find all currently available types of wavelets | Find requested information, in one page | Works as expected | 
+| Welcome message | Click on "RUN PROGRAM" button, no set up process | Run program, perform quality control tasks without setting up any application and/or component | Works as expected | 
 
 <details>
     <summary>Screenshots</summary>
@@ -743,11 +543,13 @@ The following are testing of User Stories previously described above:
 </details>
 <br><br>
 
-3. As a user, I want fo have the functions (formulas) of the wavelets, so I do not need to go through long texts or the web to find them.
+## **Returning Users**
+
+3. As a returning user, I want to have the option to read and store my files both in the cloud and a local disk, so I am able to perform QA/QC activities even when the recorder is far awav from the basecamp (where the computers are located).
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Summary of Functions | Scroll down to find all currently available formulas for the types of wavelets | Find requested information, in one page | Works as expected | 
+| First menu<br>Where-to-write menu | Select whether to read from Google Drive or locally | Access files in the selected source (Google Drive or locally) | Works as expected | 
 
 <details>
     <summary>Screenshots</summary>
@@ -761,11 +563,11 @@ The following are testing of User Stories previously described above:
 <br><br>
 
 
-4. As a user, I want to select the input parameters of the wavelets and see the corresponding graph of them, so I see how my parameters are affecting the wavelets.
+4. As a returning user, I want to automate a daily repetitive task, so I do not use much time to generate the list of points to be reaquired.
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Wavelet Generator | Assign desired parameters in input fields and select type from dropdown list | Plot desired wavelet for checking. | Works as expected | 
+| Program itself | Follow instructions given by the program | Automated quality control task | Works as expected | 
 
 <details>
     <summary>Screenshot</summary>
@@ -776,11 +578,11 @@ The following are testing of User Stories previously described above:
 <br><br>
 
 
-5. As a user, I want to have the wavelet I choose sent to my e-mail address, so I can have it available for other applications and/on for download without having to use other applications that could take a longer time for the generation of the wavelet.
+5. As a returning user, I want to have the option to visualize the data, so I check if there is any anomaly before writing the final list.
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Wavelet Generator | Click on "E-mail Data" button to send the data to the desired e-mail address | Find information about projects | Works as expected | 
+| Current acquisition parameters<br>Validation warning message<br>Compute/Visualize/Update menu<br>Computed points message<br>Visualize data menu<br>Daily statistics visualization<br>Acquisition parameters visualization<br>Amount of points to be reacquired visualization<br>List of points to be reacquired visualization<br>Where-to-write menu | Visualize information given by the program and select option to visualize when prompted | Show information | Works as expected | 
 
 <details>
     <summary>Screenshots</summary>
@@ -793,11 +595,11 @@ The following are testing of User Stories previously described above:
 <br><br>
 
 
-6. As a user, I want to have the option to send comments or questions, so I can contribute with the website development and/or indicate errors or bugs.
+6. As a returning user, I want to automate the process, so I commit fewer (or none) errors.
 
 | FEATURES | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Contact Form and Footer | Navigate to Contact page and/or fixed on bottom, always visible | Send form and/or use contact information in footer | Works as expected | 
+| Program itself | Follow instructions given by the program | Automated quality control task | Works as expected | 
 
 <details>
     <summary>Screenshots</summary>
@@ -815,11 +617,11 @@ The following are testing of User Stories previously described above:
 
 ## **Returning users**
 
-7. As a returning user, I want to have the website accessible from any device, so I do not depend on only one device to access the information.
+7. As a returning user, I want to be informed if something is wrong, so I understand what is happening and I know if I need to add or correct files.
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Website | Design of pages and their visualization adapt to different screen sizes | Different designs in different devices showing correctly | Works as expected | 
+| Validation warning message | Work normally, following the instructions of the program | Get a message when something is not correct and/or might impact the results. | Works as expected | 
 
 <details>
     <summary>Screenshot</summary>
@@ -829,11 +631,11 @@ The following are testing of User Stories previously described above:
 <br><br>
 
 
-8. As a returning user, I want a navigation menu on top and always visible, so I can access any content in the website from there and do not need to use the back button of the browser.
+8. As a returning user, I want the program to check the correctness of the information, so I do not need to check if the files and/or information is correct before processing the data.
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Fixed navigation menu | Access it on top, fixed and always visible | Navigate to different pages | Works as expected | 
+| Validation messages<br>Validation warning message | Access data in Google Drive or locally when prompted | Get the program check the validity of the data and inform any issues | Works as expected | 
 
 <details>
     <summary>Screenshots</summary>
@@ -849,11 +651,11 @@ The following are testing of User Stories previously described above:
 <br><br>
 
 
-9. As a returning user, I want to have a reference website with a summary of types and functions of wavelets, so I do not need to look for them and/or check in different websites.
+9. As a returning user, I want to have the option to overwrite the acquisition parameters (tolerances), so I can still process data if the parameters file is not present or has any issue and/or if I want to test new parameters/tolerances.
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Summary of Functions | Scroll down to find all currently available formulas for the types of wavelets | Find requested information, in one page | Works as expected | 
+| Overwrite acquisition parameters menu<br>Overwriting acquisition parameters menu | Enter new acquisition parameters when prompted, if desired | Load new parameters and execute the process with them | Works as expected | 
 
 <details>
     <summary>Screenshots</summary>
@@ -867,11 +669,13 @@ The following are testing of User Stories previously described above:
 <br><br>
 
 
-10. As a returning user, I want to generate new wavelets so I can check them in a quick way.
+## **Site Owner**
+
+10. As owner, I want to automate the process, so I give the option to achieve the quality control process in less time, with fewer errors.
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Wavelet Generator | Assign desired parameters in input fields and select type from dropdown list | Plot desired wavelet for checking. | Works as expected | 
+| Program it self<br>Validation warning message | Follow instructions given by the program | Automated quality control task | Works as expected | 
 
 <details>
     <summary>Screenshot</summary>
@@ -882,11 +686,11 @@ The following are testing of User Stories previously described above:
 <br><br>
 
 
-11. As a returning user, I want to test my knowledge against a quiz, so I refresh basic concepts and/or take a break to when I want to.
+11. As owner, I want to give the option to read the quality control files from Google Drive or from a local computer, so I increase the functionality of my application.
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Quiz | Navigate to Quiz page | Run quiz with Start button  | Works as expected | 
+| First menu | Select whether to read from Google Drive or locally | Access files in the selected source (Google Drive or locally) | Works as expected | 
 
 <details>
     <summary>Screenshot</summary>
@@ -897,11 +701,11 @@ The following are testing of User Stories previously described above:
 <br><br>
 
 
-12. As a returning user, I want to have a way to send feedback or make consultations, so I can collaborate and/or make consultations about the website and/or its content.
+12. As owner, I want the program to validate the data, so users do not need to spend time checking the validity of the files and/or information.
 
 | FEATURES | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Contact Form Footer | Navigate to Contact page and/or fixed on bottom, always visible | Send form and/or use contact information in footer | Works as expected | 
+| Validation messages<br>Validation warning message | Access data in Google Drive or locally when prompted | Get the program check the validity of the data and inform any issues | Works as expected | 
 
 <details>
     <summary>Screenshots</summary>
@@ -917,11 +721,11 @@ The following are testing of User Stories previously described above:
 <br><br>
 
 
-13. As a returning user, I want to be informed if the contact form goes through, so I know if my message is sent or it is not.
+13. As owner, I want to give the user the option to visualize the data being controlled, so users can understand better eventual issues they might find.
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Contact Form | Indicate whether the form went through or it did not | Check message below Send button | Works as expected | 
+| Current acquisition parameters<br>Compute/Visualize/Update menu<br>Computed points message<br>Visualize data menu<br>Daily statistics visualization<br>Acquisition parameters visualization<br>Amount of points to be reacquired visualization<br>List of points to be reacquired visualization<br>Where-to-write menu | Visualize information given by the program and select option to visualize when prompted | Show information | Works as expected | 
 
 <details>
     <summary>Screenshot</summary>
@@ -932,11 +736,11 @@ The following are testing of User Stories previously described above:
 <br><br>
 
 
-14. As a returning user, I want to have a way to contact the developer so I can contribute and/or indicate errors or bugs.
+14. As owner, I want to give the option to write the points to be reacquired in Google Sheets or locally, so I increase the functionality of my application.
 
 | FEATURES | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Contact Form Footer | Navigate to Contact page and/or fixed on bottom, always visible | Send form and/or use contact information in footer | Works as expected | 
+| Where-to-write menu | Select whether to read from Google Drive or locally | Access files in the selected source (Google Drive or locally) | Works as expected | 
 
 <details>
     <summary>Screenshots</summary>
@@ -955,12 +759,11 @@ The following are testing of User Stories previously described above:
 
 
 
-## **Site Owner**
-15. As owner, I want to create a website that provides a basic service (wavelet generation) so users can use it to check and obtain wavelets without using longer solutions for the generation/checking of them.
+15. As owner, I want to set the base for a quality control program, so more features can be added with further development (e.g., with more quality control files and/or more parameters/tolerances).
 
 | FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
 | --- | --- | --- | --- |
-| Website | Navigate to all pages to find a summary of wavelet types and functions, an interactive wavelet generator with the capability of sending the wavelet to an e-mail address, a quiz to take a break and a contact form to send comments, suggestions or questions. | Find information and features in all website pages | Initial version deployed, working as expected | 
+| Program itself | Use current code as base for new features (e.g., incorporating new quality control files) | Easily add functionality | Initial version deployed working as expected, further development for new features | 
 
 <details>
     <summary>Screenshots</summary>
@@ -970,238 +773,6 @@ The following are testing of User Stories previously described above:
 </details>
 <br><br>
 
-
-16. As owner, I want to create a website that is the base for further development, so I can keep showing my work and offer more solutions in the future.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Website | Similar to previous testing of user story (number 15). Find information, features and tools for further development in all pages. | Find information, features and tools in all website pages | Initial version deployed | 
-
-<details>
-    <summary>Screenshots</summary>
-
-![Functions Page](docs/features-and-evidence/fixed-navigation-bar-on-top-functions-page.PNG)
-
-![Generator Page](docs/features-and-evidence/fixed-navigation-bar-on-top-generator-page.PNG)
-
-![Quiz Page](docs/features-and-evidence/fixed-navigation-bar-on-top-quiz-page.PNG)
-
-![Contact Page](docs/features-and-evidence/fixed-navigation-bar-on-top-contact-page.PNG)
-</details>
-<br><br>
-
-
-17. As owner, along with other points of this section, I want to show my work and give the option to users to contact me if they wish.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Website, Contact page and footer | Check my work on different pages, contact me through the contact form in the Contact page and/or through the links provided in the footer | Find information and contact options | Works as expected | 
-
-<details>
-    <summary>Screenshots</summary>
-
-![Functions Page](docs/features-and-evidence/fixed-navigation-bar-on-top-functions-page.PNG)
-
-![Generator Page](docs/features-and-evidence/fixed-navigation-bar-on-top-generator-page.PNG)
-
-![Quiz Page](docs/features-and-evidence/fixed-navigation-bar-on-top-quiz-page.PNG)
-
-![Contact Page](docs/features-and-evidence/fixed-navigation-bar-on-top-contact-page.PNG)
-
-![Footer](docs/features-and-evidence/fixed-footer.PNG) 
-
-![Footer - LinkedIn](docs/features-and-evidence/contact-form-and-footer-LinkedIn.PNG) 
-
-![Footer - GitHub](docs/features-and-evidence/contact-form-and-footer-GitHub.PNG)
-
-![Footer - Mail To](docs/features-and-evidence/contact-form-and-footer-mail-to.PNG) 
-</details>
-<br><br>
-
-
-18. As owner, I want to provide a website that can be browsed fully without using the back button, so users have a "map" of the website at all times and do not get issues while navigating (like sending data to a server interrupted or resent).
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Website logo (for Functions page), fixed navigation menu and footer | Find them in any pages, always fixed, website logo and navigation menu on top, footer in the bottom | All website accessible without using the browser back button | Works as expected | 
-
-<details>
-    <summary>Screenshots</summary>
-
-![Website Logo](docs/features-and-evidence/website-logo.PNG)
-
-![Fixed Navigation Menu](docs/features-and-evidence/fixed-navigation-menu.PNG) 
-
-![Footer](docs/features-and-evidence/footer.PNG) 
-</details>
-<br><br>
-
-
-19. As owner, I want to provide a responsive website, so user can access it from any device without any constraint to navigate, find and/or use the website.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Projects table | Scroll down in About Us page | Find information about projects | Works as expected | 
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Website | Design of pages and their visualization adapt to different screen sizes | Different designs in different devices showing correctly | Works as expected | 
-
-<details>
-    <summary>Screenshot</summary>
-
-![Am I Responsive Image](docs/am-i-responsive.PNG) 
-</details>
-<br><br>
-
-
-20. As owner, I want to give an interactive website that update colours, graphs and information, so users enjoy the navigation in the website and instantly know if the website works properly or it does not.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Website | Interactivity is mainly observable in Generator and Quiz pages | Check interactivity and responses in all pages, especially in Generator and Quiz pages | Works as expected | 
-
-<details>
-    <summary>Screenshots</summary>
-
-![Generator Page Image](docs/features-and-evidence/generator.PNG)
-
-![Quiz Page Image](docs/features-and-evidence/quiz.PNG) 
-
-</details>
-<br><br>
-
-
-21. As owner, I want to put a brand in the top left, so users not only associate the brand with the website but also they can click it for the "Home" (Functions) page.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Website logo | Fixed on top left of all pages | Click for Functions page (Home) | Works as expected | 
-
-<details>
-    <summary>Screenshot</summary>
-
-![Website Logo](docs/features-and-evidence/website-logo-for-functions-page.png)
- 
-</details>
-<br><br>
-
-
-22. As owner, I want to provide a website that summarises the type of wavelets so users can use it as a reference.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Summary of Functions | Scroll down to find all currently available types of wavelets | Find requested information, in one page | Works as expected | 
-
-<details>
-    <summary>Screenshots</summary>
-
-![Functions Page Top Image](docs/features-and-evidence/functions-page-top.PNG)
-
-![Functions Page Bottom Image](docs/features-and-evidence/functions-page-bottom.PNG) 
-</details>
-<br><br>
-
-
-23. As owner, I want to give an interactive website, so users test their own wavelets without having to replicate the formulas with their own parameters themselves.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Wavelet Generator | Assign desired parameters in input fields and select type from dropdown list | Plot desired wavelet for checking. | Works as expected | 
-
-<details>
-    <summary>Screenshot</summary>
-
-![Wavelet Generator Image](docs/features-and-evidence/wavelet-generator.png)
-
-</details>
-<br><br>
-
-
-24. As owner, I want to provide a quiz so users can use the website as a basic entertainment when they want a short break from their activities.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Quiz | Navigate to Quiz page | Run quiz with Start button  | Works as expected | 
-
-<details>
-    <summary>Screenshot</summary>
-
-![Quiz Image](docs/features-and-evidence/fixed-navigation-bar-on-top-quiz-page.PNG)
-
-</details>
-<br><br>
-
-
-25. As owner, I want to give as many options to be contacted as possible, so users can choose forms or links in the footer to send their consultations and/or feedback in a very fast way without having to navigate throuth the website.
-
-| FEATURES | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Contact Form and Footer | Navigate to Contact page and/or fixed on bottom, always visible | Send form and/or use contact information in footer | Works as expected | 
-
-<details>
-    <summary>Screenshots</summary>
-
-![Contact Form](docs/features-and-evidence/contact-form-and-footer.png)
-
-![Footer - LinkedIn](docs/features-and-evidence/contact-form-and-footer-LinkedIn.PNG) 
-
-![Footer - GitHub](docs/features-and-evidence/contact-form-and-footer-GitHub.PNG)
-
-![Footer - Mail To](docs/features-and-evidence/contact-form-and-footer-mail-to.PNG) 
-</details>
-<br><br>
-
-
-26. As owner, I want to inform users if they consultation/message was successfully sent, so they know if they need to resend it or they do not.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Contact Form | Indicate whether the form went through or it did not | Check message below Send button | Works as expected | 
-
-<details>
-    <summary>Screenshot</summary>
-
-![E-mail Sent from Contact Form Image](docs/features-and-evidence/contact-form-email-sent.PNG)
-
-</details>
-<br><br>
-
-
-27. As owner, I want to inform the user, through an error page, if there is any error when loading the website.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| 404 page | Show 404 page when loading a page has been done with errors | Find a 404 page that is related to the website (not a default page from browser) | Works as expected | 
-
-<details>
-    <summary>Screenshot</summary>
-
-![404 Page Image](docs/features-and-evidence/404.PNG)
-
-</details>
-<br><br>
-
-28. As owner, I want to validate the contact form and e-mail field for sending wavelet data, so users cannot send empty forms or data, simultaneously letting them know if the form or data is successfully sent.
-
-| FEATURE | ACTION | EXPECTED RESULT | ACTUAL RESULT |
-| --- | --- | --- | --- |
-| Wavelet Generator and Contact Form | Show a message in the E-mail field in the Generator page and all the fields of the contact form in the Contact page that some data/information is missing before the action can be completed | Show message/alert and prevent form or data to be sent | Works as expected | 
-
-<details>
-    <summary>Screenshots</summary>
-
-![Data E-mail Validation Image](docs/features-and-evidence/validation-for-email-data.PNG)
-![Form Name Validation Image](docs/features-and-evidence/validation-form-name.PNG)
-![Form Surname Validation Image](docs/features-and-evidence/validation-form-surname.PNG)
-![Form E-mail Validation Image](docs/features-and-evidence/validation-form-email.PNG)
-![Form Description Validation Image](docs/features-and-evidence/validation-form-description.PNG)
-
-</details>
-<br><br>
-
-
-<br><br>
 
 ## [Back to Index](#index)
 <br>

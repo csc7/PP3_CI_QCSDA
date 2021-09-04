@@ -59,6 +59,35 @@ ___
 
 # **2 . User Manual**
 
+The program starts with a welcome message a the list of files that are required to performed the automated quality control check.
+Below them, the user is given the option to read the files:
+* Read from Google Drive
+* Read from a local computer (where the user is working).
+
+After selecting the option, the program will attempt to load the data and will check (validate) that the files contains the required information, in the required format. The program will show an error if the information is missing of if the file has another format (e.g., if the file was saved with different header lenght, with different amount of columns, or any other differences). If everything is correct, the program will show the current acquisition paramenters (tolerances for the quality control check) and will give the user the option to use them (which should be the normal case since parameters/tolerances are not usually changed once the acquisition has started) or to input new ones. The program will continue or will ask the user to enter new parameters based on the selection of the user.<br><br>
+After previous option, the program will continue and show the daily production (VPs that have been acquired in that day) along with planted geophones (sensors that must be ready for the next day) and geophones that were picked up (sensors that will not be used for the new points and will be moved to the "front" for acquisition of new points). At this point, the program checks that the points included in the different files match the daily production. If they do not match, the user is given a warning message indicating that if one continues with the program, the information (lists) generated will be incomplete. The user might want to continue just to have an idea of how the acquisition is going on. The option to continue would be useful, for example, when the acquisition is going on but has not finished for the day.
+Below this information, the program will show a menu with these options:
+* "Compute points to reacquire"
+* "Visualize data"
+* "Update QCSDA Spreadsheet with points to reacquire"
+
+This menu will be repeated until the user select to return to the previous menu (the start of the program, where the user is given the option to repeat or close the program).
+The first option ("Compute points to reacquire") will identify the points acquired out of specifications, based on current acquisition parameters (tolerances), and will show the number of points to be reacquired by category (distortion, average force and positioning issues).
+The program will ask the user to compute points to reacquire first if the last option ("Update QCSDA Spreadsheet with points to reacquire") is selected before computing the points to reaquire.
+
+If "Visualize data" is selected, the program will show the following menu to select what information to show.
+* "Daily Statistics".<br>If selected, it will show daily production, layout and pick-up.
+* "Acquisition Parameters".<br>If selected, it will show the current acquisition parameters (tolerances).
+* "Amount of points to be reaquired".<br>If selected, it will show the number of points, by category (distortion, average force and positioning issues).
+* "Points to be reacquired".<br>If selected, it will show the list of points to be reaquired, by category (distortion, average force and positioning issues), with the line number, station number, X-coordinate and Y-coordinate.
+
+If "Update QCSDA Spreadsheet with points to reacquire" is selected and the points to be reacquired are already computed (otherwise the program will ask to do so), this option will prompt the user where to write the list of points to be reacquired (showing a message to remember the user where the data were read from last):
+* Google Drive
+* Locally
+
+This menu will be shown again until the user select to return to previous menu.
+
+The user is always given the option to retunt to previous menu, until the first one shown (where to read the data from), where the user can select to repeat all the process or to close the program.
 
 ## [Back to Index](#index)
 <br>

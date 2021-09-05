@@ -736,4 +736,3 @@ if (run_program == "G" or run_program == "g" or
     main(run_program)
 else:
     print("Program closed.")
-

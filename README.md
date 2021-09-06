@@ -59,6 +59,9 @@ ___
 
 # **2 . User Manual**
 
+The program code is divided in two files: "run.py" and "functions.py" . The first one runs the program and calls all the functions, which are contained in the second file.
+To run the program from GitHub pages, just click on the "RUN PROGRAM" button. If using a terminal, run the program by calling the run.py (e.g., write "python3 run.py" and press "enter").
+
 The program starts with a welcome message a the list of files that are required to performed the automated quality control check.
 Below them, the user is given the option to read the files:
 * Read from Google Drive

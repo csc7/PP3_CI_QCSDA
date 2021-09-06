@@ -874,6 +874,8 @@ ___
 
     - Slice function: https://www.w3schools.com/python/ref_func_slice.asp, accessed on August 21st, 2021, at 22:20.
 
+    - Consultation about how to import functions from other files: https://stackoverflow.com/questions/20309456/call-a-function-from-another-file, accessed on September 6th, 2021, at 23:10.
+
 
 # OLD/DELETE
 

@@ -14,28 +14,28 @@ The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.
 #### [*Website Live Link*](https://csc7.github.io/PP2_CI_WW/)
 ### [1. Project Goals](#1--project-goals)
 ### [2. User Manual](#2--user-manual)
-### [3. User Experience](#2--user-experience)
+### [3. User Experience](#3--user-experience)
 - #### [User Goals](#user-goals-1)
 - #### [Site Owner Goals](#site-owner-goals-1)
 - #### [User Stories](#user-stories-1)
 - #### [User Requirements and Expectations](#user-requirements-and-expectations-1)
-### [4. Flowchart](#3--flowchart)
+### [4. Flowchart](#4--flowchart)
 ### [5. Technologies used](#5--technologies-used)
 - #### [Languages](#languages-1)
 - #### [Software and Other Tools](#software-and-other-tools-1)
 ### [6. Libraries](#6--libraries)
-### [7. Features](#6--features)
-### [8. Validation](#7--validation)
+### [7. Features](#7--features)
+### [8. Validation](#8--validation)
 - #### [HTML Files](#html-files-1)
 - #### [CSS File](#css-file-1)
 - #### [JavaScript Files](#javascript-files-1)
 - #### [Accessibility](#accessibility-1)
 - #### [Performance](#performance-1)
-### [9. Testing of User Stories](#8--testing-of-user-stories)
-### [10. Bugs](#9--bugs)
-### [11. Deployment](#10--deployment)
-### [12. Credits](#11--credits)
-### [13. Acknowledgements](#12--acknowledgements)
+### [9. Testing of User Stories](#9--testing-of-user-stories)
+### [10. Bugs](#10--bugs)
+### [11. Deployment](#11--deployment)
+### [12. Credits](#12--credits)
+### [13. Acknowledgements](#13--acknowledgements)
 <br><br>
 
 ___
@@ -97,7 +97,7 @@ The user is always given the option to retunt to previous menu, until the first 
 
 ___
 
-# **2 . User Experience**
+# **3 . User Experience**
 
 The goal of the program is to provide a simple but interactive method to automate a quality control task that would many minutes (with higher exposure to errors) if done manually.
 
@@ -160,7 +160,7 @@ User stories are divided into the following three groups:
 <br>
 
 ___
-# **3 . Flowchart**
+# **4 . Flowchart**
 
 The design was planned to cover screen sizes from 320x568px to 1920x1370px.
 
@@ -218,7 +218,7 @@ Used in this project to easily convert Pandas dataframe to float type.
 
 ___
 
-# **6 . Features**
+# **7 . Features**
 
 The program runs in a terminal, including the following features:
 
@@ -464,7 +464,7 @@ It gives the user the option to select where to write the list of computed point
 
 
 ___
-# **7 . Validation**
+# **8 . Validation**
 
 PEP8 was used to check the files written in Python.
 
@@ -746,7 +746,7 @@ The following are testing of User Stories previously described above:
 <br>
 
 ___
-# 9 . Bugs
+# 10 . Bugs
 
 Some bugs were related to positioning of elements in the page. They were fixed by assigning proper values, most of them with the help of a temporary background colour for the element.
 
@@ -768,7 +768,7 @@ Bugs that required more time and specific solutions were the following ones:
 <br>
 
 ___
-# 10 . Deployment
+# 11 . Deployment
 
 The website was fully written in Gitpod, permanently tested in Gitpod terminal, and periodically deployed to GigHub Pages (in a main branch) and Heroku Platform.
 
@@ -828,7 +828,7 @@ The project can also be forked from the repository (https://github.com/csc7/PP2_
 <br>
 
 ___
-# 11 . Credits
+# 12 . Credits
 
 - Code Institute: I have used the learning material in the course as a guide and reference. "Love Sandwiches - Essentials Project" was the main reference.
 
@@ -880,7 +880,7 @@ ___
 
 ## [Back to Index](#index)
 ___
-# 12 . Acknowledgements
+# 13 . Acknowledgements
 
 I would like to acknowledge and thank the following people for being part of this project and for helping me in the development of it:
 - To my wife and family, for always supporting and helping.

@@ -1,4 +1,3 @@
-# *SORRY, PROJECT UNDER CONTRSUCTION*
 # Quality Control of Seismic Data Acquisition
 
 This project aims for automation of quality control task of seismic data acquisition using the files generated for that purpose by the recorder instrument. Except for the content referenced in this README file and/or the code and/or the website, all content is invented by me, anything matching reality is just a coincidence.

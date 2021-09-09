@@ -812,7 +812,9 @@ The following command can be used to install both libraries:
 3. Go to settings of the apps (do that before deploying the code).
 4. Ignore this step if you do not use credentials to access other services. In Config Vars, create a new one giving the name of CREDS, and assing to content of the JSON file with credentials to its value.
 5. Go to Buildpacks and add Python and Node.js, in that order, keeping Python on top and NodeJS below.
-6. Go to the deploy sections of the app, select GitHub as the Deployment method, and assign a name for the repository to connect to GitHub
+6. Go to the deploy sections of the app, select GitHub as the Deployment method, assign a name for the repository to connect to GitHub, and connect.
+7. Go to the bottom and select whether you want automatic (rebuilding for each commit) or manual deployment.
+8. You will get a button with a link to your app if succesfully deployed.
 
 1. asfsdfasdfasdf
 

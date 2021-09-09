@@ -769,7 +769,7 @@ Bugs that required more time and specific solutions were the following ones:
 ___
 # 11 . Deployment
 
-The website was fully written in Gitpod, permanently tested in Gitpod terminal, and periodically deployed to GigHub Pages (in a main branch) and Heroku Platform.
+The website was fully written in Gitpod, permanently tested in Gitpod terminal, and periodically deployed to GigHub Pages (in a main branch) and Heroku Platform (to handle backend languages).
 
 The fully deployed website, accessible by anyone, is found [here](https://csc7.github.io/PP3_CI_QCSDA), whose URL is https://csc7.github.io/PP3_CI_QCSDA . Its repository is found [here](https://github.com/csc7/PP3_CI_QCSDA), whose URL is https://github.com/csc7/PP3_CI_QCSDA.
 
@@ -807,7 +807,8 @@ The following command can be used to install both libraries:
 *"pip3 install gspread google-auth"*
 
 * **Deploy on Heroku Platform:**
-
+1. Include dependencies in a requirements.txt file, which is used by Heroku to install the dependencies. Use this command: *"pip3 freeze > requirements.txt"*
+2. In the dashboard of your Heroku account
 
 1. asfsdfasdfasdf
 

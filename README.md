@@ -808,7 +808,11 @@ The following command can be used to install both libraries:
 
 * **Deploy on Heroku Platform:**
 1. Include dependencies in a requirements.txt file, which is used by Heroku to install the dependencies. Use this command: *"pip3 freeze > requirements.txt"*
-2. In the dashboard of your Heroku account
+2. Create new app from the dashboard of your Heroku account.
+3. Go to settings of the apps (do that before deploying the code).
+4. Ignore this step if you do not use credentials to access other services. In Config Vars, create a new one giving the name of CREDS, and assing to content of the JSON file with credentials to its value.
+5. Go to Buildpacks and add Python and Node.js, in that order, keeping Python on top and NodeJS below.
+6. Go to the deploy sections of the app, select GitHub as the Deployment method, and assign a name for the repository to connect to GitHub
 
 1. asfsdfasdfasdf
 

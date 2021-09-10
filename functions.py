@@ -2,6 +2,7 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+# Import libraries
 import pandas as pd
 import openpyxl
 import numpy as np
@@ -42,7 +43,7 @@ def load_sheets_from_Google_Drive():
         #tolerances_data = SHEET_PARAMETERS.worksheet('Tolerances')
         #tolerances_data = pd.DataFrame(tolerances_data.get_all_values())
         
-
+        #Read daily report data
         SHEET_DAILY_REPORT = GSPREAD_CLIENT.open('daily_report')
         daily_report_data = SHEET_DAILY_REPORT.worksheet('Daily_Report')
         daily_report_data = pd.DataFrame(daily_report_data.get_all_values())

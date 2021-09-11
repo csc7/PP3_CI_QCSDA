@@ -846,6 +846,10 @@ ___
 
 - Jesse James Garrett's process for user experience.
 
+- Flake8 Rules:
+
+    - To remember how to indent and comply with PEP8 standards in "if" statements when using a second line: https://www.flake8rules.com/rules/E129.html, accessed on September 11th, 2021, at 21:50 .
+
 - Google:
 
     - Google Sheets.
@@ -877,6 +881,8 @@ ___
     - To read a Microsoft Excel file and/or one of its sheets: https://stackoverflow.com/questions/26521266/using-pandas-to-pd-read-excel-for-multiple-worksheets-of-the-same-workbook, accessed on August 22nd, 2021, at 18:10.
 
     - To select range of data in Pandas: https://stackoverflow.com/questions/50865987/how-to-select-all-elements-greater-than-a-given-values-in-a-dataframe/50866687, accessed on Augsut 22nd, 2021, at 20:30.
+
+    - To remember how to indent and comply with PEP8 standards for "print" commands when using a second line: https://stackoverflow.com/questions/15435811/what-is-pep8s-e128-continuation-line-under-indented-for-visual-indent, accessed on September 11th, 2021, at 21:35.
 
 - W3C®. Copyright © 2021 W3C ® (MIT, ERCIM, Keio, Beihang); https://www.w3.org/: 
 

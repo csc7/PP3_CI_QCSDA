@@ -473,18 +473,17 @@ PEP8 was used to check the files written in Python, with "All right" results.
 The tool can be accessed with this link: http://pep8online.com/checkresult .
 
 ### **run.py**
-
-
 <details>
     <summary>PEP3 check for run.py</summary>
 
 ![Evidence of no errors and warnings in the run.py file](docs/validation/pep8-run.PNG) 
 </details>
 
+### **functions.py**
 <details>
-    <summary>Functions Page</summary>
+    <summary>EP3 check for functions.py</summary>
 
-![Evidence of no errors and warnings in the Functions (index) JavaScript file](docs/validation/validation-js-index.PNG) 
+![Evidence of no errors and warnings in the functions.py file](docs/validation/validation-js-index.PNG) 
 </details>
 
 

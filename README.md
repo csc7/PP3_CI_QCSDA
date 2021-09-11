@@ -166,6 +166,12 @@ ___
 
 The following flowchart summarises the work and purpose of the program.
 
+<details>
+    <summary>Program flowchart</summary>
+
+![Program Flowchart](docs/validation/pep8-run.PNG) 
+</details>
+
 <br><br>
 ## [Back to Index](#index)
 <br>

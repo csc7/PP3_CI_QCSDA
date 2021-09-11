@@ -164,7 +164,7 @@ User stories are divided into the following three groups:
 ___
 # **4 . Flowchart**
 
-The design was planned to cover screen sizes from 320x568px to 1920x1370px.
+The following flowchart summarises the work and purpose of the program.
 
 <br><br>
 ## [Back to Index](#index)

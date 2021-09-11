@@ -91,6 +91,9 @@ This menu will be shown again until the user select to return to previous menu.
 
 The user is always given the option to retunt to previous menu, until the first one shown (where to read the data from), where the user can select to repeat all the process or to close the program.
 
+### **Note**
+If interested in checking the warning messages, you can modify the files names and/or content to get alerts on what is going on and possible solutions.
+
 ## [Back to Index](#index)
 <br>
 
@@ -465,16 +468,17 @@ It gives the user the option to select where to write the list of computed point
 ___
 # **8 . Validation**
 
-PEP8 was used to check the files written in Python.
+PEP8 was used to check the files written in Python, with "All right" results.
 
-## **JavaScript Files**
-https://jshint.com/ was used to validate the JavaScript files.
-Please check the parameters used for validation and evidence below:
+The tool can be accessed with this link: http://pep8online.com/checkresult .
+
+### **run.py**
+
 
 <details>
-    <summary>Parameters used for JavaScript validation in JSHint version 2.13.0</summary>
+    <summary>PEP3 check for run.py</summary>
 
-![Evidence of no errors and warnings in the Functions (index) JavaScript file](docs/validation/validation-js-parameters.PNG) 
+![Evidence of no errors and warnings in the run.py file](docs/validation/pep8-run.PNG) 
 </details>
 
 <details>

@@ -240,6 +240,7 @@ def load_parameters(qc_dict):
     return qc_dictionary
 
 
+# Validate data in Google Sheets
 def validate_data_from_Google(data_to_validate):
     """
     This function checks the data in the Google Sheets has the proper format
@@ -248,9 +249,20 @@ def validate_data_from_Google(data_to_validate):
     """
     print("\nValidating data in the sheets...\n")
 
+    # Check if first element of dictionary is another dictionary.
+    # The input of this funciont is the output of
+    # load_sheets_from_Google_Drive() or load_sheets_locally(),
+    # which returns an initialized dictionary if acquisition parameters need
+    # to be asked for, or returns a different data structure (gspread table
+    # for Google Sheets or Pandas dataframe for local Microsoft Excel).
+    # Therefore, if the first element is a dictionary, it means the
+    # acquisition parameters (tolerances) were not entered and it is needed to
+    # ask for them by calling load_parameters(). If not a dictionary, just
+    # read the data in the "else" statement.
     if (isinstance(data_to_validate[0], dict)):
         qc_dictionary = load_parameters(data_to_validate[0])
-
+        # Check if other files and data (other than acquisition parameters)
+        # are available and print an error message if they are not
         try:
             qc_dictionary.update({
                 "daily_report": {
@@ -266,15 +278,13 @@ def validate_data_from_Google(data_to_validate):
                 "positioning": data_to_validate[4].iloc[
                     (header_lines_in_positioning_file-2):, 0:8],
             })
-
             print("\nCurrent Acquisition Parameters:")
+            # Call function to print current acquisition parameters
             print_acq_param(qc_dictionary)
-
         except TypeError as e:
             print(f"Data could not be validted: {e}. Please check format is " +
                   "correct for each file.\n")
             return False
-
     else:
         try:
             qc_dictionary = {
@@ -299,14 +309,15 @@ def validate_data_from_Google(data_to_validate):
                 "positioning": data_to_validate[4].iloc[
                     (header_lines_in_positioning_file-2):, 0:8],
             }
-
             qc_dictionary = ask_to_overwrite_parameters(qc_dictionary)
-
         except TypeError as e:
-            print(f"Data could not be validted: {e}. Please check format is " +
-                  "correct for each file.\n")
+            print(f"Data could not be validted: {e}. " +
+                  "Please check format is correct for each file.\n")
             return False
 
+        # Round data to two digits avoid differences when reading from
+        # Google Drive or locally, as the sheets from different sources seem
+        # to have different float values.
         for item in qc_dictionary["distortion"]:
             item = round(float(item), 2)
         for item in qc_dictionary["average_force"]:
@@ -314,8 +325,8 @@ def validate_data_from_Google(data_to_validate):
         for item in qc_dictionary["positioning"]:
             item = round(float(item), 2)
 
-        # Calculate distance from COG to planned coordinate before retuning
-        # the dictionary
+        # Read coordinates of real and planned points to later compute
+        # distance to COG
         x_p = qc_dictionary['positioning'].iloc[:, 1]
         x_planned = pd.to_numeric(x_p)
         y_p = qc_dictionary['positioning'].iloc[:, 2]
@@ -329,12 +340,16 @@ def validate_data_from_Google(data_to_validate):
         z_c = qc_dictionary['positioning'].iloc[:, 6]
         z_cog = pd.to_numeric(z_c)
 
+        # Compute distance from real position of point to the
+        # center of gravity (COG)
         distance = ((x_planned - x_cog)*(x_planned - x_cog) +
                     (y_planned - y_cog)*(y_planned - y_cog) +
                     (z_planned - z_cog)*(z_planned - z_cog))**0.5
 
+        # Create new column with distance to COG
         qc_dictionary['positioning'].iloc[:, 7] = distance
 
+    # Return updated dictionary
     return (qc_dictionary)
 
 
@@ -346,12 +361,20 @@ def validate_data_locally(data_to_validate):
     """
     print("\nValidating data in the sheets...\n")
 
-    # If dictionary, it means there was no parameters file,
-    # so ask for them here
-
+    # As before, check if first element of dictionary is another dictionary.
+    # The input of this funciont is the output of
+    # load_sheets_from_Google_Drive() or load_sheets_locally(),
+    # which returns an initialized dictionary if acquisition parameters need
+    # to be asked for, or returns a different data structure (gspread table
+    # for Google Sheets or Pandas dataframe for local Microsoft Excel).
+    # Therefore, if the first element is a dictionary, it means the
+    # acquisition parameters (tolerances) were not entered and it is needed to
+    # ask for them by calling load_parameters(). If not a dictionary, just
+    # read the data in the "else" statement.
     if (isinstance(data_to_validate[0], dict)):
         qc_dictionary = load_parameters(data_to_validate[0])
-
+        # Check if other files and data (other than acquisition parameters)
+        # are available and print an error message if they are not
         try:
             qc_dictionary.update({
                 "daily_report": {
@@ -367,13 +390,13 @@ def validate_data_locally(data_to_validate):
                 "positioning": round(data_to_validate[4].iloc[
                     (header_lines_in_positioning_file-1):, 0:8], 2),
             })
-
             print("\nCurrent Acquisition Parameters:")
+            # Call function to print current acquisition parameters
             print_acq_param(qc_dictionary)
 
         except TypeError as e:
-            print(f"Data could not be validted: {e}. Please check format is " +
-                  "correct for each file.\n")
+            print(f"Data could not be validted: {e}. " +
+                  "Please check format is correct for each file.\n")
             return False
 
     else:
@@ -408,8 +431,8 @@ def validate_data_locally(data_to_validate):
                   "correct for each file.\n")
             return False
 
-    # Calculate distance from COG to planned coordinate before retuning
-    # the dictionary
+    # Read coordinates of real and planned points to later compute
+    # distance to COG
     x_planned = qc_dictionary['positioning'].iloc[:, 1]
     y_planned = qc_dictionary['positioning'].iloc[:, 2]
     z_planned = qc_dictionary['positioning'].iloc[:, 3]
@@ -417,12 +440,15 @@ def validate_data_locally(data_to_validate):
     y_cog = qc_dictionary['positioning'].iloc[:, 5]
     z_cog = qc_dictionary['positioning'].iloc[:, 6]
 
+    # Create new column with distance to COG
     distance = ((x_planned - x_cog)*(x_planned - x_cog) +
                 (y_planned - y_cog)*(y_planned - y_cog) +
                 (z_planned - z_cog)*(z_planned - z_cog))**0.5
 
+    # Create new column with distance to COG
     qc_dictionary['positioning'].iloc[:, 7] = distance
 
+    # Return updated dictionary
     return (qc_dictionary)
 
 

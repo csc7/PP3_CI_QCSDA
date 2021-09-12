@@ -310,10 +310,47 @@ def validate_data_from_Google(data_to_validate):
                     (header_lines_in_positioning_file-2):, 0:8],
             }
             qc_dictionary = ask_to_overwrite_parameters(qc_dictionary)
-        except TypeError as e:
-            print(f"Data could not be validted: {e}. " +
-                  "Please check format is correct for each file.\n")
-            return False
+        except ValueError as e:
+            #print(f"Data could not be validted: {e}. " +
+            #      "Please check format is correct for each file.\n")
+            #return False
+
+            print("At least one parameters is missing.")
+            param = input('Press "P" to enter them manually or other key ' +
+                          'to close the program.\n')
+            # Initialize and assing zero to tolerances, so data structure is
+            # defined when returning the function value
+            if (param == "P" or param == "p"):
+                tolerances_data = {
+                    "tolerances": {
+                        "fleets": float(0),
+                        "vibs_per_fleet": float(0),
+                        "max_cog_dist": float(0),
+                        "max_distortion": float(0),
+                        "min_av_force": float(0),
+                        "max_av_force": float(0),
+                    }
+                }
+                qc_dictionary = load_parameters(tolerances_data)
+                qc_dictionary.update({
+                    "daily_report": {
+                        "date": data_to_validate[1].iloc[6, 1],
+                        "daily_prod": float(data_to_validate[1].iloc[21, 2]),
+                        "daily_layout": float(data_to_validate[1].iloc[22, 2]),
+                        "daily_pick_up": float(data_to_validate[1].iloc[23, 2]),
+                    },
+                    "distortion": data_to_validate[2].iloc[
+                        (header_lines_in_distorion_file-2):],
+                    "average_force": data_to_validate[3].iloc[
+                        (header_lines_in_av_force_file-2):],
+                    "positioning": data_to_validate[4].iloc[
+                        (header_lines_in_positioning_file-2):, 0:8],
+                })
+            else:
+                return False
+
+
+
 
         # Round data to two digits avoid differences when reading from
         # Google Drive or locally, as the sheets from different sources seem
@@ -424,7 +461,55 @@ def validate_data_locally(data_to_validate):
                     (header_lines_in_positioning_file-1):, 0:8], 2),
             }
 
-            qc_dictionary = ask_to_overwrite_parameters(qc_dictionary)
+            # Check if a parameter is missing in the Microsoft Excel file
+            # and give the user the option to enter acquisition parameters
+            if (np.isnan(qc_dictionary['tolerances']['fleets']) or
+                    np.isnan(qc_dictionary['tolerances']['vibs_per_fleet']) or
+                    np.isnan(qc_dictionary['tolerances']['max_cog_dist']) or
+                    np.isnan(qc_dictionary['tolerances']['max_distortion']) or
+                    np.isnan(qc_dictionary['tolerances']['min_av_force']) or
+                    np.isnan(qc_dictionary['tolerances']['max_av_force'])):
+
+                print("WIJFOIJOWIEF")
+
+                print("At least one parameters is missing.")
+                param = input('Press "P" to enter them manually or other key ' +
+                              'to close the program.\n')
+                # Initialize and assing zero to tolerances, so data structure is
+                # defined when returning the function value
+                if (param == "P" or param == "p"):
+                    tolerances_data = {
+                        "tolerances": {
+                            "fleets": float(0),
+                            "vibs_per_fleet": float(0),
+                            "max_cog_dist": float(0),
+                            "max_distortion": float(0),
+                            "min_av_force": float(0),
+                            "max_av_force": float(0),
+                        }
+                    }
+                    qc_dictionary = load_parameters(tolerances_data)
+                    qc_dictionary.update({
+                        "daily_report": {
+                            "date": data_to_validate[1].iloc[7, 1],
+                            "daily_prod": float(data_to_validate[1].iloc[22, 2]),
+                            "daily_layout": float(data_to_validate[1].iloc[23, 2]),
+                            "daily_pick_up": float(data_to_validate[1].iloc[24, 2]),
+                        },
+                        "distortion": round(data_to_validate[2].iloc[
+                            (header_lines_in_distorion_file-1):], 2),
+                        "average_force": round(data_to_validate[3].iloc[
+                            (header_lines_in_av_force_file-1):], 2),
+                        "positioning": round(data_to_validate[4].iloc[
+                            (header_lines_in_positioning_file-1):, 0:8], 2),
+                    })
+                else:
+                    return False
+            else:
+                qc_dictionary = ask_to_overwrite_parameters(qc_dictionary)
+
+
+
 
         except TypeError as e:
             print(f"Data could not be validted: {e}. Please check format is " +

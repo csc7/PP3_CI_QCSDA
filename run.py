@@ -24,6 +24,9 @@ def main(run_program):
             if (not data_loaded):
                 break
             qc_data = validate_data_from_Google(data_loaded)
+            if (not qc_data):
+                print("\nProgram closed.\n")
+                break
 
         # Loading and validating data locally
         if (run_program == "L" or run_program == "l"):
@@ -32,6 +35,9 @@ def main(run_program):
             if (not data_loaded):
                 break
             qc_data = validate_data_locally(data_loaded)
+            if (not qc_data):
+                print("\nProgram closed.\n")
+                break
 
         # Get daily acquisition numbers/totals
         daily_amounts, warning_message = get_daily_amounts(qc_data)

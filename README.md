@@ -489,7 +489,7 @@ The tool can be accessed with this link: http://pep8online.com/checkresult .
 <details>
     <summary>EP3 check for functions.py</summary>
 
-![Evidence of no errors and warnings in the functions.py file](docs/validation/validation-js-index.PNG) 
+![Evidence of no errors and warnings in the functions.py file](docs/validation/pep8-functions.PNG) 
 </details>
 
 

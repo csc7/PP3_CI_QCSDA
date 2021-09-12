@@ -71,7 +71,7 @@ def load_sheets_from_Google_Drive():
         SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMETERS')
         tolerances_data = SHEET_PARAMETERS.worksheet('Tolerances')
         tolerances_data = pd.DataFrame(tolerances_data.get_all_values())
-    
+
     # If not available give the user the chance to input them
     except gspread.exceptions.SpreadsheetNotFound:
         print("No parameters file.")
@@ -335,7 +335,8 @@ def validate_data_from_Google(data_to_validate):
                         "date": data_to_validate[1].iloc[6, 1],
                         "daily_prod": float(data_to_validate[1].iloc[21, 2]),
                         "daily_layout": float(data_to_validate[1].iloc[22, 2]),
-                        "daily_pick_up": float(data_to_validate[1].iloc[23, 2]),
+                        "daily_pick_up":
+                            float(data_to_validate[1].iloc[23, 2]),
                     },
                     "distortion": data_to_validate[2].iloc[
                         (header_lines_in_distorion_file-2):],
@@ -466,10 +467,10 @@ def validate_data_locally(data_to_validate):
                     np.isnan(qc_dictionary['tolerances']['min_av_force']) or
                     np.isnan(qc_dictionary['tolerances']['max_av_force'])):
                 print("At least one parameters is missing.")
-                param = input('Press "P" to enter them manually or other key ' +
-                              'to close the program.\n')
-                # Initialize and assing zero to tolerances, so data structure is
-                # defined when calling load_parameters() function
+                param = input('Press "P" to enter them manually or other ' +
+                              'key to close the program.\n')
+                # Initialize and assing zero to tolerances, so data structure
+                # is defined when calling load_parameters() function
                 if (param == "P" or param == "p"):
                     tolerances_data = {
                         "tolerances": {
@@ -485,9 +486,12 @@ def validate_data_locally(data_to_validate):
                     qc_dictionary.update({
                         "daily_report": {
                             "date": data_to_validate[1].iloc[7, 1],
-                            "daily_prod": float(data_to_validate[1].iloc[22, 2]),
-                            "daily_layout": float(data_to_validate[1].iloc[23, 2]),
-                            "daily_pick_up": float(data_to_validate[1].iloc[24, 2]),
+                            "daily_prod":
+                                float(data_to_validate[1].iloc[22, 2]),
+                            "daily_layout":
+                                float(data_to_validate[1].iloc[23, 2]),
+                            "daily_pick_up":
+                                float(data_to_validate[1].iloc[24, 2]),
                         },
                         "distortion": round(data_to_validate[2].iloc[
                             (header_lines_in_distorion_file-1):], 2),

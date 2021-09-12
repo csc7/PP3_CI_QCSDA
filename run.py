@@ -86,8 +86,8 @@ def main(run_program):
                     visualize_data(daily_amounts, points_to_reaquire)
                 except UnboundLocalError:
                     # Alert the user if data are missing
-                    print("\nWARNING!\nPoints to be reaquired not computed,\
-                        passing existing and daily data only!\n")
+                    print("\nWARNING!\nPoints to be reaquired not " +
+                          "computed, passing existing and daily data only!\n")
                     visualize_data(qc_data)
             elif (answer == '3'):
                 try:

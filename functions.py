@@ -528,7 +528,13 @@ def validate_data_locally(data_to_validate):
     return (qc_dictionary)
 
 
+# Ask to overwrite acquisition parameters (tolerances)
 def ask_to_overwrite_parameters(qc_dictionary):
+    """
+    This functions prints the current acquisition parameters (tolerances) and
+    ask the user to overwrite them by calling load_parameters() functions
+    if that is the case
+    """
     print("\nCurrent Acquisition Parameters:")
     print_acq_param(qc_dictionary)
     print("Would you like to assing new parameters?\n")
@@ -540,7 +546,11 @@ def ask_to_overwrite_parameters(qc_dictionary):
     return qc_dictionary
 
 
+# Print acquisition parameters
 def print_acq_param(qc_dictionary):
+    """
+    This functions prints the current acquisition parameters (tolerances)
+    """
     print(f"{int(qc_dictionary['tolerances']['fleets'])} fleets and " +
           f"{int(qc_dictionary['tolerances']['vibs_per_fleet'])} vibrators " +
           f"per fleet")
@@ -554,6 +564,8 @@ def print_acq_param(qc_dictionary):
     return
 
 
+# Get daily production/amounts and check if they match the quantities in the
+# QC files
 def get_daily_amounts(qc_dictionary):
     """
     This function compares the data available in the distortion, average force,
@@ -575,14 +587,19 @@ def get_daily_amounts(qc_dictionary):
         "Positioning_Measurements": positioning_measurements,
     })
 
+    # Divide the amount of data by the number of vibrators per fleet, since
+    # there is on entry per vibrator, not per point
     chk1 = qc_dictionary["Distortion_Measurements"] / \
         qc_dictionary["tolerances"]["vibs_per_fleet"]
     chk2 = qc_dictionary["Av_Force_Measurements"] / \
         qc_dictionary["tolerances"]["vibs_per_fleet"]
     chk3 = positioning_measurements
 
+    # Return a warning message, if any.
     warning_message = []
 
+    # Compare amount of points/data with daily report and create warning
+    # message if there is any mismatch
     if chk1 != qc_dictionary["daily_report"]['daily_prod']:
         warning_message.append(f"- distortion file ({chk1} VPs)")
     if chk2 != qc_dictionary["daily_report"]['daily_prod']:
@@ -590,20 +607,23 @@ def get_daily_amounts(qc_dictionary):
     if chk3 != qc_dictionary["daily_report"]['daily_prod']:
         warning_message.append(f"- positioning file ({chk3} VPs)")
 
+    # Return data and warning messages (if any)
     return (qc_dictionary, warning_message)
 
 
+# Identify points out of specifications
 def get_points_to_reaquire(qc_dictionary):
     """
     This function computes the points that are out of specifications and
     need to be reaquired.
     """
-    print(qc_dictionary)
+    # Read acquisition parameters/tolerances
     max_distortion = float(qc_dictionary['tolerances']['max_distortion'])
     min_av_force = float(qc_dictionary['tolerances']['min_av_force'])
     max_av_force = float(qc_dictionary['tolerances']['max_av_force'])
     max_cog_dist = float(qc_dictionary['tolerances']['max_cog_dist'])
 
+    # Convert acquisition parameters/tolerances to float type unsing NumPy
     qc_dictionary['distortion'] = qc_dictionary['distortion']\
         .astype(np.float32)
     qc_dictionary['average_force'] = qc_dictionary['average_force']\
@@ -611,18 +631,23 @@ def get_points_to_reaquire(qc_dictionary):
     qc_dictionary['positioning'] = qc_dictionary['positioning']\
         .astype(np.float32)
 
+    # Select points out of specifications by distortion issues
     out_of_spec_distortion = qc_dictionary['distortion']
     [qc_dictionary['distortion'].iloc[:, 4] > max_distortion]
+
+    # Select points out of specifications by average force issues. Since the
+    # tolerance has maximun and minimum values, compute them separately and
+    # concatenate all of them
     out_of_spec_force_max = qc_dictionary['average_force']
     [qc_dictionary['average_force'].iloc[:, 4] > max_av_force]
     out_of_spec_force_min = qc_dictionary['average_force']
     [qc_dictionary['average_force'].iloc[:, 4] < min_av_force]
-
     temp_out_force = [out_of_spec_force_max, out_of_spec_force_min]
     out_of_spec_force = pd.concat(temp_out_force)
     out_of_spec_force = out_of_spec_force[out_of_spec_force.iloc[:, 4] <
                                           min_av_force]
 
+    # Select points out of specifications by positioning issues
     out_of_spec_cog = qc_dictionary['positioning']
     [qc_dictionary['positioning'].iloc[:, 7] > 1]
 
@@ -634,6 +659,7 @@ def get_points_to_reaquire(qc_dictionary):
     index = out_of_spec_cog.index
     out_cog_total = len(index)
 
+    # Create dictionary with points out of specifications
     out_of_spec_dictionary = {
         "Out_of_Spec_Distortion": out_of_spec_distortion,
         "Out_of_Spec_Force": out_of_spec_force,
@@ -643,6 +669,7 @@ def get_points_to_reaquire(qc_dictionary):
         "Total_Out_COG": out_cog_total,
     }
 
+    # Print amount of points out of specifications by category
     print("\nTotal points to reaquire by distortion issues: " +
           f"{out_distor_total}")
     print("Total points to reaquire by average force issues: " +
@@ -653,11 +680,13 @@ def get_points_to_reaquire(qc_dictionary):
     return out_of_spec_dictionary
 
 
+# Visualization options for the data
 def visualize_data(*data_to_visualize):
     """
     This function provides many options to visualize the data.
     """
     while(True):
+        # Menu
         print('\nSelect one option to show below and press the number + ' +
               '"enter":')
         print("1 - Daily Statistics")
@@ -668,6 +697,7 @@ def visualize_data(*data_to_visualize):
         answer = input("\nSelect option: \n")
 
         if (answer == '1'):
+            # Daily Statistics
             print("-----------------------")
             print("Daily production: " +
                   f"{data_to_visualize[0]['daily_report']['daily_prod']}")
@@ -677,6 +707,7 @@ def visualize_data(*data_to_visualize):
                   f"{data_to_visualize[0]['daily_report']['daily_pick_up']}")
             print("-----------------------")
         elif (answer == '2'):
+            # Acquisition Parameters
             print("-------------------------------")
             print("Vibrator fleets: " +
                   f"{data_to_visualize[0]['tolerances']['fleets']}")
@@ -692,6 +723,9 @@ def visualize_data(*data_to_visualize):
                   f"{data_to_visualize[0]['tolerances']['max_av_force']}")
             print("-------------------------------")
         elif (answer == '3'):
+            # Amount of points to be reacquired
+            # Check first if they were computed. If they were not, ask the
+            # user to compute them.
             try:
                 disto = data_to_visualize[1]['Total_Out_Distortion']
                 av_for = data_to_visualize[1]['Total_Out_Force']
@@ -707,6 +741,11 @@ def visualize_data(*data_to_visualize):
             except IndexError:
                 print("\nPlease compute points to reacquire first.\n")
         elif (answer == '4'):
+            # Points to be reacquired
+            # Check first if they were computed. If they were not, ask the
+            # user to compute them.
+            # Show useful and summarised information: line, station, and
+            # X- and Y-coordinates.
             try:
                 disto_p = data_to_visualize[1]['Out_of_Spec_Distortion']\
                     .iloc[:, [0, 1, 5, 6]]
@@ -717,6 +756,7 @@ def visualize_data(*data_to_visualize):
                     .iloc[:, 0:4]
                 print("-----------------------------" +
                       "-----------------------------")
+                # Points to reacquire by distortion issues
                 print("Points to reacquire by distortion issues:\n")
                 print("LINE - STATION - X - Y")
                 print(disto_p)
@@ -724,6 +764,7 @@ def visualize_data(*data_to_visualize):
                       "-----------------------------\n\n")
                 print("-----------------------------" +
                       "-----------------------------")
+                # Points to reacquire by average force issues
                 print("Points to reacquire by average force issues:\n")
                 print("LINE - STATION - X - Y")
                 print(av_for_p)
@@ -731,33 +772,43 @@ def visualize_data(*data_to_visualize):
                       "-----------------------------\n\n")
                 print("-----------------------------" +
                       "-----------------------------")
+                # Points to reacquire by positioning issues
                 print("Points to reacquire by positioning issues:\n")
                 print("LINE - STATION - X - Y")
                 print(pos_p)
                 print("-----------------------------" +
                       "-----------------------------\n\n")
             except IndexError:
+                # Print message to ask the user to compute points to reacquire
+                # first (if they were not computed)
                 print("\nPlease compute points to reacquire first.\n")
         else:
             break
 
 
+# Update QCSDA Google Sheet or Microsoft Excel file
 def update_qcsda(qc_dictionary, date, source):
     """
     This function update the QCSDA Google Sheet/Microsoft Excel file
     by adding extra worksheets/sheets with the points that need to be
     reacquired the next day.
     """
+    # Ask the user to select where to write, remembering where the data were
+    # read from last
     print("\nSelect where to save the list of points to be reacquired:")
     print('"G" + "enter": Google Drive')
     print('"L" + "enter": Local Drive\n')
     print(f"Last data were collected from {source}\n")
     answer = input("Select option: \n")
 
+    # To write Google Sheets in Google Drive
     if (answer == "G" or answer == "g"):
-
         print("\nUpdating files in Google Drive...\n")
 
+        # Create specific name for sheet, with date of acquisition of points.
+        # Check if the sheet was not written before,
+        # ask to create if it was not.
+        # Points out of specifications by distortion issues
         sheet_name_temp = 'Redo_distortion_' + str(date)[0:10]
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         try:
@@ -773,6 +824,10 @@ def update_qcsda(qc_dictionary, date, source):
                 .update(qc_dictionary['Out_of_Spec_Distortion']
                         .values.tolist())
 
+        # Create specific name for sheet, with date of acquisition of points.
+        # Check if the sheet was not written before,
+        # ask to create if it was not.
+        # Points out of specifications by average force issues
         sheet_name_temp = 'Redo_force_' + str(date)[0:10]
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         try:
@@ -786,6 +841,10 @@ def update_qcsda(qc_dictionary, date, source):
             SHEET_QCSDA.worksheet(sheet_name_temp)\
                 .update(qc_dictionary['Out_of_Spec_Force'].values.tolist())
 
+        # Create specific name for sheet, with date of acquisition of points.
+        # Check if the sheet was not written before,
+        # ask to create if it was not.
+        # Points out of specifications by positioning issues
         sheet_name_temp = 'Redo_COG_' + str(date)[0:10]
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         try:
@@ -799,12 +858,17 @@ def update_qcsda(qc_dictionary, date, source):
             SHEET_QCSDA.worksheet(sheet_name_temp)\
                 .update(qc_dictionary['Out_of_Spec_COG'].values.tolist())
 
-        print("\nFiles Updated.\n")
+        # Inform the user that sheets were created and file updated
+        print("\nFile Updated.\n")
 
     if (answer == "L" or answer == "l"):
 
         print("\nUpdating files in local drive...\n")
 
+        # Create specific name for sheet, with date of acquisition of points.
+        # Check if the sheet was not written before,
+        # ask to create if it was not.
+        # Points out of specifications by distortion issues
         sheet_name_temp = 'Redo_distortion_' + str(date)[0:10]
         with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode='a', engine='openpyxl',
                             if_sheet_exists='replace') as writer:
@@ -812,6 +876,10 @@ def update_qcsda(qc_dictionary, date, source):
                 .to_excel(writer, sheet_name=sheet_name_temp, startrow=0,
                           startcol=0, header=False, index=False)
 
+        # Create specific name for sheet, with date of acquisition of points.
+        # Check if the sheet was not written before,
+        # ask to create if it was not.
+        # Points out of specifications by average force issues
         sheet_name_temp = 'Redo_force_' + str(date)[0:10]
         with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode='a', engine='openpyxl',
                             if_sheet_exists='replace') as writer:
@@ -819,6 +887,10 @@ def update_qcsda(qc_dictionary, date, source):
                 .to_excel(writer, sheet_name=sheet_name_temp, startrow=0,
                           startcol=0, header=False, index=False)
 
+        # Create specific name for sheet, with date of acquisition of points.
+        # Check if the sheet was not written before,
+        # ask to create if it was not.
+        # Points out of specifications by positioning issues
         sheet_name_temp = 'Redo_COG_' + str(date)[0:10]
         with pd.ExcelWriter('qcdata/QCSDA.xlsx', mode='a', engine='openpyxl',
                             if_sheet_exists='replace') as writer:
@@ -826,4 +898,5 @@ def update_qcsda(qc_dictionary, date, source):
                 .to_excel(writer, sheet_name=sheet_name_temp, startrow=0,
                           startcol=0, header=False, index=False)
 
+        # Inform the user that sheets were created and file updated
         print("\nFiles Updated.\n")

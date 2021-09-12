@@ -1,14 +1,11 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
-
 # Import libraries
 import pandas as pd
 import openpyxl
 import numpy as np
 
 
-# Copied and modified from Code Institute's
+# gspread and google.oauth2
+# copied and modified from Code Institute's
 # "Love Sandwiches - Essentials Project" on
 # August 18th, 2021.
 
@@ -31,6 +28,7 @@ header_lines_in_av_force_file = 12
 header_lines_in_positioning_file = 12
 
 
+# Load Google Sheets
 def load_sheets_from_Google_Drive():
     """
     This function checks that all required sheets are present in Google Drive
@@ -43,31 +41,38 @@ def load_sheets_from_Google_Drive():
         daily_report_data = SHEET_DAILY_REPORT.worksheet('Daily_Report')
         daily_report_data = pd.DataFrame(daily_report_data.get_all_values())
 
+        # Read distortion data
         SHEET_DISTORTION = GSPREAD_CLIENT.open('distortion')
         distortion_data = SHEET_DISTORTION.worksheet('Distortion')
         distortion_data = pd.DataFrame(distortion_data.get_all_values())
 
+        # Read average force data
         SHEET_AV_FORCE = GSPREAD_CLIENT.open('average_force')
         average_force_data = SHEET_AV_FORCE.worksheet('Average_Force')
         average_force_data = pd.DataFrame(average_force_data.get_all_values())
 
+        # Read positioning data
         SHEET_POSITIONING = GSPREAD_CLIENT.open('positioning')
         positioning_data = SHEET_POSITIONING.worksheet('Positioning')
         positioning_data = pd.DataFrame(positioning_data.get_all_values())
 
+        # If all right, print message to indicate this.
         print("\nSpreadsheet and worksheets loaded.\n")
 
+    # If file/s and/or data are missing give message and close program
     except gspread.exceptions.SpreadsheetNotFound:
         print("Some files are missing or have a different name.")
         print("Please check all files are in place with the correct names.")
         print("Program closed.")
         return False
 
+    # Check if parameters are available
     try:
         SHEET_PARAMETERS = GSPREAD_CLIENT.open('PARAMETERS')
         tolerances_data = SHEET_PARAMETERS.worksheet('Tolerances')
         tolerances_data = pd.DataFrame(tolerances_data.get_all_values())
-
+    
+    # If not available give the user the chance to input them
     except gspread.exceptions.SpreadsheetNotFound:
         print("No parameters file.")
         param = input('Press "P" to enter them manually or other key to ' +
@@ -85,22 +90,25 @@ def load_sheets_from_Google_Drive():
                     "max_av_force": float(0),
                 }
             }
+            # Return data
             return [tolerances_data, daily_report_data, distortion_data,
                     average_force_data, positioning_data]
         else:
             return False
 
+    # Return data
     return [tolerances_data, daily_report_data, distortion_data,
             average_force_data, positioning_data]
 
 
+# Load data locally, from Microsoft Excel files
 def load_sheets_locally():
     """
     This function checks that all required sheets are present in the local
     drive and read the worksheets if they are.
     """
-
     print("\nLoading spreadsheet and worksheets...\n")
+    # Read all data except tolerances
     try:
         daily_report_data = pd.read_excel('qcdata/daily_report.xlsx',
                                           engine='openpyxl')
@@ -115,6 +123,7 @@ def load_sheets_locally():
 
         print("\nSpreadsheet and worksheets loaded.\n")
 
+    # If file/s and/or data are missing give message and close program
     except FileNotFoundError as e:
         print(f"Something went wrong, file not found: {e}. " +
               "Please try again.\n")
@@ -126,8 +135,7 @@ def load_sheets_locally():
         print("Program closed.")
         return False
 
-    # Check if parameters file is available and give the option to enter them
-    # manually if they are not.
+    # Check if parameters are available
     try:
         tolerances_data = pd.read_excel('qcdata/PARAMETERS.xlsx',
                                         engine='openpyxl')
@@ -149,21 +157,33 @@ def load_sheets_locally():
                     "max_av_force": float(0),
                 }
             }
+            # Return data
             return [tolerances_data, daily_report_data, distortion_data,
                     average_force_data, positioning_data, SHEET_QCSDA]
         else:
             return False
 
+    # If not available give the user the chance to input them
     except UnboundLocalError as e:
         print(f"Something went wrong, {e}. Please try again.\n")
         return False
 
+    # Return data
     return [tolerances_data, daily_report_data, distortion_data,
             average_force_data, positioning_data, SHEET_QCSDA]
 
 
+# Load parameters, checking first if they are available. If they are not
+# ask the user to input them
 def load_parameters(qc_dict):
+    """
+    This functions checks if a parameters is available (by trying to read them
+    from the correspoinding value in the dictionary that was previously
+    loaded). If a value does not exist, the user is required to input it.
+    """
     qc_dictionary = qc_dict
+    # Check for number of fleets.
+    # Keep asking for it if it does not exist.
     while True:
         try:
             qc_dictionary['tolerances']['fleets'] = \
@@ -171,6 +191,8 @@ def load_parameters(qc_dict):
             break
         except ValueError:
             print("Please enter a number.")
+    # Check for number of vibrators per fleet.
+    # Keep asking for it if it does not exist.
     while True:
         try:
             qc_dictionary['tolerances']['vibs_per_fleet'] = \
@@ -178,6 +200,8 @@ def load_parameters(qc_dict):
             break
         except ValueError:
             print("Please enter a number.")
+    # Check for maximum center of gravity (COG) distance.
+    # Keep asking for it if it does not exist.
     while True:
         try:
             qc_dictionary['tolerances']['max_cog_dist'] = \
@@ -185,6 +209,8 @@ def load_parameters(qc_dict):
             break
         except ValueError:
             print("Please enter a number.")
+    # Check for maximum distortion.
+    # Keep asking for it if it does not exist.
     while True:
         try:
             qc_dictionary['tolerances']['max_distortion'] = \
@@ -192,6 +218,8 @@ def load_parameters(qc_dict):
             break
         except ValueError:
             print("Please enter a number.")
+    # Check for minimum average force.
+    # Keep asking for it if it does not exist.
     while True:
         try:
             qc_dictionary['tolerances']['min_av_force'] = \
@@ -199,6 +227,8 @@ def load_parameters(qc_dict):
             break
         except ValueError:
             print("Please enter a number.")
+    # Check for maximum average force.
+    # Keep asking for it if it does not exist.
     while True:
         try:
             qc_dictionary['tolerances']['max_av_force'] = \
@@ -206,6 +236,7 @@ def load_parameters(qc_dict):
             break
         except ValueError:
             print("Please enter a number.")
+    # Return data
     return qc_dictionary
 
 

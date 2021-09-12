@@ -311,15 +311,13 @@ def validate_data_from_Google(data_to_validate):
             }
             qc_dictionary = ask_to_overwrite_parameters(qc_dictionary)
         except ValueError as e:
-            #print(f"Data could not be validted: {e}. " +
-            #      "Please check format is correct for each file.\n")
-            #return False
-
+            # If an acquisition parameter value is missing, give the user
+            # the option to enter all parameters
             print("At least one parameters is missing.")
             param = input('Press "P" to enter them manually or other key ' +
                           'to close the program.\n')
             # Initialize and assing zero to tolerances, so data structure is
-            # defined when returning the function value
+            # defined when calling load_parameters() function
             if (param == "P" or param == "p"):
                 tolerances_data = {
                     "tolerances": {
@@ -347,10 +345,8 @@ def validate_data_from_Google(data_to_validate):
                         (header_lines_in_positioning_file-2):, 0:8],
                 })
             else:
+                # Return false to close the program
                 return False
-
-
-
 
         # Round data to two digits avoid differences when reading from
         # Google Drive or locally, as the sheets from different sources seem
@@ -469,14 +465,11 @@ def validate_data_locally(data_to_validate):
                     np.isnan(qc_dictionary['tolerances']['max_distortion']) or
                     np.isnan(qc_dictionary['tolerances']['min_av_force']) or
                     np.isnan(qc_dictionary['tolerances']['max_av_force'])):
-
-                print("WIJFOIJOWIEF")
-
                 print("At least one parameters is missing.")
                 param = input('Press "P" to enter them manually or other key ' +
                               'to close the program.\n')
                 # Initialize and assing zero to tolerances, so data structure is
-                # defined when returning the function value
+                # defined when calling load_parameters() function
                 if (param == "P" or param == "p"):
                     tolerances_data = {
                         "tolerances": {
@@ -504,14 +497,12 @@ def validate_data_locally(data_to_validate):
                             (header_lines_in_positioning_file-1):, 0:8], 2),
                     })
                 else:
+                    # Return false to close the program
                     return False
             else:
                 qc_dictionary = ask_to_overwrite_parameters(qc_dictionary)
-
-
-
-
         except TypeError as e:
+            # Inform the user if there is other error
             print(f"Data could not be validted: {e}. Please check format is " +
                   "correct for each file.\n")
             return False

@@ -6,7 +6,7 @@ This repository belongs to my third milestone project in the Full-stack Developm
 
 The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.com/) (https://pp3-ci-qcsda.herokuapp.com/).
 
-![Projects Table Image](docs/am-i-responsive-zoomed.PNG)
+![Projects Welcome Message Image](docs/project-welcome-message.PNG)
 
 
 # **Index**
@@ -781,7 +781,7 @@ ___
 
 The website was fully written in Gitpod, permanently tested in Gitpod terminal, and periodically deployed to GigHub Pages (in a main branch) and Heroku Platform (to handle backend languages).
 
-The fully deployed website, accessible by anyone, is found [here](https://csc7.github.io/PP3_CI_QCSDA), whose URL is https://csc7.github.io/PP3_CI_QCSDA . Its repository is found [here](https://github.com/csc7/PP3_CI_QCSDA), whose URL is https://github.com/csc7/PP3_CI_QCSDA.
+The fully deployed program, accessible by anyone, is found [here](https://pp3-ci-qcsda.herokuapp.com/), whose URL is https://pp3-ci-qcsda.herokuapp.com/ . Its repository is found [here](https://github.com/csc7/PP3_CI_QCSDA), whose URL is https://github.com/csc7/PP3_CI_QCSDA.
 
 The program requires access to Google Cloud Platform. These steps are also included in these deployment instructions.
 
@@ -837,7 +837,7 @@ The following command can be used to install both libraries:
 \
 After first deployment, several updates have been carried out before the final version. These updates were implemented in the deployed website from Gitpod, just by using the "push" command for every commit (change) in the ongoing development.
 
-The project can also be forked from the repository (https://github.com/csc7/PP2_CI_WW), please check for the "Fork" button, top-right of the page, to achieve this task.
+The project can also be forked from the repository (https://github.com/csc7/PP3_CI_QCSDA), please check for the "Fork" button, top-right of the page, to achieve this task.
 
 <br><br>
 ## [Back to Index](#index)

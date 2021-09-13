@@ -190,6 +190,7 @@ The following languages, software and tools were implemented using Windows 10 Pr
 - #### **Microsoft Edge, version 91.0.864.59, Official build, 64-bit (and its development tool)**
 - #### **Firefox, 89.0.2, 64-bit (and its development tool)**
 - #### **Microsoft Internet Explorer, version 2004, OS Build 19041.1052**
+- #### **Diagrams.net, Flowchart Maker & Online Diagram Software, https://app.diagrams.net/.**
 
 <br><br>
 ## [Back to Index](#index)
@@ -846,6 +847,8 @@ ___
 - Love Sandwiches - Essentials Project, from Code Institute, as a guide, source of design, concepts and code for this project.
 
 - Jesse James Garrett's process for user experience.
+
+- Diagrams.net, Flowchart Maker & Online Diagram Software, https://app.diagrams.net/ . Used to create the flowchart project.
 
 - Flake8 Rules:
 

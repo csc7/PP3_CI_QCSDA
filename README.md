@@ -10,7 +10,7 @@ The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.
 
 
 # **Index**
-#### [*Website Live Link*](https://csc7.github.io/PP2_CI_WW/)
+#### [*Program Link*](https://pp3-ci-qcsda.herokuapp.com/)
 ### [1. Project Goals](#1--project-goals)
 ### [2. User Manual](#2--user-manual)
 ### [3. User Experience](#3--user-experience)

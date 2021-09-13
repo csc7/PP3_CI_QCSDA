@@ -169,7 +169,7 @@ The following flowchart summarises the work and purpose of the program.
 <details>
     <summary>Program flowchart</summary>
 
-![Program Flowchart](docs/validation/pep8-run.PNG) 
+![Program Flowchart](docs/flowchart/PP3-CI-QCSDA.png) 
 </details>
 
 <br><br>

@@ -215,7 +215,7 @@ Library used to read Microsoft Excel files, in this project in GitPod.
 - **math**: https://docs.python.org/3/library/math.html, downloaded on August 22nd, 2021, at 22:30 . Tested to compute distance between points but finally not used.
 
 - **NumPy**: https://numpy.org/ .
-Used in this project to easily convert Pandas dataframe to float type.
+Used in this project to easily convert Pandas dataframe to float type and to check "nan" (not a number) values.
 
 ## [Back to Index](#index)
 <br>

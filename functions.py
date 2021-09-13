@@ -61,9 +61,9 @@ def load_sheets_from_Google_Drive():
 
     # If file/s and/or data are missing give message and close program
     except gspread.exceptions.SpreadsheetNotFound:
-        print("Some files are missing or have a different name.")
+        print("Some QC files are missing or have a different name.")
         print("Please check all files are in place with the correct names.")
-        print("Program closed.")
+        print("\nProgram closed.\n")
         return False
 
     # Check if parameters are available

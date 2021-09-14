@@ -93,7 +93,12 @@ If interested in checking the warning messages, you can modify the files names a
 <br>
 
 ___
+# **3 . Data Structures**
 
+## [Back to Index](#index)
+<br>
+
+___
 # **3 . User Experience**
 
 The goal of the program is to provide a simple but interactive method to automate a quality control task that would many minutes (with higher exposure to errors) if done manually.

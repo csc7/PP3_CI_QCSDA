@@ -93,7 +93,19 @@ If interested in checking the warning messages, you can modify the files names a
 <br>
 
 ___
-# **3 . Data Structures**
+# **3 . File and Data Structures**
+
+The files involved in the quality control process are six. They can be Google Sheets or Microsoft Excel files and contain data with the following structure:
+
+- #### **PARAMETERS**
+    It is a simple Google Sheet / Microsoft Excel file 
+
+- #### **daily_report**
+- #### **distortion**
+- #### **average_force**
+- #### **positioning**
+- #### **QCSDA**
+
 
 ## [Back to Index](#index)
 <br>

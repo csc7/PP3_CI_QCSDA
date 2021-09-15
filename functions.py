@@ -867,11 +867,14 @@ def update_qcsda(qc_dictionary, date, source):
         # Update for chart
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         #SHEET_QCSDA.worksheet('Statistics').append_row("1")
+        import matplotlib_terminal
         import matplotlib.pyplot as plt
+
         df = qc_dictionary['Out_of_Spec_COG']
-        #plt.figure()
+        plt.plot([0, 1], [0, 1])
+        plt.show()
         
-        plot([1,2,3])
+        
         xlabel('hi mom')
         
         

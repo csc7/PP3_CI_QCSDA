@@ -3,6 +3,7 @@ import pandas as pd
 import openpyxl
 import numpy as np
 
+
 # gspread and google.oauth2
 # copied and modified from Code Institute's
 # "Love Sandwiches - Essentials Project" on
@@ -871,10 +872,7 @@ def update_qcsda(qc_dictionary, date, source):
 
         df = qc_dictionary['Out_of_Spec_COG']
         plt.plot([0, 1], [0, 1])
-        plt.show()
-        
-        
-        xlabel('hi mom')
+        plt.show()   
         
         
 
@@ -918,4 +916,15 @@ def update_qcsda(qc_dictionary, date, source):
                           startcol=0, header=False, index=False)
 
         # Inform the user that sheets were created and file updated
+
+
+        # Update for chart
+        #SSHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        #SHEET_QCSDA.worksheet('Statistics').append_row("1")
+
+        import matplotlib_terminal
+        import matplotlib.pyplot as plt
+        df = qc_dictionary['Out_of_Spec_COG']
+        plt.plot([0, 1], [0, 1])
+        plt.show()   
         print("\nFiles Updated.\n")

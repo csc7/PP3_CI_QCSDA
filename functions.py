@@ -2,7 +2,7 @@
 import pandas as pd
 import openpyxl
 import numpy as np
-
+from pylab import *
 
 # gspread and google.oauth2
 # copied and modified from Code Institute's
@@ -866,8 +866,15 @@ def update_qcsda(qc_dictionary, date, source):
 
         # Update for chart
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
-        SHEET_QCSDA.worksheet('Statistics').append_row(1)
-
+        #SHEET_QCSDA.worksheet('Statistics').append_row("1")
+        import matplotlib.pyplot as plt
+        df = qc_dictionary['Out_of_Spec_COG']
+        #plt.figure()
+        
+        plot([1,2,3])
+        xlabel('hi mom')
+        
+        
 
         print("\nFile Updated.\n")
 

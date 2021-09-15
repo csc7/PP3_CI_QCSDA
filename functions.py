@@ -2,7 +2,6 @@
 import pandas as pd
 import openpyxl
 import numpy as np
-from pylab import *
 
 # gspread and google.oauth2
 # copied and modified from Code Institute's

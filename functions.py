@@ -863,6 +863,12 @@ def update_qcsda(qc_dictionary, date, source):
                 .update(qc_dictionary['Out_of_Spec_COG'].values.tolist())
 
         # Inform the user that sheets were created and file updated
+
+        # Update for chart
+        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        SHEET_QCSDA.worksheet('Statistics').append_row(1)
+
+
         print("\nFile Updated.\n")
 
     if (answer == "L" or answer == "l"):

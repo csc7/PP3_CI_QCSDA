@@ -27,6 +27,9 @@ header_lines_in_distorion_file = 12
 header_lines_in_av_force_file = 12
 header_lines_in_positioning_file = 12
 
+# Initialize counter for times data have been written
+write_in_Google_Drive = 0
+write_locally = 0
 
 # Load Google Sheets
 def load_sheets_from_Google_Drive():
@@ -804,20 +807,36 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
     layout = daily_amounts['daily_report']['daily_layout']
     pick_up = daily_amounts['daily_report']['daily_pick_up']
 
+    # Count number of times data have been written
+    global write_in_Google_Drive    
+    global write_locally    
+
+    # Give warning messages if data have already been written
+    if (write_in_Google_Drive >= 1):
+        print("WARNING: data have have been written " +
+              f"{write_in_Google_Drive} time/s in Google Drive!")
+    if (write_locally >= 1):
+        print("WARNING: data have have been written " +
+              f"{write_locally} time/s locally!")
+
     # Ask the user to select where to write, remembering where the data were
     # read from last
     print("\nSelect where to save the list of points to be reacquired:")
-    print('"G" + "enter": Google Drive')
-    print('"L" + "enter": Local Drive\n')
+    print('Select "G" for Google Drive')
+    print('Select "L" for Local Drive\n')
     print(f"Last data were collected from {source}\n")
     answer = input("Select option: \n")
 
-    print('\nPress "A" if you want to add a production plot after updating ' +
-          'the files or any other key to just update:')
-    prod_plot = input()
 
     # To write Google Sheets in Google Drive
     if (answer == "G" or answer == "g"):
+
+        write_in_Google_Drive += 1
+
+        print('\nPress "A" if you want to add a production plot after updating ' +
+              'the files or any other key to just update:')
+        prod_plot = input()
+
         print("\nUpdating files in Google Drive...\n")
 
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')        
@@ -897,26 +916,32 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
             plotext.show()
         
         # Inform the user that sheets were created and file updated
-        print("\nFile Updated.\n")
+        print("File Updated.\n\n")
 
     if (answer == "L" or answer == "l"):
+
+        write_locally += 1
+
+        print('\nPress "A" if you want to add a production plot after updating ' +
+              'the files or any other key to just update:')
+        prod_plot = input()
 
         print("\nUpdating files in local drive...\n")
 
         SHEET_QCSDA = pd.read_excel('qcdata/QCSDA.xlsx', 'Statistics',
-                                       engine='openpyxl')
-        print(SHEET_QCSDA)
+                                    engine='openpyxl')
+        #print(SHEET_QCSDA)
         
-
-        row_to_add = pd.DataFrame({'DATE':[date], 
-                           'PRODUCTION':[production],
-                           'LAYOUT':[layout],
-                           'PICK-UP':[pick_up],
-                            })
+        daily_prod_row_to_add = pd.DataFrame({'DATE':[date], 
+                                             'PRODUCTION':[production],
+                                             'LAYOUT':[layout],
+                                             'PICK-UP':[pick_up],
+                                             })
         
-        print(SHEET_QCSDA.append(row_to_add, ignore_index=True))
+        #print(SHEET_QCSDA.append(daily_prod_row_to_add, ignore_index=True))
 
-        NEW_SHEET_QCSDA = SHEET_QCSDA.append(row_to_add, ignore_index=True)
+        NEW_SHEET_QCSDA = \
+            SHEET_QCSDA.append(daily_prod_row_to_add, ignore_index=True)
         NEW_SHEET_QCSDA.to_excel("qcdata/QCSDA.xlsx",
                                  sheet_name='Statistics', index = False)
 
@@ -956,7 +981,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
         if (prod_plot == "A" or prod_plot == "a"):
             print('\nMaking production plot; it can take up to some ' +
                   'minutes...')
-
+        
             # Read QCSDA file statistics
             #SHEET_QCSDA = pd.read_excel('qcdata/QCSDA.xlsx', 'Statistics',
             #                           engine='openpyxl')
@@ -974,4 +999,4 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
             plotext.show()
 
         # Inform the user that sheets were created and file updated
-        print("\nFiles Updated.\n")
+        print("Files Updated.\n\n")

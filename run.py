@@ -104,9 +104,9 @@ def main(run_program):
                 break
 
         # End of program, ask to restart or close
-        print('Press "G" + "enter" to read data from Google Drive')
-        print('Press "L" + "enter" to read data locally')
-        print('Press any other key + "enter" to close the program.\n')
+        print('Select "G" to read data from Google Drive')
+        print('Select "L" to read data locally')
+        print('Select any other key + "enter" to close the program.\n')
         run_again = input('Select option: \n')
         if (run_again == "G" or run_again == "g" or
                 run_again == "L" or run_again == "l"):

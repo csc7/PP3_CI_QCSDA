@@ -37,7 +37,7 @@ def load_sheets_from_Google_Drive():
     This function checks that all required sheets are present in Google Drive
     and read the worksheets if they are.
     """
-    print("\nLoading spreadsheet and worksheets...\n")
+    print("\nLoading spreadsheet and worksheets...")
     try:
         # Read daily report data
         SHEET_DAILY_REPORT = GSPREAD_CLIENT.open('daily_report')
@@ -60,7 +60,7 @@ def load_sheets_from_Google_Drive():
         positioning_data = pd.DataFrame(positioning_data.get_all_values())
 
         # If all right, print message to indicate this.
-        print("\nSpreadsheet and worksheets loaded.\n")
+        print("\nSpreadsheet and worksheets loaded.")
 
     # If file/s and/or data are missing give message and close program
     except gspread.exceptions.SpreadsheetNotFound:
@@ -110,7 +110,7 @@ def load_sheets_locally():
     This function checks that all required sheets are present in the local
     drive and read the worksheets if they are.
     """
-    print("\nLoading spreadsheet and worksheets...\n")
+    print("\nLoading spreadsheet and worksheets...")
     # Read all data except tolerances
     try:
         daily_report_data = pd.read_excel('qcdata/daily_report.xlsx',
@@ -124,7 +124,7 @@ def load_sheets_locally():
         #SHEET_QCSDA = pd.ExcelFile('qcdata/QCSDA.xlsx',
         #                           engine='openpyxl')
 
-        print("\nSpreadsheet and worksheets loaded.\n")
+        print("\nSpreadsheet and worksheets loaded.")
 
     # If file/s and/or data are missing give message and close program
     except FileNotFoundError as e:
@@ -250,7 +250,7 @@ def validate_data_from_Google(data_to_validate):
     and load the values that will be used for quality control in a
     dictionary
     """
-    print("\nValidating data in the sheets...\n")
+    print("Validating data in the sheets...\n")
 
     # Check if first element of dictionary is another dictionary.
     # The input of this funciont is the output of
@@ -396,7 +396,7 @@ def validate_data_locally(data_to_validate):
     format and load the values that will be used quality control in a
     dictionary
     """
-    print("\nValidating data in the sheets...\n")
+    print("Validating data in the sheets...\n")
 
     # As before, check if first element of dictionary is another dictionary.
     # The input of this funciont is the output of
@@ -848,7 +848,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
         # ask to create if it was not.
         # Points out of specifications by distortion issues
         sheet_name_temp = 'Redo_distortion_' + str(date)[0:10]
-        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        #SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         try:
             SHEET_QCSDA.worksheet(sheet_name_temp)\
                 .update(qc_dictionary['Out_of_Spec_Distortion']
@@ -867,7 +867,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
         # ask to create if it was not.
         # Points out of specifications by average force issues
         sheet_name_temp = 'Redo_force_' + str(date)[0:10]
-        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        #SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         try:
             SHEET_QCSDA.worksheet(sheet_name_temp)\
                 .update(qc_dictionary['Out_of_Spec_Force'].values.tolist())
@@ -884,7 +884,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
         # ask to create if it was not.
         # Points out of specifications by positioning issues
         sheet_name_temp = 'Redo_COG_' + str(date)[0:10]
-        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        #SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         try:
             SHEET_QCSDA.worksheet(sheet_name_temp)\
                 .update(qc_dictionary['Out_of_Spec_COG'].values.tolist())
@@ -908,7 +908,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
             y_prod = [int(item) for item in y_data]
 
             # Plot production versus date
-            plotext.bar(x_data, y_prod)
+            plotext.bar(x_date, y_prod)
             plotext.plotsize(80, 50)
             plotext.title("Production")
             plotext.xlabel("Date")

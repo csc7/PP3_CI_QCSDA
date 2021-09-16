@@ -95,13 +95,34 @@ If interested in checking the warning messages, you can modify the files names a
 ___
 # **3 . File and Data Structures**
 
-The files involved in the quality control process are six. They can be Google Sheets or Microsoft Excel files and contain data with the following structure:
+The files involved in the quality control process are six. They are summarised here with the relevant information; all other information that might be contained is shown as "other" information and/or highlighted in blue.<br>
+They are generated on a daily basis, at the end of the production/acquisition of the day.<br>
+The files can be Google Sheets or Microsoft Excel files and contain data with the following structure:
 
 - #### **PARAMETERS**
-    It is a simple Google Sheet / Microsoft Excel file 
+    It is a simple Google Sheet / Microsoft Excel file that has a table with the following parameters:
+    - Vibrators
+    - Vibrators per fleet
+    - Maximum accepted deviation from COG (metres)
+    - Maximum accepted average distortion (%)
+    - inimum and maximum accepted average force (%)
+
+    These are the values that set the limits or tolerances to compute the points that were acquired without complying the specifications and therefore need to be reacquired.
+
+    The program just read the corresponding cell, the program can easily be adapted to other formats by changing the cells to read.
 
 - #### **daily_report**
+    This file contained a los of daily information and statistics. The program just read the daily production (as VPs, which stands for vibroseis points), layout (deployment of sensors on the ground for current and next-days acquisition) and pick-up (collection of sensors that have already been used)
 - #### **distortion**
+    This file contains header lines with information (summarised here in 12 lines) and then a table whose columns contains the following information.
+    - COLUMN 1: Line number (number of the imaginary line on a map where the acquisition takes place).
+    - COLUMN 2: Station number (number of the point where a measurement takes places, usually separated in intervals of some metres along the line, from 10 to 50 for example).
+    - COLUMN 3: Vibrator fleet id; identification of the fleet that acquire data in a point/station. This project consider two fleets acquiring data.
+    - COLUMN 4: Number of vibrators in each fleet: depending on the design of the project, the number usually can be from one to five. This project assumes 4 vibrators per fleet.
+    - COLUMN 5: Distortion: measure, in percentage, of the distortion being applied to the ground (for measurement).
+    - COLUMN 6: Planned X-coordinate.
+    - COLUMN 7: Planned Y-coordinate.
+    - COLUMN 8: Planned Z-coordinate/elevation. 
 - #### **average_force**
 - #### **positioning**
 - #### **QCSDA**

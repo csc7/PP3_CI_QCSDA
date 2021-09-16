@@ -364,17 +364,17 @@ def validate_data_from_Google(data_to_validate):
 
         # Read coordinates of real and planned points to later compute
         # distance to COG
-        x_p = qc_dictionary['positioning'].iloc[:, 1]
+        x_p = qc_dictionary['positioning'].iloc[:, 5]
         x_planned = pd.to_numeric(x_p)
-        y_p = qc_dictionary['positioning'].iloc[:, 2]
+        y_p = qc_dictionary['positioning'].iloc[:, 6]
         y_planned = pd.to_numeric(y_p)
-        z_p = qc_dictionary['positioning'].iloc[:, 3]
+        z_p = qc_dictionary['positioning'].iloc[:, 7]
         z_planned = pd.to_numeric(z_p)
-        x_c = qc_dictionary['positioning'].iloc[:, 4]
+        x_c = qc_dictionary['positioning'].iloc[:, 2]
         x_cog = pd.to_numeric(x_c)
-        y_c = qc_dictionary['positioning'].iloc[:, 5]
+        y_c = qc_dictionary['positioning'].iloc[:, 3]
         y_cog = pd.to_numeric(y_c)
-        z_c = qc_dictionary['positioning'].iloc[:, 6]
+        z_c = qc_dictionary['positioning'].iloc[:, 4]
         z_cog = pd.to_numeric(z_c)
 
         # Compute distance from real position of point to the
@@ -382,9 +382,10 @@ def validate_data_from_Google(data_to_validate):
         distance = ((x_planned - x_cog)*(x_planned - x_cog) +
                     (y_planned - y_cog)*(y_planned - y_cog) +
                     (z_planned - z_cog)*(z_planned - z_cog))**0.5
-
+        qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'], distance], axis=1, ignore_index=True)
         # Create new column with distance to COG
-        qc_dictionary['positioning'].iloc[:, 7] = distance
+        #qc_dictionary['positioning'].iloc[:, 8] = distance
+        print(qc_dictionary['positioning'])
 
     # Return updated dictionary
     return (qc_dictionary)
@@ -516,12 +517,12 @@ def validate_data_locally(data_to_validate):
 
     # Read coordinates of real and planned points to later compute
     # distance to COG
-    x_planned = qc_dictionary['positioning'].iloc[:, 1]
-    y_planned = qc_dictionary['positioning'].iloc[:, 2]
-    z_planned = qc_dictionary['positioning'].iloc[:, 3]
-    x_cog = qc_dictionary['positioning'].iloc[:, 4]
-    y_cog = qc_dictionary['positioning'].iloc[:, 5]
-    z_cog = qc_dictionary['positioning'].iloc[:, 6]
+    x_planned = qc_dictionary['positioning'].iloc[:, 5]
+    y_planned = qc_dictionary['positioning'].iloc[:, 6]
+    z_planned = qc_dictionary['positioning'].iloc[:, 7]
+    x_cog = qc_dictionary['positioning'].iloc[:, 2]
+    y_cog = qc_dictionary['positioning'].iloc[:, 3]
+    z_cog = qc_dictionary['positioning'].iloc[:, 4]
 
     # Create new column with distance to COG
     distance = ((x_planned - x_cog)*(x_planned - x_cog) +
@@ -529,7 +530,9 @@ def validate_data_locally(data_to_validate):
                 (z_planned - z_cog)*(z_planned - z_cog))**0.5
 
     # Create new column with distance to COG
-    qc_dictionary['positioning'].iloc[:, 7] = distance
+    #qc_dictionary['positioning'].iloc[:, 7] = distance
+    qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'], distance], axis=1, ignore_index=True)
+    print(qc_dictionary['positioning'])
 
     # Return updated dictionary
     return (qc_dictionary)
@@ -639,8 +642,8 @@ def get_points_to_reaquire(qc_dictionary):
         .astype(np.float32)
 
     # Select points out of specifications by distortion issues
-    out_of_spec_distortion = qc_dictionary['distortion']
-    [qc_dictionary['distortion'].iloc[:, 4] > max_distortion]
+    out_of_spec_distortion = qc_dictionary['distortion'][qc_dictionary['distortion'].iloc[:, 4] > max_distortion]
+    number_out_of_spec_distortion = out_of_spec_distortion.iloc[:, 1].nunique()
 
     # Select points out of specifications by average force issues. Since the
     # tolerance has maximun and minimum values, compute them separately and
@@ -653,14 +656,18 @@ def get_points_to_reaquire(qc_dictionary):
     out_of_spec_force = pd.concat(temp_out_force)
     out_of_spec_force = out_of_spec_force[out_of_spec_force.iloc[:, 4] <
                                           min_av_force]
+    
+    print(out_of_spec_force)
+    number_out_of_spec_force = out_of_spec_force.iloc[:, 1].nunique()
+    print(number_out_of_spec_force)
 
     # Select points out of specifications by positioning issues
-    out_of_spec_cog = qc_dictionary['positioning']
-    [qc_dictionary['positioning'].iloc[:, 7] > 1]
+    out_of_spec_cog = qc_dictionary['positioning'][qc_dictionary['positioning'].iloc[:, 8] > 1]
 
     # Total VPs out of specifications
     index = out_of_spec_distortion.index
     out_distor_total = len(index)
+    #out_distor_total = number_out_of_spec_distortion
     index = out_of_spec_force.index
     out_force_total = len(index)
     index = out_of_spec_cog.index
@@ -715,7 +722,7 @@ def visualize_data(*data_to_visualize):
             print("-----------------------")
         elif (answer == '2'):
             # Acquisition Parameters
-            print("-------------------------------")
+            print("---------------------------------")
             print("Vibrator fleets: " +
                   f"{data_to_visualize[0]['tolerances']['fleets']}")
             print("Vibrators per fleet: " +
@@ -728,7 +735,7 @@ def visualize_data(*data_to_visualize):
                   f"{data_to_visualize[0]['tolerances']['min_av_force']}")
             print("Maximum average force: " +
                   f"{data_to_visualize[0]['tolerances']['max_av_force']}")
-            print("-------------------------------")
+            print("---------------------------------")
         elif (answer == '3'):
             # Amount of points to be reacquired
             # Check first if they were computed. If they were not, ask the
@@ -755,17 +762,17 @@ def visualize_data(*data_to_visualize):
             # X- and Y-coordinates.
             try:
                 disto_p = data_to_visualize[1]['Out_of_Spec_Distortion']\
-                    .iloc[:, [0, 1, 5, 6]]
+                    .iloc[:, [0, 1, 5, 6, 4, 2, 3]]
                 av_for_p = data_to_visualize[1]['Out_of_Spec_Force']\
-                    .iloc[:, [0, 1, 5, 6]]
+                    .iloc[:, [0, 1, 5, 6, 4, 2 ,3]]
                 # Do not show header and select columns
                 pos_p = data_to_visualize[1]['Out_of_Spec_COG']\
-                    .iloc[:, 0:4]
+                    .iloc[:, [0, 1, 5, 6, 8]]
                 print("-----------------------------" +
                       "-----------------------------")
                 # Points to reacquire by distortion issues
                 print("Points to reacquire by distortion issues:\n")
-                print("LINE - STATION - X - Y")
+                print("LINE - STATION - X - Y - DISTORTION - FLEET - VIB")
                 print(disto_p)
                 print("-----------------------------" +
                       "-----------------------------\n\n")
@@ -773,7 +780,7 @@ def visualize_data(*data_to_visualize):
                       "-----------------------------")
                 # Points to reacquire by average force issues
                 print("Points to reacquire by average force issues:\n")
-                print("LINE - STATION - X - Y")
+                print("LINE - STATION - X - Y - AV. FORCE - - FLEET - VIB")
                 print(av_for_p)
                 print("-----------------------------" +
                       "-----------------------------\n\n")
@@ -781,7 +788,7 @@ def visualize_data(*data_to_visualize):
                       "-----------------------------")
                 # Points to reacquire by positioning issues
                 print("Points to reacquire by positioning issues:\n")
-                print("LINE - STATION - X - Y")
+                print("LINE - STATION - X - Y - DISTANCE TO COG")
                 print(pos_p)
                 print("-----------------------------" +
                       "-----------------------------\n\n")

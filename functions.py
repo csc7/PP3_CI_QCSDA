@@ -657,19 +657,19 @@ def get_points_to_reaquire(qc_dictionary):
     out_of_spec_force = out_of_spec_force[out_of_spec_force.iloc[:, 4] <
                                           min_av_force]
     
-    print(out_of_spec_force)
     number_out_of_spec_force = out_of_spec_force.iloc[:, 1].nunique()
-    print(number_out_of_spec_force)
 
     # Select points out of specifications by positioning issues
     out_of_spec_cog = qc_dictionary['positioning'][qc_dictionary['positioning'].iloc[:, 8] > 1]
 
     # Total VPs out of specifications
-    index = out_of_spec_distortion.index
-    out_distor_total = len(index)
-    #out_distor_total = number_out_of_spec_distortion
-    index = out_of_spec_force.index
-    out_force_total = len(index)
+    
+    #index = out_of_spec_distortion.index
+    #out_distor_total = len(index)
+    out_distor_total = number_out_of_spec_distortion
+    #index = out_of_spec_force.index
+    #out_force_total = len(index)
+    out_force_total = number_out_of_spec_force
     index = out_of_spec_cog.index
     out_cog_total = len(index)
 
@@ -678,8 +678,8 @@ def get_points_to_reaquire(qc_dictionary):
         "Out_of_Spec_Distortion": out_of_spec_distortion,
         "Out_of_Spec_Force": out_of_spec_force,
         "Out_of_Spec_COG": out_of_spec_cog,
-        "Total_Out_Distortion": out_distor_total,
-        "Total_Out_Force": out_force_total,
+        "Total_Out_Distortion": number_out_of_spec_distortion,
+        "Total_Out_Force": number_out_of_spec_force,
         "Total_Out_COG": out_cog_total,
     }
 
@@ -762,12 +762,15 @@ def visualize_data(*data_to_visualize):
             # X- and Y-coordinates.
             try:
                 disto_p = data_to_visualize[1]['Out_of_Spec_Distortion']\
-                    .iloc[:, [0, 1, 5, 6, 4, 2, 3]]
+                    .iloc[:, [0, 1, 5, 6, 4, 2, 3]].to_string(header = False,
+                                                              index = False)
                 av_for_p = data_to_visualize[1]['Out_of_Spec_Force']\
-                    .iloc[:, [0, 1, 5, 6, 4, 2 ,3]]
+                    .iloc[:, [0, 1, 5, 6, 4, 2 ,3]].to_string(header = False,
+                                                              index = False)
                 # Do not show header and select columns
                 pos_p = data_to_visualize[1]['Out_of_Spec_COG']\
-                    .iloc[:, [0, 1, 5, 6, 8]]
+                    .iloc[:, [0, 1, 5, 6, 8]].to_string(header = False,
+                                                        index = False)
                 print("-----------------------------" +
                       "-----------------------------")
                 # Points to reacquire by distortion issues

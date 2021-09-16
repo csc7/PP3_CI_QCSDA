@@ -890,7 +890,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
 
             # Plot production versus date
             plotext.bar(x_data, y_prod)
-            plotext.plotsize(100, 30)
+            plotext.plotsize(80, 50)
             plotext.title("Production")
             plotext.xlabel("Date")
             plotext.ylabel("Daily Production")
@@ -952,7 +952,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
             print(x_date)
             print(y_data)
             plotext.bar(x_date, y_prod)
-            plotext.plotsize(100, 100)
+            plotext.plotsize(80, 50)
             plotext.title("Production")
             plotext.xlabel("Date")
             plotext.ylabel("Daily Production")

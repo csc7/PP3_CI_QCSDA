@@ -642,25 +642,30 @@ def get_points_to_reaquire(qc_dictionary):
         .astype(np.float32)
 
     # Select points out of specifications by distortion issues
-    out_of_spec_distortion = qc_dictionary['distortion'][qc_dictionary['distortion'].iloc[:, 4] > max_distortion]
+    out_of_spec_distortion = qc_dictionary['distortion'
+        ][qc_dictionary['distortion'].iloc[:, 4] > max_distortion]
     number_out_of_spec_distortion = out_of_spec_distortion.iloc[:, 1].nunique()
 
     # Select points out of specifications by average force issues. Since the
     # tolerance has maximun and minimum values, compute them separately and
     # concatenate all of them
-    out_of_spec_force_max = qc_dictionary['average_force']
-    [qc_dictionary['average_force'].iloc[:, 4] > max_av_force]
-    out_of_spec_force_min = qc_dictionary['average_force']
-    [qc_dictionary['average_force'].iloc[:, 4] < min_av_force]
+    out_of_spec_force_max = qc_dictionary['average_force'
+        ][qc_dictionary['average_force'].iloc[:, 4] > max_av_force]
+    out_of_spec_force_min = qc_dictionary['average_force'
+        ][qc_dictionary['average_force'].iloc[:, 4] < min_av_force]
+    
+    #out_of_spec_force_min.append(out_of_spec_force_max, ignore_index=True)
+    #out_of_spec_force = out_of_spec_force_min
     temp_out_force = [out_of_spec_force_max, out_of_spec_force_min]
     out_of_spec_force = pd.concat(temp_out_force)
-    out_of_spec_force = out_of_spec_force[out_of_spec_force.iloc[:, 4] <
-                                          min_av_force]
-    
+
+    #out_of_spec_force = out_of_spec_force[out_of_spec_force.iloc[:, 4] <
+    #                                      min_av_force]    
     number_out_of_spec_force = out_of_spec_force.iloc[:, 1].nunique()
 
     # Select points out of specifications by positioning issues
-    out_of_spec_cog = qc_dictionary['positioning'][qc_dictionary['positioning'].iloc[:, 8] > 1]
+    out_of_spec_cog = qc_dictionary['positioning'
+        ][qc_dictionary['positioning'].iloc[:, 8] > 1]
 
     # Total VPs out of specifications
     
@@ -763,7 +768,7 @@ def visualize_data(*data_to_visualize):
             try:
                 disto_p = data_to_visualize[1]['Out_of_Spec_Distortion']\
                     .iloc[:, [0, 1, 5, 6, 4, 2, 3]].to_string(header = False,
-                                                              index = False)
+                                                              index = False)                                                              line_width = 80)
                 av_for_p = data_to_visualize[1]['Out_of_Spec_Force']\
                     .iloc[:, [0, 1, 5, 6, 4, 2 ,3]].to_string(header = False,
                                                               index = False)

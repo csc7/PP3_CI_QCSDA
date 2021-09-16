@@ -2,7 +2,7 @@
 import pandas as pd
 import openpyxl
 import numpy as np
-
+import plotext as plt
 
 # gspread and google.oauth2
 # copied and modified from Code Institute's
@@ -819,7 +819,6 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
     # To write Google Sheets in Google Drive
     if (answer == "G" or answer == "g"):
         print("\nUpdating files in Google Drive...\n")
-        print(daily_amounts)
 
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         SHEET_QCSDA.worksheet('Statistics').append_row([date, production,
@@ -883,15 +882,20 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
             print('\nMaking production plot; it can take up to some ' +
                   'minutes...')
 
+            # Read QCSDA file statistics
             SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
-            X_date = SHEET_QCSDA.worksheet('Statistics').col_values(1)
-            y_prod = SHEET_QCSDA.worksheet('Statistics').col_values(2)
-            import matplotlib_terminal
-            import matplotlib.pyplot as plt
+            #import plotext as plt
+            x_data = SHEET_QCSDA.worksheet('Statistics').col_values(1)[1:]
+            #x_date = [plt.string_to_time(item) for item in x_data] 
+            y_data = SHEET_QCSDA.worksheet('Statistics').col_values(2)[1:]
+            y_prod = [int(item) for item in y_data]
 
-            #df = qc_dictionary['Out_of_Spec_COG']
-            plt.plot(df)
-            plt.show()   
+            plt.bar(x_data, y_prod)
+            plt.plotsize(100, 30)
+            plt.title("Production")
+            plt.xlabel("Date")
+            plt.ylabel("Production")
+            plt.show()
         
         # Inform the user that sheets were created and file updated
         print("\nFile Updated.\n")

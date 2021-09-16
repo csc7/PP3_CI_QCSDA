@@ -92,7 +92,7 @@ def main(run_program):
             elif (answer == '3'):
                 try:
                     update_qcsda(points_to_reaquire,
-                                 daily_amounts['daily_report']['date'],
+                                 daily_amounts,
                                  data_source)
                 except UnboundLocalError:
                     # Instruct the user to compute points to reacquire

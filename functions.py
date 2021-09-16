@@ -289,8 +289,8 @@ def validate_data_from_Google(data_to_validate):
         try:
             qc_dictionary = {
                 "tolerances": {
-                    "fleets": float(data_to_validate[0].iloc[0, 2]),
-                    "vibs_per_fleet": float(data_to_validate[0].iloc[1, 2]),
+                    "fleets": float(data_to_validate[0].iloc[1, 2]),
+                    "vibs_per_fleet": float(data_to_validate[0].iloc[2, 2]),
                     "max_cog_dist": float(data_to_validate[0].iloc[6, 2]),
                     "max_distortion": float(data_to_validate[0].iloc[7, 2]),
                     "min_av_force": float(data_to_validate[0].iloc[8, 3]),
@@ -791,12 +791,19 @@ def visualize_data(*data_to_visualize):
 
 
 # Update QCSDA Google Sheet or Microsoft Excel file
-def update_qcsda(qc_dictionary, date, source):
+def update_qcsda(qc_dictionary, daily_amounts, source):
     """
     This function update the QCSDA Google Sheet/Microsoft Excel file
     by adding extra worksheets/sheets with the points that need to be
     reacquired the next day.
     """
+
+    # Read date and daily production
+    date = daily_amounts['daily_report']['date']
+    production = daily_amounts['daily_report']['daily_prod']
+    layout = daily_amounts['daily_report']['daily_layout']
+    pick_up = daily_amounts['daily_report']['daily_pick_up']
+
     # Ask the user to select where to write, remembering where the data were
     # read from last
     print("\nSelect where to save the list of points to be reacquired:")
@@ -805,9 +812,18 @@ def update_qcsda(qc_dictionary, date, source):
     print(f"Last data were collected from {source}\n")
     answer = input("Select option: \n")
 
+    print('\nPress "A" if you want to add a production plot after updating ' +
+          'the files or any other key to just update:')
+    prod_plot = input()
+
     # To write Google Sheets in Google Drive
     if (answer == "G" or answer == "g"):
         print("\nUpdating files in Google Drive...\n")
+        print(daily_amounts)
+
+        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        SHEET_QCSDA.worksheet('Statistics').append_row([date, production,
+                                                        layout, pick_up])
 
         # Create specific name for sheet, with date of acquisition of points.
         # Check if the sheet was not written before,
@@ -862,20 +878,22 @@ def update_qcsda(qc_dictionary, date, source):
             SHEET_QCSDA.worksheet(sheet_name_temp)\
                 .update(qc_dictionary['Out_of_Spec_COG'].values.tolist())
 
+        # Make production plot if selected
+        if (prod_plot == "A" or prod_plot == "a"):
+            print('\nMaking production plot; it can take up to some ' +
+                  'minutes...')
+
+            SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+            X_date = SHEET_QCSDA.worksheet('Statistics').col_values(1)
+            y_prod = SHEET_QCSDA.worksheet('Statistics').col_values(2)
+            import matplotlib_terminal
+            import matplotlib.pyplot as plt
+
+            #df = qc_dictionary['Out_of_Spec_COG']
+            plt.plot(df)
+            plt.show()   
+        
         # Inform the user that sheets were created and file updated
-
-        # Update for chart
-        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
-        #SHEET_QCSDA.worksheet('Statistics').append_row("1")
-        import matplotlib_terminal
-        import matplotlib.pyplot as plt
-
-        df = qc_dictionary['Out_of_Spec_COG']
-        plt.plot([0, 1], [0, 1])
-        plt.show()   
-        
-        
-
         print("\nFile Updated.\n")
 
     if (answer == "L" or answer == "l"):
@@ -915,16 +933,17 @@ def update_qcsda(qc_dictionary, date, source):
                 .to_excel(writer, sheet_name=sheet_name_temp, startrow=0,
                           startcol=0, header=False, index=False)
 
+        # Make production plot if selected
+        if (prod_plot == "A" or prod_plot == "a"):
+            print('\nMaking production plot; it can take up to some ' +
+                  'minutes...')
+
+            import matplotlib_terminal
+            import matplotlib.pyplot as plt
+
+            df = qc_dictionary['Out_of_Spec_COG']
+            plt.plot([0, 1, 1, 3, 1, 2])
+            plt.show() 
+
         # Inform the user that sheets were created and file updated
-
-
-        # Update for chart
-        #SSHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
-        #SHEET_QCSDA.worksheet('Statistics').append_row("1")
-
-        import matplotlib_terminal
-        import matplotlib.pyplot as plt
-        df = qc_dictionary['Out_of_Spec_COG']
-        plt.plot([0, 1], [0, 1])
-        plt.show()   
         print("\nFiles Updated.\n")

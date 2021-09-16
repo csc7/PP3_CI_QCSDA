@@ -63,7 +63,7 @@ def load_sheets_from_Google_Drive():
         SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
 
         # If all right, print message to indicate this.
-        print("\nSpreadsheet and worksheets loaded.")
+        print("\nSpreadsheet and worksheets loaded.\n")
 
     # If file/s and/or data are missing give message and close program
     except gspread.exceptions.SpreadsheetNotFound:

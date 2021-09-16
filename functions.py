@@ -114,6 +114,7 @@ def load_sheets_locally():
     drive and read the worksheets if they are.
     """
     print("\nLoading spreadsheet and worksheets...")
+
     # Read all data except tolerances
     try:
         daily_report_data = pd.read_excel('qcdata/daily_report.xlsx',
@@ -150,6 +151,7 @@ def load_sheets_locally():
         print("No parameters file.")
         param = input('Select "P" to enter them manually or other key to ' +
                       'close the program.\n')
+
         # Initialize and assing zero to tolerances, so data structure is
         # defined when returning the function value
         if (param == "P" or param == "p"):
@@ -385,10 +387,8 @@ def validate_data_from_Google(data_to_validate):
         distance = ((x_planned - x_cog)*(x_planned - x_cog) +
                     (y_planned - y_cog)*(y_planned - y_cog) +
                     (z_planned - z_cog)*(z_planned - z_cog))**0.5
-        qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'], distance], axis=1, ignore_index=True)
-        # Create new column with distance to COG
-        #qc_dictionary['positioning'].iloc[:, 8] = distance
-        #print(qc_dictionary['positioning'])
+        qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'
+            ], distance], axis=1, ignore_index=True)
 
     # Return updated dictionary
     return (qc_dictionary)
@@ -533,9 +533,8 @@ def validate_data_locally(data_to_validate):
                 (z_planned - z_cog)*(z_planned - z_cog))**0.5
 
     # Create new column with distance to COG
-    #qc_dictionary['positioning'].iloc[:, 7] = distance
-    qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'], distance], axis=1, ignore_index=True)
-    #print(qc_dictionary['positioning'])
+    qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'
+        ], distance], axis=1, ignore_index=True)
 
     # Return updated dictionary
     return (qc_dictionary)
@@ -657,15 +656,9 @@ def get_points_to_reaquire(qc_dictionary):
     out_of_spec_force_max = qc_dictionary['average_force'
         ][qc_dictionary['average_force'].iloc[:, 4] > max_av_force]
     out_of_spec_force_min = qc_dictionary['average_force'
-        ][qc_dictionary['average_force'].iloc[:, 4] < min_av_force]
-    
-    #out_of_spec_force_min.append(out_of_spec_force_max, ignore_index=True)
-    #out_of_spec_force = out_of_spec_force_min
+        ][qc_dictionary['average_force'].iloc[:, 4] < min_av_force]    
     temp_out_force = [out_of_spec_force_max, out_of_spec_force_min]
     out_of_spec_force = pd.concat(temp_out_force)
-
-    #out_of_spec_force = out_of_spec_force[out_of_spec_force.iloc[:, 4] <
-    #                                      min_av_force]    
     number_out_of_spec_force = out_of_spec_force.iloc[:, 1].nunique()
 
     # Select points out of specifications by positioning issues
@@ -673,12 +666,7 @@ def get_points_to_reaquire(qc_dictionary):
         ][qc_dictionary['positioning'].iloc[:, 8] > max_cog_dist]
 
     # Total VPs out of specifications
-    
-    #index = out_of_spec_distortion.index
-    #out_distor_total = len(index)
     out_distor_total = number_out_of_spec_distortion
-    #index = out_of_spec_force.index
-    #out_force_total = len(index)
     out_force_total = number_out_of_spec_force
     index = out_of_spec_cog.index
     out_cog_total = len(index)
@@ -870,7 +858,6 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
         # ask to create if it was not.
         # Points out of specifications by distortion issues
         sheet_name_temp = 'Redo_distortion_' + str(date)[0:10]
-        #SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         try:
             SHEET_QCSDA.worksheet(sheet_name_temp)\
                 .update(qc_dictionary['Out_of_Spec_Distortion']
@@ -889,7 +876,6 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
         # ask to create if it was not.
         # Points out of specifications by average force issues
         sheet_name_temp = 'Redo_force_' + str(date)[0:10]
-        #SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         try:
             SHEET_QCSDA.worksheet(sheet_name_temp)\
                 .update(qc_dictionary['Out_of_Spec_Force'].values.tolist())
@@ -906,7 +892,6 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
         # ask to create if it was not.
         # Points out of specifications by positioning issues
         sheet_name_temp = 'Redo_COG_' + str(date)[0:10]
-        #SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         try:
             SHEET_QCSDA.worksheet(sheet_name_temp)\
                 .update(qc_dictionary['Out_of_Spec_COG'].values.tolist())
@@ -952,7 +937,6 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
 
         SHEET_QCSDA = pd.read_excel('qcdata/QCSDA.xlsx', 'Statistics',
                                     engine='openpyxl')
-        #print(SHEET_QCSDA)
         
         daily_prod_row_to_add = pd.DataFrame({'DATE':[date], 
                                              'PRODUCTION':[production],
@@ -960,8 +944,6 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
                                              'PICK-UP':[pick_up],
                                              })
         
-        #print(SHEET_QCSDA.append(daily_prod_row_to_add, ignore_index=True))
-
         NEW_SHEET_QCSDA = \
             SHEET_QCSDA.append(daily_prod_row_to_add, ignore_index=True)
         NEW_SHEET_QCSDA.to_excel("qcdata/QCSDA.xlsx",

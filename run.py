@@ -62,17 +62,19 @@ def main(run_program):
                 print("Program closed.")
                 break
         # If quantities match, print daily data
-        print(f"\n{str(daily_amounts['daily_report']['date'])[0:10]} daily " +
+        print("--------------------------------------------")
+        print(f"{str(daily_amounts['daily_report']['date'])[0:10]} daily " +
               f"production: {daily_amounts['daily_report']['daily_prod']}, " +
               "with ")
         print(f"{daily_amounts['daily_report']['daily_layout']} " +
               "planted geophones and " +
-              f"{daily_amounts['daily_report']['daily_pick_up']} picked up.\n")
+              f"{daily_amounts['daily_report']['daily_pick_up']} picked up.")
+        print("--------------------------------------------")
 
         # Data are OK, present menu options to user
         while(True):
             # Submenu
-            print('Select one option below and select the number + "enter":')
+            print('Select one option below:')
             print("1 - Compute Points to reacquire")
             print("2 - Visualize data")
             print("3 - Update QCSDA Spreadsheet with points to reacquire")

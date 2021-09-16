@@ -388,7 +388,7 @@ def validate_data_from_Google(data_to_validate):
         qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'], distance], axis=1, ignore_index=True)
         # Create new column with distance to COG
         #qc_dictionary['positioning'].iloc[:, 8] = distance
-        print(qc_dictionary['positioning'])
+        #print(qc_dictionary['positioning'])
 
     # Return updated dictionary
     return (qc_dictionary)
@@ -702,7 +702,7 @@ def get_points_to_reaquire(qc_dictionary):
     print("Total points to reaquire by positioning issues: " +
           f"{out_cog_total}\n")
     print("---------------------------------------------------")
-    
+
     return out_of_spec_dictionary
 
 

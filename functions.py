@@ -59,6 +59,9 @@ def load_sheets_from_Google_Drive():
         positioning_data = SHEET_POSITIONING.worksheet('Positioning')
         positioning_data = pd.DataFrame(positioning_data.get_all_values())
 
+        # Try to read QCSDA file
+        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+
         # If all right, print message to indicate this.
         print("\nSpreadsheet and worksheets loaded.")
 
@@ -121,8 +124,8 @@ def load_sheets_locally():
                                            engine='openpyxl')
         positioning_data = pd.read_excel('qcdata/positioning.xlsx',
                                          engine='openpyxl')
-        #SHEET_QCSDA = pd.ExcelFile('qcdata/QCSDA.xlsx',
-        #                           engine='openpyxl')
+        SHEET_QCSDA = pd.ExcelFile('qcdata/QCSDA.xlsx',
+                                   engine='openpyxl')
 
         print("\nSpreadsheet and worksheets loaded.")
 
@@ -145,7 +148,7 @@ def load_sheets_locally():
 
     except FileNotFoundError as e:
         print("No parameters file.")
-        param = input('Press "P" to enter them manually or other key to ' +
+        param = input('Select "P" to enter them manually or other key to ' +
                       'close the program.\n')
         # Initialize and assing zero to tolerances, so data structure is
         # defined when returning the function value
@@ -317,7 +320,7 @@ def validate_data_from_Google(data_to_validate):
             # If an acquisition parameter value is missing, give the user
             # the option to enter all parameters
             print("At least one parameters is missing.")
-            param = input('Press "P" to enter them manually or other key ' +
+            param = input('Select "P" to enter them manually or other key ' +
                           'to close the program.\n')
             # Initialize and assing zero to tolerances, so data structure is
             # defined when calling load_parameters() function
@@ -561,6 +564,7 @@ def print_acq_param(qc_dictionary):
     """
     This functions prints the current acquisition parameters (tolerances)
     """
+    print("---------------------------------------------------")
     print(f"{int(qc_dictionary['tolerances']['fleets'])} fleets and " +
           f"{int(qc_dictionary['tolerances']['vibs_per_fleet'])} vibrators " +
           f"per fleet")
@@ -570,7 +574,8 @@ def print_acq_param(qc_dictionary):
           f"{qc_dictionary['tolerances']['max_distortion']}")
     print(f"{qc_dictionary['tolerances']['min_av_force']}% as minimum and " +
           f"{qc_dictionary['tolerances']['max_av_force']}% as maximum " +
-          "average force\n")
+          "average force")
+    print("---------------------------------------------------")
     return
 
 
@@ -665,7 +670,7 @@ def get_points_to_reaquire(qc_dictionary):
 
     # Select points out of specifications by positioning issues
     out_of_spec_cog = qc_dictionary['positioning'
-        ][qc_dictionary['positioning'].iloc[:, 8] > 1]
+        ][qc_dictionary['positioning'].iloc[:, 8] > max_cog_dist]
 
     # Total VPs out of specifications
     
@@ -828,7 +833,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
 
     # Give warning messages if data have already been written
     if (write_in_Google_Drive >= 1):
-        print("WARNING: data have have been written " +
+        print("\nWARNING: data have have been written " +
               f"{write_in_Google_Drive} time/s in Google Drive!")
     if (write_locally >= 1):
         print("WARNING: data have have been written " +
@@ -848,7 +853,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
 
         write_in_Google_Drive += 1
 
-        print('\nPress "A" if you want to add a production plot after updating ' +
+        print('\nSelect "A" if you want to add a production plot after updating ' +
               'the files or any other key to just update:')
         prod_plot = input()
 
@@ -937,7 +942,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
 
         write_locally += 1
 
-        print('\nPress "A" if you want to add a production plot after updating ' +
+        print('\nSelect "A" if you want to add a production plot after updating ' +
               'the files or any other key to just update:')
         prod_plot = input()
 

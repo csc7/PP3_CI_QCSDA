@@ -2,7 +2,7 @@
 import pandas as pd
 import openpyxl
 import numpy as np
-import plotext as plt
+import plotext
 
 # gspread and google.oauth2
 # copied and modified from Code Institute's
@@ -890,12 +890,12 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
             y_data = SHEET_QCSDA.worksheet('Statistics').col_values(2)[1:]
             y_prod = [int(item) for item in y_data]
 
-            plt.bar(x_data, y_prod)
-            plt.plotsize(100, 30)
-            plt.title("Production")
-            plt.xlabel("Date")
-            plt.ylabel("Production")
-            plt.show()
+            plotext.bar(x_data, y_prod)
+            plotext.plotsize(100, 30)
+            plotext.title("Production")
+            plotext.xlabel("Date")
+            plotext.ylabel("Production")
+            plotext.show()
         
         # Inform the user that sheets were created and file updated
         print("\nFile Updated.\n")

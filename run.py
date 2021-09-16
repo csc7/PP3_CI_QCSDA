@@ -72,7 +72,7 @@ def main(run_program):
         # Data are OK, present menu options to user
         while(True):
             # Submenu
-            print('Select one option below and press the number + "enter":')
+            print('Select one option below and select the number + "enter":')
             print("1 - Compute Points to reacquire")
             print("2 - Visualize data")
             print("3 - Update QCSDA Spreadsheet with points to reacquire")
@@ -106,7 +106,7 @@ def main(run_program):
         # End of program, ask to restart or close
         print('Select "G" to read data from Google Drive')
         print('Select "L" to read data locally')
-        print('Select any other key + "enter" to close the program.\n')
+        print('Select any other key to close the program.\n')
         run_again = input('Select option: \n')
         if (run_again == "G" or run_again == "g" or
                 run_again == "L" or run_again == "l"):
@@ -132,9 +132,9 @@ print(" * average_force")
 print(" * positioning")
 print(" * QCSDA")
 print("")
-print('Press "G" + "enter" to read data from Google Drive')
-print('Press "L" + "enter" to read data locally')
-print('Press any other key + "enter" to close the program.\n')
+print('Select "G" to read data from Google Drive')
+print('Select "L" to read data locally')
+print('Select any other key to close the program.\n')
 
 # Ask the user to select an option
 run_program = input('Select option: \n')

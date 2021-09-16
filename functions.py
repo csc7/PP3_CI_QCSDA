@@ -81,7 +81,7 @@ def load_sheets_from_Google_Drive():
     # If not available give the user the chance to input them
     except gspread.exceptions.SpreadsheetNotFound:
         print("No parameters file.")
-        param = input('Press "P" to enter them manually or other key to ' +
+        param = input('Select "P" to enter them manually or other key to ' +
                       'close the program.\n')
         # Initialize and assing zero to tolerances, so data structure is
         # defined when returning the function value
@@ -127,7 +127,7 @@ def load_sheets_locally():
         SHEET_QCSDA = pd.ExcelFile('qcdata/QCSDA.xlsx',
                                    engine='openpyxl')
 
-        print("\nSpreadsheet and worksheets loaded.")
+        print("\nSpreadsheet and worksheets loaded.\n")
 
     # If file/s and/or data are missing give message and close program
     except FileNotFoundError as e:
@@ -474,7 +474,7 @@ def validate_data_locally(data_to_validate):
                     np.isnan(qc_dictionary['tolerances']['min_av_force']) or
                     np.isnan(qc_dictionary['tolerances']['max_av_force'])):
                 print("At least one parameters is missing.")
-                param = input('Press "P" to enter them manually or other ' +
+                param = input('Select "P" to enter them manually or other ' +
                               'key to close the program.\n')
                 # Initialize and assing zero to tolerances, so data structure
                 # is defined when calling load_parameters() function
@@ -535,7 +535,7 @@ def validate_data_locally(data_to_validate):
     # Create new column with distance to COG
     #qc_dictionary['positioning'].iloc[:, 7] = distance
     qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'], distance], axis=1, ignore_index=True)
-    print(qc_dictionary['positioning'])
+    #print(qc_dictionary['positioning'])
 
     # Return updated dictionary
     return (qc_dictionary)
@@ -551,7 +551,7 @@ def ask_to_overwrite_parameters(qc_dictionary):
     print("\nCurrent Acquisition Parameters:")
     print_acq_param(qc_dictionary)
     print("Would you like to assing new parameters?\n")
-    overwrite = input('Press "Y" to overwrite or other key to continue:\n')
+    overwrite = input('Select "Y" to overwrite or other key to continue:\n')
     if (overwrite == 'Y' or overwrite == 'y'):
         load_parameters(qc_dictionary)
         print("\nNew Acquisition Parameters:")
@@ -694,13 +694,15 @@ def get_points_to_reaquire(qc_dictionary):
     }
 
     # Print amount of points out of specifications by category
+    print("---------------------------------------------------")
     print("\nTotal points to reaquire by distortion issues: " +
           f"{out_distor_total}")
     print("Total points to reaquire by average force issues: " +
           f"{out_force_total}")
     print("Total points to reaquire by positioning issues: " +
           f"{out_cog_total}\n")
-
+    print("---------------------------------------------------")
+    
     return out_of_spec_dictionary
 
 
@@ -711,7 +713,7 @@ def visualize_data(*data_to_visualize):
     """
     while(True):
         # Menu
-        print('\nSelect one option to show below and press the number + ' +
+        print('\nSelect one option to show below and select the number + ' +
               '"enter":')
         print("1 - Daily Statistics")
         print("2 - Acquisition Parameters")

@@ -118,8 +118,8 @@ def load_sheets_locally():
                                            engine='openpyxl')
         positioning_data = pd.read_excel('qcdata/positioning.xlsx',
                                          engine='openpyxl')
-        SHEET_QCSDA = pd.ExcelFile('qcdata/QCSDA.xlsx',
-                                   engine='openpyxl')
+        #SHEET_QCSDA = pd.ExcelFile('qcdata/QCSDA.xlsx',
+        #                           engine='openpyxl')
 
         print("\nSpreadsheet and worksheets loaded.\n")
 
@@ -159,7 +159,7 @@ def load_sheets_locally():
             }
             # Return data
             return [tolerances_data, daily_report_data, distortion_data,
-                    average_force_data, positioning_data, SHEET_QCSDA]
+                    average_force_data, positioning_data]
         else:
             return False
 
@@ -170,7 +170,7 @@ def load_sheets_locally():
 
     # Return data
     return [tolerances_data, daily_report_data, distortion_data,
-            average_force_data, positioning_data, SHEET_QCSDA]
+            average_force_data, positioning_data]
 
 
 # Load parameters, checking first if they are available. If they are not
@@ -884,17 +884,16 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
 
             # Read QCSDA file statistics
             SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
-            #import plotext as plt
-            x_data = SHEET_QCSDA.worksheet('Statistics').col_values(1)[1:]
-            #x_date = [plt.string_to_time(item) for item in x_data] 
+            x_date = SHEET_QCSDA.worksheet('Statistics').col_values(1)[1:]
             y_data = SHEET_QCSDA.worksheet('Statistics').col_values(2)[1:]
             y_prod = [int(item) for item in y_data]
 
+            # Plot production versus date
             plotext.bar(x_data, y_prod)
             plotext.plotsize(100, 30)
             plotext.title("Production")
             plotext.xlabel("Date")
-            plotext.ylabel("Production")
+            plotext.ylabel("Daily Production")
             plotext.show()
         
         # Inform the user that sheets were created and file updated
@@ -937,17 +936,27 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
                 .to_excel(writer, sheet_name=sheet_name_temp, startrow=0,
                           startcol=0, header=False, index=False)
 
-        # Make production plot if selected
         if (prod_plot == "A" or prod_plot == "a"):
             print('\nMaking production plot; it can take up to some ' +
                   'minutes...')
 
-            import matplotlib_terminal
-            import matplotlib.pyplot as plt
+            # Read QCSDA file statistics
+            SHEET_QCSDA = pd.read_excel('qcdata/QCSDA.xlsx', 'Statistics',
+                                       engine='openpyxl')
+            x_data = SHEET_QCSDA.iloc[:, 0]
+            x_date = [str(item) for item in x_data]
+            y_data = SHEET_QCSDA.iloc[:, 1]
+            y_prod = [int(item) for item in y_data]
 
-            df = qc_dictionary['Out_of_Spec_COG']
-            plt.plot([0, 1, 1, 3, 1, 2])
-            plt.show() 
+            # Plot production versus date
+            print(x_date)
+            print(y_data)
+            plotext.bar(x_date, y_prod)
+            plotext.plotsize(100, 100)
+            plotext.title("Production")
+            plotext.xlabel("Date")
+            plotext.ylabel("Daily Production")
+            plotext.show()
 
         # Inform the user that sheets were created and file updated
         print("\nFiles Updated.\n")

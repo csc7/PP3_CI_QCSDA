@@ -820,7 +820,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
     if (answer == "G" or answer == "g"):
         print("\nUpdating files in Google Drive...\n")
 
-        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')        
         SHEET_QCSDA.worksheet('Statistics').append_row([date, production,
                                                         layout, pick_up])
 
@@ -883,7 +883,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
                   'minutes...')
 
             # Read QCSDA file statistics
-            SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
+            #SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
             x_date = SHEET_QCSDA.worksheet('Statistics').col_values(1)[1:]
             y_data = SHEET_QCSDA.worksheet('Statistics').col_values(2)[1:]
             y_prod = [int(item) for item in y_data]
@@ -902,6 +902,23 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
     if (answer == "L" or answer == "l"):
 
         print("\nUpdating files in local drive...\n")
+
+        SHEET_QCSDA = pd.read_excel('qcdata/QCSDA.xlsx', 'Statistics',
+                                       engine='openpyxl')
+        print(SHEET_QCSDA)
+        
+
+        row_to_add = pd.DataFrame({'DATE':[date], 
+                           'PRODUCTION':[production],
+                           'LAYOUT':[layout],
+                           'PICK-UP':[pick_up],
+                            })
+        
+        print(SHEET_QCSDA.append(row_to_add, ignore_index=True))
+
+        NEW_SHEET_QCSDA = SHEET_QCSDA.append(row_to_add, ignore_index=True)
+        NEW_SHEET_QCSDA.to_excel("qcdata/QCSDA.xlsx",
+                                 sheet_name='Statistics')
 
         # Create specific name for sheet, with date of acquisition of points.
         # Check if the sheet was not written before,
@@ -941,16 +958,14 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
                   'minutes...')
 
             # Read QCSDA file statistics
-            SHEET_QCSDA = pd.read_excel('qcdata/QCSDA.xlsx', 'Statistics',
-                                       engine='openpyxl')
+            #SHEET_QCSDA = pd.read_excel('qcdata/QCSDA.xlsx', 'Statistics',
+            #                           engine='openpyxl')
             x_data = SHEET_QCSDA.iloc[:, 0]
             x_date = [str(item) for item in x_data]
             y_data = SHEET_QCSDA.iloc[:, 1]
             y_prod = [int(item) for item in y_data]
 
             # Plot production versus date
-            print(x_date)
-            print(y_data)
             plotext.bar(x_date, y_prod)
             plotext.plotsize(80, 50)
             plotext.title("Production")

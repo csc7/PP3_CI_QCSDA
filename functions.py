@@ -918,7 +918,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
 
         NEW_SHEET_QCSDA = SHEET_QCSDA.append(row_to_add, ignore_index=True)
         NEW_SHEET_QCSDA.to_excel("qcdata/QCSDA.xlsx",
-                                 sheet_name='Statistics')
+                                 sheet_name='Statistics', index = False)
 
         # Create specific name for sheet, with date of acquisition of points.
         # Check if the sheet was not written before,

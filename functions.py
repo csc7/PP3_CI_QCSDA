@@ -768,7 +768,7 @@ def visualize_data(*data_to_visualize):
             try:
                 disto_p = data_to_visualize[1]['Out_of_Spec_Distortion']\
                     .iloc[:, [0, 1, 5, 6, 4, 2, 3]].to_string(header = False,
-                                                              index = False)                                                              line_width = 80)
+                                                              index = False)
                 av_for_p = data_to_visualize[1]['Out_of_Spec_Force']\
                     .iloc[:, [0, 1, 5, 6, 4, 2 ,3]].to_string(header = False,
                                                               index = False)

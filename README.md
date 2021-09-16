@@ -22,6 +22,7 @@ The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.
 ### [5. Technologies used](#5--technologies-used)
 - #### [Languages](#languages-1)
 - #### [Software and Other Tools](#software-and-other-tools-1)
+### [6. Aplication Programming Interfaces (APIs)](#6--libraries)
 ### [6. Libraries](#6--libraries)
 ### [7. Features](#7--features)
 ### [8. Validation](#8--validation)
@@ -264,13 +265,21 @@ The following languages, software and tools were implemented using Windows 10 Pr
 
 ___
 
-# **6 . Libraries**
+# **6 . Aplication Programming Interfaces (APIs)**
 
 - **google-auth**: Google Auth Library for Python, ©2016, Google, Inc.. https://google-auth.readthedocs.io/en/master/ .
 Library used for authentication when accessing Google Sheets in Google Drive.
 
 - **gspread**: Python API for Google Sheets. © Copyright 2021, Anton Burnashev Revision 0181ca8f. https://docs.gspread.org/en/latest/ .
 Library used to read and write data from/into Google Sheets.
+
+Please refer to section "11. Deployment" for deployment instructions and features.
+
+<br><br>
+## [Back to Index](#index)
+___
+
+# **6 . Libraries**
 
 - **pandas**: https://pandas.pydata.org/pandas-docs/stable/index.html. As stated in its website "pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures and data analysis tools for the Python programming language."
 Library used to easily read and write Microsoft Excel files. It is also used to easily present organized tables in the terminal.
@@ -282,6 +291,14 @@ Library used to read Microsoft Excel files, in this project in GitPod.
 
 - **NumPy**: https://numpy.org/ .
 Used in this project to easily convert Pandas dataframe to float type and to check "nan" (not a number) values.
+
+- **matplotlib-terminal 0.1a4**: https://pypi.org/project/matplotlib-terminal/#description .
+Used to plot in terminal, installed also with 'img2unicode[n2]' to improve performance.
+
+- **plotext**: https://pypi.org/project/plotext/ .
+Used to plot in terminal. It is the library that shows the plots in the current deployment.
+
+$ pip install 'img2unicode[n2]'
 
 ## [Back to Index](#index)
 <br>
@@ -928,6 +945,14 @@ ___
         - Google Drive API
         - Google Sheets API
 
+- gspread:
+
+    - To check usability of the library througout the project: https://docs.gspread.org/en/v4.0.1/ and, especially, https://docs.gspread.org/en/v4.0.1/user-guide.html .
+
+- OpenPyXL:
+
+    - To check usability of the library: https://openpyxl.readthedocs.io/en/stable/index.html .
+
 - Python Libraries:
 
     - google-auth: Google Auth Library for Python, ©2016, Google, Inc.. https://google-auth.readthedocs.io/en/master/ .
@@ -942,6 +967,8 @@ ___
 
     - NumPy: use to convert Pandas dataframe to float, https://numpy.org/ , downloaded on August 24th, 2021, at 10:00 .
 
+- Pandas Documentation:
+    - To learn and check parameters of functions of this library througout the project: https://pandas.pydata.org/docs/index.html .
 
 - Stack Overflow:
 
@@ -953,6 +980,8 @@ ___
     - To select range of data in Pandas: https://stackoverflow.com/questions/50865987/how-to-select-all-elements-greater-than-a-given-values-in-a-dataframe/50866687, accessed on Augsut 22nd, 2021, at 20:30.
 
     - To remember how to indent and comply with PEP8 standards for "print" commands when using a second line: https://stackoverflow.com/questions/15435811/what-is-pep8s-e128-continuation-line-under-indented-for-visual-indent, accessed on September 11th, 2021, at 21:35.
+
+    - To investigate issues with global variables: https://stackoverflow.com/questions/10506973/can-not-increment-global-variable-from-function-in-python .
 
 - W3C®. Copyright © 2021 W3C ® (MIT, ERCIM, Keio, Beihang); https://www.w3.org/: 
 

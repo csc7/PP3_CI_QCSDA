@@ -96,6 +96,8 @@ This menu will also give the opportunity to show a chart with the progress of da
 
 The user is always given the option to retunt to previous menu, until the first one is shown (where to read the data from), where the user can select to repeat all the process or close the program.
 
+*Please check "5. Flowchart" section for a summary.*
+
 ### **Note**
 If interested in checking the warning messages, you can modify the files names and/or content to get alerts on what is going on and possible solutions. Introducing letters instead of numbers, when prompted, will also alert the user to introduce numbers.
 

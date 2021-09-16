@@ -13,24 +13,25 @@ The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.
 #### [*Program Link*](https://pp3-ci-qcsda.herokuapp.com/)
 ### [1. Project Goals](#1--project-goals)
 ### [2. User Manual](#2--user-manual)
-### [3. User Experience](#3--user-experience)
+### [3. File and Data Structures](#3--file-and-data-structures)
+### [4. User Experience](#4--user-experience)
 - #### [User Goals](#user-goals-1)
 - #### [Site Owner Goals](#site-owner-goals-1)
 - #### [User Stories](#user-stories-1)
 - #### [User Requirements and Expectations](#user-requirements-and-expectations-1)
-### [4. Flowchart](#4--flowchart)
-### [5. Technologies used](#5--technologies-used)
+### [5. Flowchart](#5--flowchart)
+### [6. Technologies used](#6--technologies-used)
 - #### [Languages](#languages-1)
 - #### [Software and Other Tools](#software-and-other-tools-1)
-### [6. Aplication Programming Interfaces (APIs)](#6--libraries)
-### [6. Libraries](#6--libraries)
-### [7. Features](#7--features)
-### [8. Validation](#8--validation)
-### [9. Testing of User Stories](#9--testing-of-user-stories)
-### [10. Bugs](#10--bugs)
-### [11. Deployment](#11--deployment)
-### [12. Credits](#12--credits)
-### [13. Acknowledgements](#13--acknowledgements)
+### [7. Aplication Programming Interfaces (APIs)](#7--aplication-programming-interfaces-apis)
+### [8. Libraries](#8--libraries)
+### [9. Features](#9--features)
+### [10. Validation](#10--validation)
+### [11. Testing of User Stories](#11--testing-of-user-stories)
+### [12. Bugs](#12--bugs)
+### [13. Deployment](#13--deployment)
+### [14. Credits](#14--credits)
+### [15. Acknowledgements](#15--acknowledgements)
 <br><br>
 
 ___
@@ -161,7 +162,7 @@ The files can be Google Sheets or Microsoft Excel files and contain data with th
 <br>
 
 ___
-# **3 . User Experience**
+# **4 . User Experience**
 
 The goal of the program is to provide a simple but interactive method to automate a quality control task that would many minutes (with higher exposure to errors) if done manually.
 
@@ -224,7 +225,7 @@ User stories are divided into the following three groups:
 <br>
 
 ___
-# **4 . Flowchart**
+# **5 . Flowchart**
 
 The following flowchart summarises the work and purpose of the program.
 
@@ -239,14 +240,13 @@ The following flowchart summarises the work and purpose of the program.
 <br>
 
 ___
-# **5 . Technologies Used**
+# **6 . Technologies Used**
 
 The following languages, software and tools were implemented using Windows 10 Pro:
 ## **Languages**
 - #### **Python**
 
 
-#### [Back to Index](#index)
 
 ## **Software and Other Tools**
 - #### **GitHub**
@@ -265,7 +265,7 @@ The following languages, software and tools were implemented using Windows 10 Pr
 
 ___
 
-# **6 . Aplication Programming Interfaces (APIs)**
+# **7 . Aplication Programming Interfaces (APIs)**
 
 - **google-auth**: Google Auth Library for Python, ©2016, Google, Inc.. https://google-auth.readthedocs.io/en/master/ .
 Library used for authentication when accessing Google Sheets in Google Drive.
@@ -279,7 +279,7 @@ Please refer to section "11. Deployment" for deployment instructions and feature
 ## [Back to Index](#index)
 ___
 
-# **6 . Libraries**
+# **8 . Libraries**
 
 - **pandas**: https://pandas.pydata.org/pandas-docs/stable/index.html. As stated in its website "pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures and data analysis tools for the Python programming language."
 Library used to easily read and write Microsoft Excel files. It is also used to easily present organized tables in the terminal.
@@ -305,7 +305,7 @@ $ pip install 'img2unicode[n2]'
 
 ___
 
-# **7 . Features**
+# **9 . Features**
 
 The program runs in a terminal, including the following features:
 
@@ -316,7 +316,7 @@ It is the message that appears right after running the program.
 
 *User Stories Addressed by this Feature: 1 and 2.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -332,7 +332,7 @@ It is shown with the welcome message and gives the option to select where to rea
 
 *User Stories Addressed by this Feature: 3 and 11.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -347,7 +347,7 @@ It can be found in the Functions page and show the functions of the wavelets tha
 
 *User Stories Addressed by this Feature: 1; 8 and 12.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Images</summary>
 
@@ -364,7 +364,7 @@ It shows the current acquisition parameters (tolerances) being used for the qual
 
 *User Stories Addressed by this Feature: 1; 5 and 13.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -380,7 +380,7 @@ It gives the option to accept the read parameters or overwrite them.
 
 *User Stories Addressed by this Feature: 9.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -395,7 +395,7 @@ In case the acquisition parameters are not present or if the user wants to overw
 
 *User Stories Addressed by this Feature: 1; 9 and 10.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -411,7 +411,7 @@ A warning message, giving the option to continue or close the program, will appe
 
 *User Stories Addressed by this Feature: 1; 4; 5; 6; 7; 8; 10 and 12.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -426,7 +426,7 @@ This menu will appear if everything (files and information) is correct and/or th
 
 *User Stories Addressed by this Feature: 1; 5, and 13.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -442,7 +442,7 @@ It is a message that shows the number of points to be reacquired, by category (d
 
 *User Stories Addressed by this Feature:* 1; 5 and 13.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -457,7 +457,7 @@ It gives the user the option to select what data to visualize.
 
 *User Stories Addressed by this Feature:* 1; 5 and 13.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -473,7 +473,7 @@ It prints the daily production statistics.
 
 *User Stories Addressed by this Feature:* 1; 5 and 13.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -489,7 +489,7 @@ It prints the acquisition parameters.
 
 *User Stories Addressed by this Feature:* 1; 5 and 13.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -505,7 +505,7 @@ It prints the amount of points to be reacquired.
 
 *User Stories Addressed by this Feature:* 1; 5 and 13.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -520,7 +520,7 @@ It prints the list of points to be reacquired, by category (distortion, average 
 
 *User Stories Addressed by this Feature:* 1; 5 and 13.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -537,7 +537,7 @@ It gives the user the option to select where to write the list of computed point
 
 *User Stories Addressed by this Feature:* 1; 3; 5; 13 and 14.*
 
-*Please check "9. Testing of User Stories" for more details.*
+*Please check "11. Testing of User Stories" for more details.*
 <details>
     <summary>Check Image</summary>
 
@@ -551,7 +551,7 @@ It gives the user the option to select where to write the list of computed point
 
 
 ___
-# **8 . Validation**
+# **10 . Validation**
 
 PEP8 was used to check the files written in Python, with "All right" results.
 
@@ -578,7 +578,7 @@ The tool can be accessed with this link: http://pep8online.com/checkresult .
 <br>
 
 ___
-# **9 . Testing of User Stories**
+# **11 . Testing of User Stories**
 
 
 ## **First time users**
@@ -833,7 +833,7 @@ The following are testing of User Stories previously described above:
 <br>
 
 ___
-# 10 . Bugs
+# 12 . Bugs
 
 Some bugs were related to positioning of elements in the page. They were fixed by assigning proper values, most of them with the help of a temporary background colour for the element.
 
@@ -849,6 +849,8 @@ Bugs that required more time and specific solutions were the following ones:
 | Program stops working when a number is not entered as acquisition parameter when prompted | Use a "while" loop with "try/except" commands ("try" only breaks when a number is entered, "except" prints/indicates that a number must be entered) |
 | When reading data from Google Sheets, positioning file, value could not be converted to float type, indicating a string was attemped to be converted | Index values for reading the table were wrong, issue fixed changing indexes from [1, 9] to [0, 9] (the program was trying to convert an empty cell, that is to say, a string like "", to a float). |
 | Detect missing option to give the user the opportunity to enter acquisition parameters if the corresponding file exists but a value is missing, for both Google Drive and local options | For Google Drive option, call the load_parameters() function (if the user selects to do so) in the exception/error generated when a value is missing, as for Google Sheets the value is ''. For local option, as the missing value in the corresponding Microsoft Excel file is "nan", call the load_parameters() function (if the user selects to do so) after reading the values in the file, as an error is not given in this case, and the "nan" value is identified using the NumPy function numpy.isnan function. |
+| Could not increment global variables (write_in_Google_Drive and write_locally) declared in the functions.py file, stopping the execution of the program. | Add keyword "global" inside function "update_qcsda()". |
+| The program did not compute the correct number of points to be reaquired. | The issued was caused by a wrong break line to divide the long line into different lines to comply with PEP8 requirements. The separation had been done after a square bracket, starting the new line with another bracket, both of them inside another brackets. The issue was solve by dividing the line right before the bracke, moving the closing bracket to the next line (the next line started with a closing bracket). |
 
 
 <br><br>
@@ -856,7 +858,7 @@ Bugs that required more time and specific solutions were the following ones:
 <br>
 
 ___
-# 11 . Deployment
+# 13 . Deployment
 
 The website was fully written in Gitpod, permanently tested in Gitpod terminal, and periodically deployed to GigHub Pages (in a main branch) and Heroku Platform (to handle backend languages).
 
@@ -923,7 +925,7 @@ The project can also be forked from the repository (https://github.com/csc7/PP3_
 <br>
 
 ___
-# 12 . Credits
+# 14 . Credits
 
 - Code Institute: I have used the learning material in the course as a guide and reference. "Love Sandwiches - Essentials Project" was the main reference.
 
@@ -995,7 +997,7 @@ ___
 
 ## [Back to Index](#index)
 ___
-# 13 . Acknowledgements
+# 15 . Acknowledgements
 
 I would like to acknowledge and thank the following people for being part of this project and for helping me in the development of it:
 - To my wife and family, for always supporting and helping.

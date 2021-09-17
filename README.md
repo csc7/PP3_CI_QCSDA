@@ -1021,6 +1021,5 @@ I would like to acknowledge and thank the following people for being part of thi
 - Code Institute community in Slack for permanently being an online reference.
 - All the valuable information provided by the sources mentioned above in the credits.
 
-<br>
 ## [Back to Index](#index)
-<br>
+___

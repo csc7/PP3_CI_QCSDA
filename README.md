@@ -701,7 +701,7 @@ The following are testing of User Stories previously described above:
     <summary>Screenshot</summary>
 
 ![Missing or Wrong File Name Warning in Google Drive Image](docs/features-and-evidence/warning-message-with-missing-or-wrong-file-Google-Drive.PNG) 
-![Missing or Wrong File Name Warning in Locally Image](docs/features-and-evidence/warning-message-with-missing-or-wrong-file-Google-Drive.PNG) 
+![Missing or Wrong File Name Warning in Locally Image](docs/features-and-evidence/warning-message-with-missing-or-wrong-file-locally.PNG) 
 </details>
 <br><br>
 

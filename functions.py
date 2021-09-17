@@ -37,6 +37,17 @@ def load_sheets_from_Google_Drive():
     """
     This function checks that all required sheets are present in Google Drive
     and read the worksheets if they are.
+
+    Parameters In: none
+
+    Parameters Out:
+    - List with Google Sheets raw data, in Pandas dataframe format,
+    with the following information:
+        Acquisition parameters/tolerances
+        Daily report
+        Distortion table
+        Average force table
+        Positioning
     """
     print("\nLoading spreadsheet and worksheets...")
     try:
@@ -113,6 +124,17 @@ def load_sheets_locally():
     """
     This function checks that all required sheets are present in the local
     drive and read the worksheets if they are.
+
+    Parameters In: none
+
+    Parameters Out:
+    - List with Microsoft Excel sheets raw data, in Pandas dataframe format,
+    with the following information:
+        Acquisition parameters/tolerances
+        Daily report
+        Distortion table
+        Average force table
+        Positioning
     """
     print("\nLoading spreadsheet and worksheets...")
 
@@ -186,9 +208,29 @@ def load_sheets_locally():
 # ask the user to input them
 def load_parameters(qc_dict):
     """
-    This functions checks if a parameters is available (by trying to read them
+    This function checks if a parameters is available (by trying to read them
     from the correspoinding value in the dictionary that was previously
     loaded). If a value does not exist, the user is required to input it.
+
+    Parameters In:
+    - qc_dict (dictionary type), containing these parameters, initialized with
+    zeros or with parameters to overwrite:
+        - fleets (float type)
+        - vibrators per fleet (float type)
+        - maximum distance to COG (float type)
+        - maximum distortion (float type)
+        - minimum average force (float type)
+        - maximum average force (float type)
+
+    Parameters Out:
+    - qc_dictionary (dictionary type), containing updated acquisition
+    parameters/tolerances:
+        - fleets (float type)
+        - vibrators per fleet (float type)
+        - maximum distance to COG (float type)
+        - maximum distortion (float type)
+        - minimum average force (float type)
+        - maximum average force (float type)
     """
     qc_dictionary = qc_dict
     # Check for number of fleets.
@@ -245,6 +287,7 @@ def load_parameters(qc_dict):
             break
         except ValueError:
             print("Please enter a number.")
+
     # Return data
     return qc_dictionary
 
@@ -254,7 +297,37 @@ def validate_data_from_Google(data_to_validate):
     """
     This function checks the data in the Google Sheets has the proper format
     and load the values that will be used for quality control in a
-    dictionary
+    dictionary.
+
+    Parameters In:
+    - data_to_validate (list type) with Google Sheets raw data,
+    in Pandas dataframe format, with the following information:
+        Acquisition parameters/tolerances
+        Daily report
+        Distortion table
+        Average force table
+        Positioning
+
+    Parameters Out:
+    - qc_dictionary (dictionary type) with clean data (read from
+    Google Sheets raw data) with the following information:
+        - Acquisition parameters/tolerances (dictionary type):
+            - fleets (float type)
+            - vibrators per fleet (float type)
+            - maximum distance to COG (float type)
+            - maximum distortion (float type)
+            - minimum average force (float type)
+            - maximum average force (float type)
+        - Daily report (dictionary type):
+            - date (str type))
+            - daily production (float type)
+            - daily layout (float type)
+            - daily pick-up (float type)
+        - Distortion table (Pandas dataframe)
+        - Average force table (Pandas dataframe)
+        - Positioning (Pandas dataframe, with extra column, computed from
+            the data themselves with the distance from planned position to
+            centre of gravity COG)
     """
     print("Validating data in the sheets...\n")
 
@@ -400,7 +473,38 @@ def validate_data_locally(data_to_validate):
     """
     This function checks the data in the local drive sheets has the proper
     format and load the values that will be used quality control in a
-    dictionary
+    dictionary.
+
+    Parameters In:
+    - data_to_validate (list type) with Microsoft Excel sheets raw data,
+    in Pandas dataframe format,
+    with the following information:
+        Acquisition parameters/tolerances
+        Daily report
+        Distortion table
+        Average force table
+        Positioning
+
+    Parameters Out:
+    - qc_dictionary (dictionary type) with clean data (read from Microsoft
+    Excel sheets raw data) with the following information:
+        - Acquisition parameters/tolerances (dictionary type):
+            - fleets (float type)
+            - vibrators per fleet (float type)
+            - maximum distance to COG (float type)
+            - maximum distortion (float type)
+            - minimum average force (float type)
+            - maximum average force (float type)
+        - Daily report (dictionary type):
+            - date (str type))
+            - daily production (float type)
+            - daily layout (float type)
+            - daily pick-up (float type)
+        - Distortion table (Pandas dataframe)
+        - Average force table (Pandas dataframe)
+        - Positioning (Pandas dataframe, with extra column, computed from
+            the data themselves with the distance from planned position to
+            centre of gravity COG)
     """
     print("Validating data in the sheets...\n")
 
@@ -546,9 +650,50 @@ def validate_data_locally(data_to_validate):
 # Ask to overwrite acquisition parameters (tolerances)
 def ask_to_overwrite_parameters(qc_dictionary):
     """
-    This functions prints the current acquisition parameters (tolerances) and
-    ask the user to overwrite them by calling load_parameters() functions
-    if that is the case
+    This function prints the current acquisition parameters (tolerances) and
+    ask the user to overwrite them by calling load_parameters() function
+    if that is the case.
+
+    Parameters In:
+    - qc_dictionary (dictionary type) with the following information:
+        - Acquisition parameters/tolerances (dictionary type):
+            - fleets (float type)
+            - vibrators per fleet (float type)
+            - maximum distance to COG (float type)
+            - maximum distortion (float type)
+            - minimum average force (float type)
+            - maximum average force (float type)
+        - Daily report (dictionary type):
+            - date (str type))
+            - daily production (float type)
+            - daily layout (float type)
+            - daily pick-up (float type)
+        - Distortion table (Pandas dataframe)
+        - Average force table (Pandas dataframe)
+        - Positioning (Pandas dataframe, with extra column, computed from
+            the data themselves with the distance from planned position to
+            centre of gravity COG)
+
+    Parameters Out:
+    - qc_dictionary (dictionary type) with the following information, where
+    acquisition parameters are updated:
+        - Acquisition parameters/tolerances (dictionary type):
+            - fleets (float type)
+            - vibrators per fleet (float type)
+            - maximum distance to COG (float type)
+            - maximum distortion (float type)
+            - minimum average force (float type)
+            - maximum average force (float type)
+        - Daily report (dictionary type):
+            - date (str type))
+            - daily production (float type)
+            - daily layout (float type)
+            - daily pick-up (float type)
+        - Distortion table (Pandas dataframe)
+        - Average force table (Pandas dataframe)
+        - Positioning (Pandas dataframe, with extra column, computed from
+            the data themselves with the distance from planned position to
+            centre of gravity COG)
     """
     print("\nCurrent Acquisition Parameters:")
     print_acq_param(qc_dictionary)
@@ -558,13 +703,36 @@ def ask_to_overwrite_parameters(qc_dictionary):
         load_parameters(qc_dictionary)
         print("\nNew Acquisition Parameters:")
         print_acq_param(qc_dictionary)
+
     return qc_dictionary
 
 
 # Print acquisition parameters
 def print_acq_param(qc_dictionary):
     """
-    This functions prints the current acquisition parameters (tolerances)
+    This function prints the current acquisition parameters (tolerances).
+
+    Parameters In:
+    - qc_dictionary (dictionary type) with the following information:
+        - Acquisition parameters/tolerances (dictionary type):
+            - fleets (float type)
+            - vibrators per fleet (float type)
+            - maximum distance to COG (float type)
+            - maximum distortion (float type)
+            - minimum average force (float type)
+            - maximum average force (float type)
+        - Daily report (dictionary type):
+            - date (str type))
+            - daily production (float type)
+            - daily layout (float type)
+            - daily pick-up (float type)
+        - Distortion table (Pandas dataframe)
+        - Average force table (Pandas dataframe)
+        - Positioning (Pandas dataframe, with extra column, computed from
+            the data themselves with the distance from planned position to
+            centre of gravity COG)
+
+    Parameters Out: none
     """
     print("---------------------------------------------------")
     print(f"{int(qc_dictionary['tolerances']['fleets'])} fleets and " +
@@ -578,6 +746,7 @@ def print_acq_param(qc_dictionary):
           f"{qc_dictionary['tolerances']['max_av_force']}% as maximum " +
           "average force")
     print("---------------------------------------------------")
+
     return
 
 
@@ -588,6 +757,49 @@ def get_daily_amounts(qc_dictionary):
     This function compares the data available in the distortion, average force,
     and positioning files and compare them with the daily acquisition of
     VPs, generating a warning message if they do not match.
+
+    Parameters In:
+    - qc_dictionary, (dictionary type) with the following information:
+        - Acquisition parameters/tolerances (dictionary type):
+            - fleets (float type)
+            - vibrators per fleet (float type)
+            - maximum distance to COG (float type)
+            - maximum distortion (float type)
+            - minimum average force (float type)
+            - maximum average force (float type)
+        - Daily report (dictionary type):
+            - date (str type))
+            - daily production (float type)
+            - daily layout (float type)
+            - daily pick-up (float type)
+        - Distortion table (Pandas dataframe)
+        - Average force table (Pandas dataframe)
+        - Positioning (Pandas dataframe, with extra column, computed from
+            the data themselves with the distance from planned position to
+            centre of gravity COG)
+
+    Parameters Out:
+    - qc_dictionary (dictionary type) with the following information, where
+    acquisition parameters are updated:
+        - Acquisition parameters/tolerances (dictionary type):
+            - fleets (float type)
+            - vibrators per fleet (float type)
+            - maximum distance to COG (float type)
+            - maximum distortion (float type)
+            - minimum average force (float type)
+            - maximum average force (float type)
+        - Daily report (dictionary type):
+            - date (str type))
+            - daily production (float type)
+            - daily layout (float type)
+            - daily pick-up (float type)
+        - Distortion table (Pandas dataframe)
+        - Average force table (Pandas dataframe)
+        - Positioning (Pandas dataframe, with extra column, computed from
+            the data themselves with the distance from planned position to
+            centre of gravity COG)
+    - warning_message (list of strings type) with up to three warning
+    messages.
     """
     index = qc_dictionary['distortion'].index
     distortion_measurements = len(index)
@@ -633,6 +845,36 @@ def get_points_to_reaquire(qc_dictionary):
     """
     This function computes the points that are out of specifications and
     need to be reaquired.
+
+    Parameters In:
+    - qc_dictionary (dictionary type) with the following information:
+        - Acquisition parameters/tolerances (dictionary type):
+            - fleets (float type)
+            - vibrators per fleet (float type)
+            - maximum distance to COG (float type)
+            - maximum distortion (float type)
+            - minimum average force (float type)
+            - maximum average force (float type)
+        - Daily report (dictionary type):
+            - date (str type))
+            - daily production (float type)
+            - daily layout (float type)
+            - daily pick-up (float type)
+        - Distortion table (Pandas dataframe)
+        - Average force table (Pandas dataframe)
+        - Positioning (Pandas dataframe, with extra column, computed from
+            the data themselves with the distance from planned position to
+            centre of gravity COG)
+
+    Parameters Out:
+    - out_of_spec_dictionary (dictionary type) with the points that are out of
+    specifications:
+        - Points out by distortion issues (Pandas dataframe)
+        - Points out by average force issues (Pandas dataframe)
+        - Points out by positioning issues (Pandas dataframe)
+        - Number of points out by distortion issues (int type)
+        - Number of points out by average force issues (int type)
+        - Number of points out by positioning issues (int type)
     """
     # Read acquisition parameters/tolerances
     max_distortion = float(qc_dictionary['tolerances']['max_distortion'])
@@ -705,6 +947,35 @@ def get_points_to_reaquire(qc_dictionary):
 def visualize_data(*data_to_visualize):
     """
     This function provides many options to visualize the data.
+
+    Parameters In:
+    - Dictionary with the following information:
+        - Acquisition parameters/tolerances (dictionary type):
+            - fleets (float type)
+            - vibrators per fleet (float type)
+            - maximum distance to COG (float type)
+            - maximum distortion (float type)
+            - minimum average force (float type)
+            - maximum average force (float type)
+        - Daily report (dictionary type):
+            - date (str type))
+            - daily production (float type)
+            - daily layout (float type)
+            - daily pick-up (float type)
+        - Distortion table (Pandas dataframe)
+        - Average force table (Pandas dataframe)
+        - Positioning (Pandas dataframe, with extra column, computed from
+            the data themselves with the distance from planned position to
+            centre of gravity COG)
+    - (Optional) Dictionary with the points that are out of specifications:
+        - Points out by distortion issues (Pandas dataframe)
+        - Points out by average force issues (Pandas dataframe)
+        - Points out by positioning issues (Pandas dataframe)
+        - Number of points out by distortion issues (int type)
+        - Number of points out by average force issues (int type)
+        - Number of points out by positioning issues (int type)
+
+    Parameters Out: none
     """
     while(True):
         # Menu
@@ -813,9 +1084,41 @@ def visualize_data(*data_to_visualize):
 # Update QCSDA Google Sheet or Microsoft Excel file
 def update_qcsda(qc_dictionary, daily_amounts, source):
     """
-    This function update the QCSDA Google Sheet/Microsoft Excel file
+    This function updates the QCSDA Google Sheet/Microsoft Excel file
     by adding extra worksheets/sheets with the points that need to be
     reacquired the next day.
+
+    Parameters In:
+    - qc_dictionary (dictionary type) with the points that are out of
+    specifications:
+        - Points out by distortion issues (Pandas dataframe)
+        - Points out by average force issues (Pandas dataframe)
+        - Points out by positioning issues (Pandas dataframe)
+        - Number of points out by distortion issues (int type)
+        - Number of points out by average force issues (int type)
+        - Number of points out by positioning issues (int type)
+    - daily_amounts (dictionary type) with the following information:
+        - Acquisition parameters/tolerances (dictionary type):
+            - fleets (float type)
+            - vibrators per fleet (float type)
+            - maximum distance to COG (float type)
+            - maximum distortion (float type)
+            - minimum average force (float type)
+            - maximum average force (float type)
+        - Daily report (dictionary type):
+            - date (str type))
+            - daily production (float type)
+            - daily layout (float type)
+            - daily pick-up (float type)
+        - Distortion table (Pandas dataframe)
+        - Average force table (Pandas dataframe)
+        - Positioning (Pandas dataframe, with extra column, computed from
+            the data themselves with the distance from planned position to
+            center of gravity COG)
+    - source (string type) indicating the source of the data (Google Drive
+    or local)
+
+    Parameters Out: none
     """
 
     # Read date and daily production

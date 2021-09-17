@@ -5,9 +5,15 @@ from functions import *
 # Main part of program, calling all functions
 def main(run_program):
     """
-    Main function with main menu, which calls all other funcions.
+    Main function with main menu, which calls all other functions.
     The program guides the user to read, compute and write
     the QC data, alerting about missing or non-matching data
+
+    Parameters In:
+    - run_program (string type), containing a letter that selects Google Drive
+    or local as source of data.
+
+    Parameters Out: none
     """
 
     # Run/Start the program while "G", "g", "L" or "l" character is selected

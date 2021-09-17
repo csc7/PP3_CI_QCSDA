@@ -163,8 +163,8 @@ The files can be Google Sheets or Microsoft Excel files and contain data with th
     - COLUMN 8: Real Z-coordinate/elevation (where the point is actually acquired).
 
 - #### **QCSDA**
-- This file is a summary of all days, containing the sheet "Statistics"with the date and daily production (number of VPs per day, layout andpick-up). A second sheet, "Chart" reads and plots this information.<br>
-**This is the file where the list of points to be reacquired (for thenext day) will be included, as new sheets.**
+    This file is a summary of all days, containing the sheet "Statistics"with   the date and daily production (number of VPs per day, layout andpick-up). A   second sheet, "Chart" reads and plots this information.<br>
+    **This is the file where the list of points to be reacquired (for thenext   day) will be included, as new sheets.**
 
 
 ## [Back to Index](#index)

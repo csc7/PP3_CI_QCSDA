@@ -30,8 +30,9 @@ The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.
 ### [11. Testing of User Stories](#11--testing-of-user-stories)
 ### [12. Bugs](#12--bugs)
 ### [13. Deployment](#13--deployment)
-### [14. Credits](#14--credits)
-### [15. Acknowledgements](#15--acknowledgements)
+### [14. Considerations](#14--considerations)
+### [15. Credits](#15--credits)
+### [16. Acknowledgements](#16--acknowledgements)
 <br><br>
 
 ___
@@ -100,6 +101,9 @@ The user is always given the option to return to previous menu, until the first 
 
 *Please check "5. Flowchart" section for a summary.*
 
+### **Assumptions for this project**
+A daily production of 120 points is assummed to test the program.
+
 ### **Note**
 If interested in checking the warning messages, you can modify the files names and/or content to get alerts on what is going on and possible solutions. Introducing letters instead of numbers, when prompted, will also alert the user to introduce numbers.
 In addition, you can choose to enter parameters and check how the number of points to reacquire changes accordingly.
@@ -166,6 +170,9 @@ The files can be Google Sheets or Microsoft Excel files and contain data with th
     This file is a summary of all days, containing the sheet "Statistics"with   the date and daily production (number of VPs per day, layout andpick-up). A second sheet, "Chart" reads and plots this information.<br>
     **This is the file where the list of points to be reacquired (for thenext   day) will be included, as new sheets, whose names will be "Redo_*category_issue_date"*.**
 
+### **Assumptions for this project**
+A daily production of 120 points is assummed to test the program.
+The files can have a different format depending on the recording equipment brand, type and version; however, all files are usually divided in a header and a table, so applicability for other scenarios would only involve a change the number of header lines (in the global variables of the program) and changes in the location of cells where the information needs to be read from.
 
 ## [Back to Index](#index)
 <br>
@@ -933,7 +940,16 @@ The project can also be forked from the repository (https://github.com/csc7/PP3_
 <br>
 
 ___
-# 14 . Credits
+
+# 14 . Considerations
+
+Although very rarely, it has been observed that the program stops running, giving an error or just freezing. If that happens, please trying again. The issue is likely to be related to Internet connection issues, as on those occasions, the program worked normal immediately after, without any change and without any new deployment or built (it even worked by pressing the "RUN PROGRAM" button, without having to reload the webpage or opening a new one).
+
+## [Back to Index](#index)
+<br>
+
+___
+# 15 . Credits
 
 - Code Institute: I have used the learning material in the course as a guide and reference. "Love Sandwiches - Essentials Project" was the main reference.
 
@@ -1014,7 +1030,7 @@ ___
 
 ## [Back to Index](#index)
 ___
-# 15 . Acknowledgements
+# 16 . Acknowledgements
 
 I would like to acknowledge and thank the following people for being part of this project and for helping me in the development of it:
 - To my wife and family, for always supporting and helping.

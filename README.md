@@ -963,11 +963,14 @@ ___
 
     - To check usability of the library: https://openpyxl.readthedocs.io/en/stable/index.html .
 
-- Python Libraries:
+- Application Programming Interfaces (APIs):
 
     - google-auth: Google Auth Library for Python, ©2016, Google, Inc., https://google-auth.readthedocs.io/en/master/ .
 
     - gspread: Python API for Google Sheets. © Copyright 2021, Anton Burnashev Revision 0181ca8f. https://docs.gspread.org/en/latest/ .
+
+
+- Libraries for Python:
 
     - pandas: https://pandas.pydata.org/pandas-docs/stable/index.html. As stated in its website "pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures and data analysis tools for the Python programming language." (Library downloaded on August 19th, 2021, for the first time; quotation copied on August 22nd, 2021, at 16:42).
 
@@ -976,6 +979,10 @@ ___
     - math: https://docs.python.org/3/library/math.html, downloaded on August 22nd, 2021, at 22:30 . Tested but finally not used.
 
     - NumPy: use to convert Pandas dataframe to float, https://numpy.org/ , downloaded on August 24th, 2021, at 10:00 .
+
+    - matplotlib-terminal 0.1a4: https://pypi.org/project/matplotlib-terminal/#description . Used to plot in terminal, installed also with 'img2unicode[n2]' to improve performance.
+
+    - plotext**: https://pypi.org/project/plotext/ . Used to plot in terminal. It is the library that shows the plots in the current deployment.
 
 - Pandas Documentation:
     - To learn and check parameters of functions of this library throughout the project: https://pandas.pydata.org/docs/index.html .

@@ -114,7 +114,7 @@ The files involved in the quality control process are six. They are summarised h
 They are generated on a daily basis, at the end of the production/acquisition of the day.<br>
 The files can be Google Sheets or Microsoft Excel files and contain data with the following structure:
 
-- #### **PARAMETERS**
+- #### **PARAMETERS (File name: PARAMETERS; worksheet/sheet name: Tolerances)**
     It is a simple Google Sheet / Microsoft Excel file that has a table with the following parameters:
     - Vibrators
     - Vibrators per fleet
@@ -126,10 +126,10 @@ The files can be Google Sheets or Microsoft Excel files and contain data with th
 
     The program just read the corresponding cell, the program can easily be adapted to other formats by changing the cells to read.
 
-- #### **daily_report**
+- #### **Daily Report (File name: daily_report; worksheet/sheet name: Daily_Report)**
     This file contained a los of daily information and statistics. The program just read the daily production (as VPs, which stands for vibroseis points), layout (deployment of sensors on the ground for current and next-days acquisition) and pick-up (collection of sensors that have already been used).
 
-- #### **distortion**
+- #### **Distortion Data (File name: distortion; worksheet/sheet name: Distortion)**
     This file contains header lines with information (summarised here in 12 lines) and then a table whose columns contains the following information.
     - COLUMN 1: Line number (number of the imaginary line on a map where the acquisition takes place).
     - COLUMN 2: Station number (number of the point where a measurement takes places, usually separated in intervals of some metres along the line, from 10 to 50 for example).
@@ -140,7 +140,7 @@ The files can be Google Sheets or Microsoft Excel files and contain data with th
     - COLUMN 7: Planned Y-coordinate.
     - COLUMN 8: Planned Z-coordinate/elevation. 
 
-- #### **average_force**
+- #### **Average Force Data (File name: average_force; worksheet/sheet name: Average_Force)**
     This file contains header lines with information (summarised here in12 lines) and then a table whose columns contains the followinginformation.
     - COLUMN 1: Line number (as explained for distortion above)
     - COLUMN 2: Station number (as explained for distortion above).
@@ -151,7 +151,7 @@ The files can be Google Sheets or Microsoft Excel files and contain data with th
     - COLUMN 7: Planned Y-coordinate.
     - COLUMN 8: Planned Z-coordinate/elevation. 
 
-- #### **positioning**
+- #### **Positioning Data (File name: positioning; worksheet/sheet name: Positioning)**
     This file contains header lines with information (summarised here in12 lines) and then a table whose columns contains the followinginformation.
     - COLUMN 1: Line number (as explained for distortion above)
     - COLUMN 2: Station number (as explained for distortion above).
@@ -162,9 +162,9 @@ The files can be Google Sheets or Microsoft Excel files and contain data with th
     - COLUMN 7: Real Y-coordinate (where the point is actually acquired).
     - COLUMN 8: Real Z-coordinate/elevation (where the point is actually acquired).
 
-- #### **QCSDA**
-    This file is a summary of all days, containing the sheet "Statistics"with   the date and daily production (number of VPs per day, layout andpick-up). A   second sheet, "Chart" reads and plots this information.<br>
-    **This is the file where the list of points to be reacquired (for thenext   day) will be included, as new sheets.**
+- #### **Main File for Results and Progress (File name: QCSDA)**
+    This file is a summary of all days, containing the sheet "Statistics"with   the date and daily production (number of VPs per day, layout andpick-up). A second sheet, "Chart" reads and plots this information.<br>
+    **This is the file where the list of points to be reacquired (for thenext   day) will be included, as new sheets, whose names will be "Redo_*category_issue_date"*.**
 
 
 ## [Back to Index](#index)

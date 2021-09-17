@@ -78,6 +78,12 @@ def load_sheets_from_Google_Drive():
         print("\nSpreadsheet and worksheets loaded.\n")
 
     # If file/s and/or data are missing give message and close program
+    except gspread.exceptions.WorksheetNotFound:
+        print("Some QC files are missing or have a different name.")
+        print("Please check all files are in place with the correct names.")
+        print("\nProgram closed.\n")
+        return False
+
     except gspread.exceptions.SpreadsheetNotFound:
         print("Some QC files are missing or have a different name.")
         print("Please check all files are in place with the correct names.")
@@ -91,6 +97,29 @@ def load_sheets_from_Google_Drive():
         tolerances_data = pd.DataFrame(tolerances_data.get_all_values())
 
     # If not available give the user the chance to input them
+    except gspread.exceptions.WorksheetNotFound:
+        print("No parameters file.")
+        param = input('Select "P" to enter them manually or other key to ' +
+                      'close the program.\n')
+        # Initialize and assing zero to tolerances, so data structure is
+        # defined when returning the function value
+        if (param == "P" or param == "p"):
+            tolerances_data = {
+                "tolerances": {
+                    "fleets": float(0),
+                    "vibs_per_fleet": float(0),
+                    "max_cog_dist": float(0),
+                    "max_distortion": float(0),
+                    "min_av_force": float(0),
+                    "max_av_force": float(0),
+                }
+            }
+            # Return data
+            return [tolerances_data, daily_report_data, distortion_data,
+                    average_force_data, positioning_data]
+        else:
+            return False
+
     except gspread.exceptions.SpreadsheetNotFound:
         print("No parameters file.")
         param = input('Select "P" to enter them manually or other key to ' +
@@ -876,71 +905,90 @@ def get_points_to_reaquire(qc_dictionary):
         - Number of points out by average force issues (int type)
         - Number of points out by positioning issues (int type)
     """
-    # Read acquisition parameters/tolerances
-    max_distortion = float(qc_dictionary['tolerances']['max_distortion'])
-    min_av_force = float(qc_dictionary['tolerances']['min_av_force'])
-    max_av_force = float(qc_dictionary['tolerances']['max_av_force'])
-    max_cog_dist = float(qc_dictionary['tolerances']['max_cog_dist'])
+    # Check first that the sheets have data
+    if (qc_dictionary['distortion'].empty or
+            qc_dictionary['average_force'].empty or
+            qc_dictionary['positioning'].empty):
+        print("\nOne or more files seems to be empty.")
+        print("Check the files, points to be reacquired cannot be " +
+              "computed.\n")
+        return False
 
-    # Convert acquisition parameters/tolerances to float type unsing NumPy
-    qc_dictionary['distortion'] = qc_dictionary['distortion']\
-        .astype(np.float32)
-    qc_dictionary['average_force'] = qc_dictionary['average_force']\
-        .astype(np.float32)
-    qc_dictionary['positioning'] = qc_dictionary['positioning']\
-        .astype(np.float32)
+    # Using "try-except" since empty values are considered strings
+    # and cannot perform operations
+    try:
+        # Read acquisition parameters/tolerances
+        max_distortion = float(qc_dictionary['tolerances']['max_distortion'])
+        min_av_force = float(qc_dictionary['tolerances']['min_av_force'])
+        max_av_force = float(qc_dictionary['tolerances']['max_av_force'])
+        max_cog_dist = float(qc_dictionary['tolerances']['max_cog_dist'])
 
-    # Select points out of specifications by distortion issues
-    out_of_spec_distortion = \
-        qc_dictionary['distortion'][qc_dictionary['distortion']
-                                    .iloc[:, 4] > max_distortion]
-    number_out_of_spec_distortion = out_of_spec_distortion.iloc[:, 1].nunique()
+        # Convert acquisition parameters/tolerances to float type unsing NumPy
+        qc_dictionary['distortion'] = qc_dictionary['distortion']\
+            .astype(np.float32)
+        qc_dictionary['average_force'] = qc_dictionary['average_force']\
+            .astype(np.float32)
+        qc_dictionary['positioning'] = qc_dictionary['positioning']\
+            .astype(np.float32)
 
-    # Select points out of specifications by average force issues. Since the
-    # tolerance has maximun and minimum values, compute them separately and
-    # concatenate all of them
-    out_of_spec_force_max = \
-        qc_dictionary['average_force'][qc_dictionary['average_force']
-                                       .iloc[:, 4] > max_av_force]
-    out_of_spec_force_min = \
-        qc_dictionary['average_force'][qc_dictionary['average_force']
-                                       .iloc[:, 4] < min_av_force]
-    temp_out_force = [out_of_spec_force_max, out_of_spec_force_min]
-    out_of_spec_force = pd.concat(temp_out_force)
-    number_out_of_spec_force = out_of_spec_force.iloc[:, 1].nunique()
+        # Select points out of specifications by distortion issues
+        out_of_spec_distortion = \
+            qc_dictionary['distortion'][qc_dictionary['distortion']
+                                        .iloc[:, 4] > max_distortion]
+        number_out_of_spec_distortion = \
+            out_of_spec_distortion.iloc[:, 1].nunique()
 
-    # Select points out of specifications by positioning issues
-    out_of_spec_cog = \
-        qc_dictionary['positioning'][qc_dictionary['positioning']
-                                     .iloc[:, 8] > max_cog_dist]
+        # Select points out of specifications by average force issues. Since
+        # the tolerance has maximun and minimum values, compute them
+        # separately and concatenate all of them
+        out_of_spec_force_max = \
+            qc_dictionary['average_force'][qc_dictionary['average_force']
+                                           .iloc[:, 4] > max_av_force]
+        out_of_spec_force_min = \
+            qc_dictionary['average_force'][qc_dictionary['average_force']
+                                           .iloc[:, 4] < min_av_force]
+        temp_out_force = [out_of_spec_force_max, out_of_spec_force_min]
+        out_of_spec_force = pd.concat(temp_out_force)
+        number_out_of_spec_force = out_of_spec_force.iloc[:, 1].nunique()
 
-    # Total VPs out of specifications
-    out_distor_total = number_out_of_spec_distortion
-    out_force_total = number_out_of_spec_force
-    index = out_of_spec_cog.index
-    out_cog_total = len(index)
+        # Select points out of specifications by positioning issues
+        out_of_spec_cog = \
+            qc_dictionary['positioning'][qc_dictionary['positioning']
+                                         .iloc[:, 8] > max_cog_dist]
 
-    # Create dictionary with points out of specifications
-    out_of_spec_dictionary = {
-        "Out_of_Spec_Distortion": out_of_spec_distortion,
-        "Out_of_Spec_Force": out_of_spec_force,
-        "Out_of_Spec_COG": out_of_spec_cog,
-        "Total_Out_Distortion": number_out_of_spec_distortion,
-        "Total_Out_Force": number_out_of_spec_force,
-        "Total_Out_COG": out_cog_total,
-    }
+        # Total VPs out of specifications
+        out_distor_total = number_out_of_spec_distortion
+        out_force_total = number_out_of_spec_force
+        index = out_of_spec_cog.index
+        out_cog_total = len(index)
 
-    # Print amount of points out of specifications by category
-    print("---------------------------------------------------")
-    print("\nTotal points to reaquire by distortion issues: " +
-          f"{out_distor_total}")
-    print("Total points to reaquire by average force issues: " +
-          f"{out_force_total}")
-    print("Total points to reaquire by positioning issues: " +
-          f"{out_cog_total}\n")
-    print("---------------------------------------------------")
+        # Create dictionary with points out of specifications
+        out_of_spec_dictionary = {
+            "Out_of_Spec_Distortion": out_of_spec_distortion,
+            "Out_of_Spec_Force": out_of_spec_force,
+            "Out_of_Spec_COG": out_of_spec_cog,
+            "Total_Out_Distortion": number_out_of_spec_distortion,
+            "Total_Out_Force": number_out_of_spec_force,
+            "Total_Out_COG": out_cog_total,
+        }
 
-    return out_of_spec_dictionary
+        # Print amount of points out of specifications by category
+        print("---------------------------------------------------")
+        print("\nTotal points to reaquire by distortion issues: " +
+              f"{out_distor_total}")
+        print("Total points to reaquire by average force issues: " +
+              f"{out_force_total}")
+        print("Total points to reaquire by positioning issues: " +
+              f"{out_cog_total}\n")
+        print("---------------------------------------------------")
+
+        return out_of_spec_dictionary
+
+    except ValueError:
+        print("\nOne or more files seems to be empty or incomplete.")
+        print("Check the files, points to be reacquired cannot be " +
+              "computed.\n")
+        return False
 
 
 # Visualization options for the data

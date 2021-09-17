@@ -163,8 +163,8 @@ The files can be Google Sheets or Microsoft Excel files and contain data with th
     - COLUMN 8: Real Z-coordinate/elevation (where the point is actually acquired).
 
 - #### **QCSDA**
-    - This file is a summary of all days, containing the sheet "Statistics" with the date and daily production (number of VPs per day, layout and pick-up). A second sheet, "Chart" reads and plots this information.<br>
-    **This is the file where the list of points to be reacquired (for the next day) will be included, as new sheets.**
+- This file is a summary of all days, containing the sheet "Statistics"with the date and daily production (number of VPs per day, layout andpick-up). A second sheet, "Chart" reads and plots this information.<br>
+**This is the file where the list of points to be reacquired (for thenext day) will be included, as new sheets.**
 
 
 ## [Back to Index](#index)
@@ -255,7 +255,7 @@ The following languages, software and tools were implemented using Windows 10 Pr
 ## **Languages**
 - #### **Python**
 
-
+#### [Back to Index](#index)
 
 ## **Software and Other Tools**
 - #### **GitHub**
@@ -282,7 +282,7 @@ Library used for authentication when accessing Google Sheets in Google Drive.
 - **gspread**: Python API for Google Sheets. © Copyright 2021, Anton Burnashev Revision 0181ca8f. https://docs.gspread.org/en/latest/ .
 Library used to read and write data from/into Google Sheets.
 
-Please refer to section "11. Deployment" for deployment instructions and features.
+Please refer to section "13. Deployment" for deployment instructions and features.
 
 <br><br>
 ## [Back to Index](#index)
@@ -307,7 +307,6 @@ Used to plot in terminal, installed also with 'img2unicode[n2]' to improve perfo
 - **plotext**: https://pypi.org/project/plotext/ .
 Used to plot in terminal. It is the library that shows the plots in the current deployment.
 
-$ pip install 'img2unicode[n2]'
 
 ## [Back to Index](#index)
 <br>
@@ -329,7 +328,7 @@ It is the message that appears right after running the program.
 <details>
     <summary>Check Image</summary>
 
-![Website Logo Image](docs/features-and-evidence/website-logo.PNG)
+![Welcome Message/Screen](docs/features-and-evidence/welcome-message.PNG)
 
 </details>
 <br>
@@ -859,7 +858,7 @@ Bugs that required more time and specific solutions were the following ones:
 | When reading data from Google Sheets, positioning file, value could not be converted to float type, indicating a string was attempted to be converted | Index values for reading the table were wrong, issue fixed changing indexes from [1, 9] to [0, 9] (the program was trying to convert an empty cell, that is to say, a string like "", to a float). |
 | Detect missing option to give the user the opportunity to enter acquisition parameters if the corresponding file exists but a value is missing, for both Google Drive and local options | For Google Drive option, call the load_parameters() function (if the user selects to do so) in the exception/error generated when a value is missing, as for Google Sheets the value is ''. For local option, as the missing value in the corresponding Microsoft Excel file is "nan", call the load_parameters() function (if the user selects to do so) after reading the values in the file, as an error is not given in this case, and the "nan" value is identified using the NumPy function numpy.isnan function. |
 | Could not increment global variables (write_in_Google_Drive and write_locally) declared in the functions.py file, stopping the execution of the program. | Add keyword "global" inside function "update_qcsda()". |
-| The program did not compute the correct number of points to be reacquired. | The issued was caused by a wrong break line to divide the long line into different lines to comply with PEP8 requirements. The separation had been done after a square bracket, starting the new line with another bracket, both of them inside another brackets. The issue was solved by rearranging the lines in more parts. |
+| The program did not compute the correct number of points to be reacquired. | The issue was caused by a wrong break line to divide the long line into different lines to comply with PEP8 requirements. The separation had been done after a square bracket, starting the new line with another bracket, both of them inside another brackets. The issue was solved by rearranging the lines in more parts. |
 
 
 <br><br>
@@ -1015,6 +1014,6 @@ I would like to acknowledge and thank the following people for being part of thi
 - Code Institute community in Slack for permanently being an online reference.
 - All the valuable information provided by the sources mentioned above in the credits.
 
-<br><br>
+<br>
 ## [Back to Index](#index)
 <br>

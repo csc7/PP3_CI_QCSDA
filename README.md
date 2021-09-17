@@ -100,6 +100,7 @@ The user is always given the option to retunt to previous menu, until the first 
 
 ### **Note**
 If interested in checking the warning messages, you can modify the files names and/or content to get alerts on what is going on and possible solutions. Introducing letters instead of numbers, when prompted, will also alert the user to introduce numbers.
+In addition, you can choose to enter parameters and check how the amount of points to reacquire changes accordingly.
 
 ## [Back to Index](#index)
 <br>
@@ -557,7 +558,7 @@ ___
 
 PEP8 was used to check the files written in Python, with "All right" results.
 
-The tool can be accessed with this link: http://pep8online.com/checkresult .
+The tool can be accessed with this link: http://pep8online.com .
 
 ### **run.py**
 <details>
@@ -852,7 +853,7 @@ Bugs that required more time and specific solutions were the following ones:
 | When reading data from Google Sheets, positioning file, value could not be converted to float type, indicating a string was attemped to be converted | Index values for reading the table were wrong, issue fixed changing indexes from [1, 9] to [0, 9] (the program was trying to convert an empty cell, that is to say, a string like "", to a float). |
 | Detect missing option to give the user the opportunity to enter acquisition parameters if the corresponding file exists but a value is missing, for both Google Drive and local options | For Google Drive option, call the load_parameters() function (if the user selects to do so) in the exception/error generated when a value is missing, as for Google Sheets the value is ''. For local option, as the missing value in the corresponding Microsoft Excel file is "nan", call the load_parameters() function (if the user selects to do so) after reading the values in the file, as an error is not given in this case, and the "nan" value is identified using the NumPy function numpy.isnan function. |
 | Could not increment global variables (write_in_Google_Drive and write_locally) declared in the functions.py file, stopping the execution of the program. | Add keyword "global" inside function "update_qcsda()". |
-| The program did not compute the correct number of points to be reaquired. | The issued was caused by a wrong break line to divide the long line into different lines to comply with PEP8 requirements. The separation had been done after a square bracket, starting the new line with another bracket, both of them inside another brackets. The issue was solve by dividing the line right before the bracke, moving the closing bracket to the next line (the next line started with a closing bracket). |
+| The program did not compute the correct number of points to be reaquired. | The issued was caused by a wrong break line to divide the long line into different lines to comply with PEP8 requirements. The separation had been done after a square bracket, starting the new line with another bracket, both of them inside another brackets. The issue was solved by rearranging the lines in more parts. |
 
 
 <br><br>

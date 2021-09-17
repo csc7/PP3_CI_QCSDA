@@ -31,6 +31,7 @@ header_lines_in_positioning_file = 12
 write_in_Google_Drive = 0
 write_locally = 0
 
+
 # Load Google Sheets
 def load_sheets_from_Google_Drive():
     """
@@ -387,8 +388,9 @@ def validate_data_from_Google(data_to_validate):
         distance = ((x_planned - x_cog)*(x_planned - x_cog) +
                     (y_planned - y_cog)*(y_planned - y_cog) +
                     (z_planned - z_cog)*(z_planned - z_cog))**0.5
-        qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'
-            ], distance], axis=1, ignore_index=True)
+        qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'],
+                                                 distance], axis=1,
+                                                 ignore_index=True)
 
     # Return updated dictionary
     return (qc_dictionary)
@@ -533,8 +535,9 @@ def validate_data_locally(data_to_validate):
                 (z_planned - z_cog)*(z_planned - z_cog))**0.5
 
     # Create new column with distance to COG
-    qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'
-        ], distance], axis=1, ignore_index=True)
+    qc_dictionary['positioning'] = pd.concat([qc_dictionary['positioning'],
+                                             distance], axis=1,
+                                             ignore_index=True)
 
     # Return updated dictionary
     return (qc_dictionary)
@@ -646,24 +649,28 @@ def get_points_to_reaquire(qc_dictionary):
         .astype(np.float32)
 
     # Select points out of specifications by distortion issues
-    out_of_spec_distortion = qc_dictionary['distortion'
-        ][qc_dictionary['distortion'].iloc[:, 4] > max_distortion]
+    out_of_spec_distortion = \
+        qc_dictionary['distortion'][qc_dictionary['distortion']
+                                    .iloc[:, 4] > max_distortion]
     number_out_of_spec_distortion = out_of_spec_distortion.iloc[:, 1].nunique()
 
     # Select points out of specifications by average force issues. Since the
     # tolerance has maximun and minimum values, compute them separately and
     # concatenate all of them
-    out_of_spec_force_max = qc_dictionary['average_force'
-        ][qc_dictionary['average_force'].iloc[:, 4] > max_av_force]
-    out_of_spec_force_min = qc_dictionary['average_force'
-        ][qc_dictionary['average_force'].iloc[:, 4] < min_av_force]    
+    out_of_spec_force_max = \
+        qc_dictionary['average_force'][qc_dictionary['average_force']
+                                       .iloc[:, 4] > max_av_force]
+    out_of_spec_force_min = \
+        qc_dictionary['average_force'][qc_dictionary['average_force']
+                                       .iloc[:, 4] < min_av_force]
     temp_out_force = [out_of_spec_force_max, out_of_spec_force_min]
     out_of_spec_force = pd.concat(temp_out_force)
     number_out_of_spec_force = out_of_spec_force.iloc[:, 1].nunique()
 
     # Select points out of specifications by positioning issues
-    out_of_spec_cog = qc_dictionary['positioning'
-        ][qc_dictionary['positioning'].iloc[:, 8] > max_cog_dist]
+    out_of_spec_cog = \
+        qc_dictionary['positioning'][qc_dictionary['positioning']
+                                     .iloc[:, 8] > max_cog_dist]
 
     # Total VPs out of specifications
     out_distor_total = number_out_of_spec_distortion
@@ -762,15 +769,15 @@ def visualize_data(*data_to_visualize):
             # X- and Y-coordinates.
             try:
                 disto_p = data_to_visualize[1]['Out_of_Spec_Distortion']\
-                    .iloc[:, [0, 1, 5, 6, 4, 2, 3]].to_string(header = False,
-                                                              index = False)
+                    .iloc[:, [0, 1, 5, 6, 4, 2, 3]].to_string(header=False,
+                                                              index=False)
                 av_for_p = data_to_visualize[1]['Out_of_Spec_Force']\
-                    .iloc[:, [0, 1, 5, 6, 4, 2 ,3]].to_string(header = False,
-                                                              index = False)
+                    .iloc[:, [0, 1, 5, 6, 4, 2, 3]].to_string(header=False,
+                                                              index=False)
                 # Do not show header and select columns
                 pos_p = data_to_visualize[1]['Out_of_Spec_COG']\
-                    .iloc[:, [0, 1, 5, 6, 8]].to_string(header = False,
-                                                        index = False)
+                    .iloc[:, [0, 1, 5, 6, 8]].to_string(header=False,
+                                                        index=False)
                 print("-----------------------------" +
                       "-----------------------------")
                 # Points to reacquire by distortion issues
@@ -818,8 +825,8 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
     pick_up = daily_amounts['daily_report']['daily_pick_up']
 
     # Count number of times data have been written
-    global write_in_Google_Drive    
-    global write_locally    
+    global write_in_Google_Drive
+    global write_locally
 
     # Give warning messages if data have already been written
     if (write_in_Google_Drive >= 1):
@@ -837,19 +844,18 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
     print(f"Last data were collected from {source}\n")
     answer = input("Select option: \n")
 
-
     # To write Google Sheets in Google Drive
     if (answer == "G" or answer == "g"):
 
         write_in_Google_Drive += 1
 
-        print('\nSelect "A" if you want to add a production plot after updating ' +
-              'the files or any other key to just update:')
+        print('\nSelect "A" if you want to add a production plot after ' +
+              'updating the files or any other key to just update:')
         prod_plot = input()
 
         print("\nUpdating files in Google Drive...\n")
 
-        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')        
+        SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
         SHEET_QCSDA.worksheet('Statistics').append_row([date, production,
                                                         layout, pick_up])
 
@@ -909,7 +915,6 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
                   'minutes...')
 
             # Read QCSDA file statistics
-            #SHEET_QCSDA = GSPREAD_CLIENT.open('QCSDA')
             x_date = SHEET_QCSDA.worksheet('Statistics').col_values(1)[1:]
             y_data = SHEET_QCSDA.worksheet('Statistics').col_values(2)[1:]
             y_prod = [int(item) for item in y_data]
@@ -921,7 +926,7 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
             plotext.xlabel("Date")
             plotext.ylabel("Daily Production")
             plotext.show()
-        
+
         # Inform the user that sheets were created and file updated
         print("File Updated.\n\n")
 
@@ -929,25 +934,25 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
 
         write_locally += 1
 
-        print('\nSelect "A" if you want to add a production plot after updating ' +
-              'the files or any other key to just update:')
+        print('\nSelect "A" if you want to add a production plot after ' +
+              'updating the files or any other key to just update:')
         prod_plot = input()
 
         print("\nUpdating files in local drive...\n")
 
         SHEET_QCSDA = pd.read_excel('qcdata/QCSDA.xlsx', 'Statistics',
                                     engine='openpyxl')
-        
-        daily_prod_row_to_add = pd.DataFrame({'DATE':[date], 
-                                             'PRODUCTION':[production],
-                                             'LAYOUT':[layout],
-                                             'PICK-UP':[pick_up],
-                                             })
-        
+
+        daily_prod_row_to_add = pd.DataFrame({'DATE': [date],
+                                              'PRODUCTION': [production],
+                                              'LAYOUT': [layout],
+                                              'PICK-UP': [pick_up],
+                                              })
+
         NEW_SHEET_QCSDA = \
             SHEET_QCSDA.append(daily_prod_row_to_add, ignore_index=True)
         NEW_SHEET_QCSDA.to_excel("qcdata/QCSDA.xlsx",
-                                 sheet_name='Statistics', index = False)
+                                 sheet_name='Statistics', index=False)
 
         # Create specific name for sheet, with date of acquisition of points.
         # Check if the sheet was not written before,
@@ -985,10 +990,8 @@ def update_qcsda(qc_dictionary, daily_amounts, source):
         if (prod_plot == "A" or prod_plot == "a"):
             print('\nMaking production plot; it can take up to some ' +
                   'minutes...')
-        
+
             # Read QCSDA file statistics
-            #SHEET_QCSDA = pd.read_excel('qcdata/QCSDA.xlsx', 'Statistics',
-            #                           engine='openpyxl')
             x_data = SHEET_QCSDA.iloc[:, 0]
             x_date = [str(item) for item in x_data]
             y_data = SHEET_QCSDA.iloc[:, 1]

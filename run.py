@@ -53,7 +53,7 @@ def main(run_program):
                   f"match the daily production:\n{warning_message}\n")
             print("If you continue you will get statistics " +
                   "for an incomplete data set.")
-            print('Select "Y" to continue or other key'  +
+            print('Select "Y" to continue or other key' +
                   'to close the program.\n')
             cont_option = input('Select option: \n')
             if (cont_option == "Y" or cont_option == "y"):

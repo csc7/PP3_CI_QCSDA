@@ -1000,6 +1000,8 @@ ___
 
     - To investigate issues with global variables: https://stackoverflow.com/questions/10506973/can-not-increment-global-variable-from-function-in-python .
 
+    - To learn how to check if a Pandas dataframe is empty: https://stackoverflow.com/questions/19828822/how-to-check-whether-a-pandas-dataframe-is-empty, accessed on September 17th, 2021, at 19:30.
+
 - W3C®. Copyright © 2021 W3C ® (MIT, ERCIM, Keio, Beihang); https://www.w3.org/: 
 
 - W3Schools (Powered by W3.CSS):

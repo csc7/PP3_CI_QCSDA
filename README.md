@@ -943,7 +943,7 @@ ___
 
 # 14 . Considerations
 
-Although very rarely, it has been observed that the program occasionally stops running, giving an error or just freezing. If that happens, please trying again. The issue is likely to be related to Internet connection issues, as on those occasions, the program worked normally immediately after, without any change and without any new deployment or built (it even worked by pressing the "RUN PROGRAM" button, without having to reload the webpage or opening a new one).
+Although very rarely, it has been observed that the program occasionally stops running, giving an error or just freezing. If that happens, please trying again. The issue is likely to be related to Internet connection issues, as on those occasions, the program worked normally immediately after, without any further change and without any new deployment or built (it even worked by pressing the "RUN PROGRAM" button, without having to reload the webpage or opening a new one).
 
 ## [Back to Index](#index)
 <br>

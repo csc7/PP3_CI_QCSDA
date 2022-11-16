@@ -4,13 +4,13 @@ This project aims for automation of quality control task of seismic data acquisi
 
 This repository belongs to my third milestone project in the Full-stack Development course at Code Institute, covering Python along with Git version control and other software technologies.
 
-The live link for this project is [**this one**](https://pp3-ci-qcsda.herokuapp.com/) (https://pp3-ci-qcsda.herokuapp.com/).
+The live link for this project is [**this one**](https://pp3-ci-qcsda.onrender.com/) (https://pp3-ci-qcsda.onrender.com/).
 
 ![Projects Welcome Message Image](docs/project-welcome-message.PNG)
 
 
 # **Index**
-#### [*Program Link*](https://pp3-ci-qcsda.herokuapp.com/)
+#### [*Program Link*](https://pp3-ci-qcsda.onrender.com/)
 ### [1. Project Goals](#1--project-goals)
 ### [2. User Manual](#2--user-manual)
 ### [3. File and Data Structures](#3--file-and-data-structures)
@@ -268,7 +268,7 @@ The following languages, software and tools were implemented using Windows 10 Pr
 - #### **GitHub**
 - #### **Gitpod**
 - #### **PEP8**
-- #### **Heroku Platform**
+- #### **Heroku Platform** (Migrated to Render in November 2022)
 - #### **Google Chrome, version 91.0.4472.114, Official Build, 64-bit (and its development tool)**
 - #### **Microsoft Edge, version 91.0.864.59, Official build, 64-bit (and its development tool)**
 - #### **Firefox, 89.0.2, 64-bit (and its development tool)**
@@ -875,9 +875,9 @@ Bugs that required more time and specific solutions were the following ones:
 ___
 # 13 . Deployment
 
-The website was fully written in Gitpod, permanently tested in Gitpod terminal, and periodically deployed to GigHub Pages (in a main branch) and Heroku Platform (to handle backend languages).
+The website was fully written in Gitpod, permanently tested in Gitpod terminal, and periodically deployed to GigHub Pages (in a main branch) and Heroku Platform (to handle backend languages). It was migrated to Render in November 2022.
 
-The fully deployed program, accessible by anyone, is found [here](https://pp3-ci-qcsda.herokuapp.com/), whose URL is https://pp3-ci-qcsda.herokuapp.com/ . Its repository is found [here](https://github.com/csc7/PP3_CI_QCSDA), whose URL is https://github.com/csc7/PP3_CI_QCSDA.
+The fully deployed program, accessible by anyone, is found [here](https://pp3-ci-qcsda.onrender.com/), whose URL is https://pp3-ci-qcsda.onrender.com/ . Its repository is found [here](https://github.com/csc7/PP3_CI_QCSDA), whose URL is https://github.com/csc7/PP3_CI_QCSDA.
 
 The program requires access to Google Cloud Platform. These steps are also included in these deployment instructions.
 
@@ -922,7 +922,6 @@ The following command can be used to install both libraries:
 7. Go to the bottom and select whether you want automatic (rebuilding for each commit) or manual deployment.
 8. You will get a button with a link to your app if successfully deployed.
 
-1. asfsdfasdfasdf
 
 <details>
     <summary>GitHub Pages Screenshot</summary>

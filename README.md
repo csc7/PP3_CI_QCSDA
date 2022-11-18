@@ -268,12 +268,13 @@ The following languages, software and tools were implemented using Windows 10 Pr
 - #### **GitHub**
 - #### **Gitpod**
 - #### **PEP8**
-- #### **Heroku Platform** (Migrated to Render in November 2022)
+- #### **Heroku Platform**
 - #### **Google Chrome, version 91.0.4472.114, Official Build, 64-bit (and its development tool)**
 - #### **Microsoft Edge, version 91.0.864.59, Official build, 64-bit (and its development tool)**
 - #### **Firefox, 89.0.2, 64-bit (and its development tool)**
 - #### **Microsoft Internet Explorer, version 2004, OS Build 19041.1052**
 - #### **Diagrams.net, Flowchart Maker & Online Diagram Software, https://app.diagrams.net/.**
+- #### **Render**
 
 <br><br>
 ## [Back to Index](#index)
